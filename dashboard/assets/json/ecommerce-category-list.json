@@ -1,0 +1,25 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "categories": "Elektronik & Gadget",
+      "category_detail": "Aksesoris HP, Audio TWS, Charger, Smart Device, Kabel Data",
+      "total_products": 4210,
+      "total_earnings": "Rp 1.480.000.000"
+    },
+    {
+      "id": 2,
+      "categories": "Fashion & Apparel",
+      "category_detail": "Sepatu, Kaos Polos, Hoodie, Kemeja Flannel, Tas & Dompet",
+      "total_products": 3890,
+      "total_earnings": "Rp 1.820.500.000"
+    },
+    {
+      "id": 3,
+      "categories": "Perlengkapan Rumah Tangga",
+      "category_detail": "Alat Masak, Botol Minum, Storage Organizer, Peralatan Kebersihan",
+      "total_products": 2320,
+      "total_earnings": "Rp 980.200.000"
+    }
+  ]
+}

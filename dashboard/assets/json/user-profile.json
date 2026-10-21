@@ -1,0 +1,104 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "project_img": "shopee.png",
+      "project_name": "Scrape Shopee - Elektronik",
+      "date": "Setiap 6 jam",
+      "project_leader": "Node-01",
+      "team": [
+        "1.png",
+        "2.png",
+        "3.png"
+      ],
+      "status": "100%"
+    },
+    {
+      "id": 2,
+      "project_img": "tokopedia.png",
+      "project_name": "Scrape Tokopedia - Fashion",
+      "date": "Setiap 6 jam",
+      "project_leader": "Node-02",
+      "team": [
+        "4.png",
+        "5.png"
+      ],
+      "status": "85%"
+    },
+    {
+      "id": 3,
+      "project_img": "shopee.png",
+      "project_name": "Scrape Shopee - Rumah Tangga",
+      "date": "Setiap 12 jam",
+      "project_leader": "Node-01",
+      "team": [
+        "1.png",
+        "6.png"
+      ],
+      "status": "100%"
+    },
+    {
+      "id": 4,
+      "project_img": "tokopedia.png",
+      "project_name": "Scrape Tokopedia - Elektronik",
+      "date": "Setiap 6 jam",
+      "project_leader": "Node-03",
+      "team": [
+        "7.png",
+        "8.png",
+        "9.png",
+        "10.png"
+      ],
+      "status": "42%"
+    },
+    {
+      "id": 5,
+      "project_img": "shopee.png",
+      "project_name": "Scrape Toko: Erigo Official",
+      "date": "Setiap 24 jam",
+      "project_leader": "Node-02",
+      "team": [
+        "2.png",
+        "3.png"
+      ],
+      "status": "100%"
+    },
+    {
+      "id": 6,
+      "project_img": "tokopedia.png",
+      "project_name": "Scrape Toko: Acome Official",
+      "date": "Setiap 24 jam",
+      "project_leader": "Node-01",
+      "team": [
+        "4.png",
+        "5.png"
+      ],
+      "status": "15%"
+    },
+    {
+      "id": 7,
+      "project_img": "shopee.png",
+      "project_name": "Review Aggregator - Shopee",
+      "date": "Setiap 12 jam",
+      "project_leader": "Node-03",
+      "team": [
+        "1.png",
+        "6.png",
+        "7.png"
+      ],
+      "status": "92%"
+    },
+    {
+      "id": 8,
+      "project_img": "tokopedia.png",
+      "project_name": "Price Tracker - Tokopedia",
+      "date": "Setiap 3 jam",
+      "project_leader": "Node-02",
+      "team": [
+        "8.png",
+        "9.png"
+      ],
+      "status": "78%"
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "customer": "Baseus Official Store",
+      "email": "shopee.co.id/baseus_official",
+      "customer_id": "Shopee Mall",
+      "country": "Shopee",
+      "country_code": "id",
+      "order": 3240,
+      "total_spent": "Rp 482.500.000",
+      "image": "1-small.png",
+      "status": 1
+    },
+    {
+      "id": 2,
+      "customer": "Erigo Official Store",
+      "email": "shopee.co.id/erigo_store",
+      "customer_id": "Shopee Mall",
+      "country": "Shopee",
+      "country_code": "id",
+      "order": 8410,
+      "total_spent": "Rp 1.612.000.000",
+      "image": "2-small.png",
+      "status": 1
+    },
+    {
+      "id": 3,
+      "customer": "Acome Official Tokopedia",
+      "email": "tokopedia.com/acome-official",
+      "customer_id": "Official Store",
+      "country": "Tokopedia",
+      "country_code": "id",
+      "order": 1890,
+      "total_spent": "Rp 415.300.000",
+      "image": "3-small.png",
+      "status": 1
+    },
+    {
+      "id": 4,
+      "customer": "AeroStreet Indonesia",
+      "email": "shopee.co.id/aerostreet_id",
+      "customer_id": "Star+ Seller",
+      "country": "Shopee",
+      "country_code": "id",
+      "order": 12520,
+      "total_spent": "Rp 2.890.100.000",
+      "image": "4-small.png",
+      "status": 1
+    },
+    {
+      "id": 5,
+      "customer": "LocknLock Official Store",
+      "email": "tokopedia.com/locknlock-official",
+      "customer_id": "Power Merchant Pro",
+      "country": "Tokopedia",
+      "country_code": "id",
+      "order": 2940,
+      "total_spent": "Rp 710.450.000",
+      "image": "5-small.png",
+      "status": 1
+    },
+    {
+      "id": 6,
+      "customer": "Robot & Vivan Official",
+      "email": "shopee.co.id/robot_official",
+      "customer_id": "Shopee Mall",
+      "country": "Shopee",
+      "country_code": "id",
+      "order": 5150,
+      "total_spent": "Rp 875.000.000",
+      "image": "6-small.png",
+      "status": 1
+    },
+    {
+      "id": 7,
+      "customer": "Olike Indonesia Store",
+      "email": "tokopedia.com/olike-indonesia",
+      "customer_id": "Official Store",
+      "country": "Tokopedia",
+      "country_code": "id",
+      "order": 1720,
+      "total_spent": "Rp 348.900.000",
+      "image": "7-small.png",
+      "status": 1
+    },
+    {
+      "id": 8,
+      "customer": "GM Bear Official Shop",
+      "email": "shopee.co.id/gm_bear_official",
+      "customer_id": "Star Seller",
+      "country": "Shopee",
+      "country_code": "id",
+      "order": 4820,
+      "total_spent": "Rp 694.600.000",
+      "image": "8-small.png",
+      "status": 1
+    }
+  ]
+}

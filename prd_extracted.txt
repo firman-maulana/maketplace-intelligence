@@ -1,0 +1,190 @@
+
+=== PAGE 1 ===
+PRD: Platform Marketplace Intelligence
+Nama produk: Rankwise - Crawling/Scrapping data
+1. Ringkasan
+Rankwise adalah aplikasi web analitik yang mengumpulkan data publik dari marketplace
+e-commerce Indonesia (Shopee, tokopedia, dan marketplace lainnya), lalu mengolahnya
+menjadi informasi yang mudah dipakai: produk terlaris secara umum, produk terlaris
+berdasarkan kategori, tren harga, estimasi omzet, kualitas produk berdasarkan review &
+rating, dan performa kompetitor. Konsepnya serupa dengan layanan marketplace
+intelligence seperti DataPintar dan sejenis nya.
+2. Latar Belakang dan Masalah
+Seller dan calon seller umumnya memilih produk, menentukan harga, dan memantau
+kompetitor secara manual. Prosesnya lambat, tidak konsisten, dan sering berdasarkan
+firasat. Selain itu, angka "terjual" di marketplace hanya berupa akumulasi, sehingga sulit
+mengetahui produk mana yang benar-benar naik penjualannya pada periode tertentu.
+Masalah yang diselesaikan:
+Sulit menemukan produk dengan permintaan tinggi dan persaingan yang masuk akal
+Tidak ada riwayat harga dan penjualan untuk membaca tren
+Pemantauan kompetitor memakan waktu dan tidak terdokumentasi
+Estimasi omzet pasar tidak tersedia secara cepat
+3. Tujuan dan Metrik Keberhasilan
+Tujuan produk
+1. Menyediakan data penjualan harian dan bulanan yang akurat secara estimasi dari
+snapshot berkala
+2. Menyediakan dashboard riset produk dan kompetitor yang cepat dan mudah dipakai
+3. Membangun pipeline pengambilan data yang stabil dan mudah dipelihara
+PRD - Platform Marketplace Intelligence
+Page 1 of 7
+=== PAGE 2 ===
+Metrik keberhasilan (target MVP)
+4. Target Pengguna
+5. Ruang Lingkup
+Termasuk dalam MVP
+Pengambilan data produk dan toko dari berbagai marketplace dan berbagai kategori
+Penyimpanan snapshot harian dan perhitungan penjualan harian
+Dashboard ranking produk terlaris, detail produk, dan detail toko
+Filter dan pencarian dasar
+Penjadwalan scraping otomatis dengan retry dan monitoring kegagalan
+Autentikasi pengguna sederhana
+Notifikasi dan alert harga
+Metrik Target
+Cakupan data Minimal 1 marketplace, 3 kategori utama, 10.000+
+produk
+Tingkat keberhasilan scraping harian 90% atau lebih
+Kesegaran data Diperbarui setidaknya 1 kali per hari
+Waktu muat halaman ranking Di bawah 2 detik
+Pengguna uji coba (beta) 20-50 seller
+Retensi mingguan beta 40% atau lebih
+Persona Kebutuhan utama
+Seller marketplace Memantau harga dan penjualan kompetitor
+Calon seller / dropshipper Menemukan produk potensial untuk dijual
+Brand dan agensi Riset pasar dan benchmark kategori
+PRD - Platform Marketplace Intelligence
+Page 2 of 7
+=== PAGE 3 ===
+Di luar MVP (pengembangan lanjutan)
+Marketplace tambahan (Lazada, TikTok Shop)
+Sistem langganan dan pembayaran
+Ekspor laporan (CSV/Excel/PDF)
+API publik untuk pihak ketiga
+Aplikasi mobile
+6. Kebutuhan Fungsional
+6.1 Pengambilan data (scraping)
+F-01: Sistem mengambil data produk: nama, kategori, harga, diskon, stok, rating, jumlah
+ulasan, total terjual, URL.
+F-02: Sistem mengambil data toko: nama, lokasi, tipe toko (Star/Mall), jumlah pengikut,
+rating toko.
+F-03: Scraping berjalan terjadwal (default sehari) melalui scheduler.
+F-04: Job yang gagal dicoba ulang otomatis dengan batas percobaan dan jeda yang
+meningkat.
+F-05: Sistem mencatat status setiap job (pending, running, success, failed) beserta
+pesan error.
+F-06: Hanya data publik yang diambil. Data pribadi pembeli tidak boleh disimpan.
+6.2 Pengolahan data
+F-07: Data mentah disimpan sebagai snapshot dengan stempel waktu.
+F-08: Sistem menghitung penjualan harian dari selisih total terjual antar snapshot.
+F-09: Sistem menghitung estimasi omzet (harga x terjual) per produk, toko, dan
+kategori.
+F-10: Sistem membuat tabel agregat harian dan bulanan untuk mempercepat
+dashboard.
+F-11: Sistem menormalkan format angka (misalnya "1,2rb" menjadi 1200) dan menangani
+data duplikat.
+PRD - Platform Marketplace Intelligence
+Page 3 of 7
+=== PAGE 4 ===
+6.3 Dashboard dan fitur pengguna
+F-12: Halaman ranking produk terlaris, dapat difilter berdasarkan kategori, rentang
+harga, rating, lokasi toko, dan periode.
+F-13: Halaman detail produk berisi grafik tren harga dan penjualan, serta informasi toko.
+F-14: Halaman detail toko berisi produk andalan, estimasi omzet, dan perubahan harga.
+F-15: Pencarian produk dan toko berdasarkan kata kunci.
+F-16: Tabel mendukung sort, paginasi, dan pencarian di sisi server.
+F-17: Pengguna dapat mendaftar, masuk, dan keluar.
+6.4 Administrasi dan monitoring
+F-18: Halaman admin untuk melihat status job scraping dan tingkat keberhasilannya.
+F-19: Alert (misalnya via notifications di web) ketika tingkat kegagalan scraping
+melewati ambang batas.
+PRD - Platform Marketplace Intelligence
+Page 4 of 7
+=== PAGE 5 ===
+7. Kebutuhan Non-Fungsional
+8. Arsitektur dan Tech Stack
+Aspek Kebutuhan
+Performa Query dashboard membaca tabel agregat, target
+respons API di bawah 500 ms untuk endpoint
+utama
+Skalabilitas Mampu menangani sekitar 100 ribu produk dengan
+1 snapshot per hari (kurang lebih 36 juta baris per
+tahun)
+Keandalan Kegagalan scraper tidak boleh memengaruhi API
+dan dashboard
+Keamanan Password di-hash (bcrypt/argon2), HTTPS, validasi
+input, rate limiting pada API
+Privasi Tidak menyimpan data pribadi; selaras dengan UU
+PDP
+Pemeliharaan Scraper dipisah sebagai service tersendiri agar
+mudah diperbaiki saat struktur situs berubah
+Observabilitas Logging terstruktur dan alert kegagalan
+Komponen Teknologi Fungsi
+Frontend HTML, CSS, JavaScript Dashboard dan visualisasi
+Backend Go (Chi atau Gin) REST API, penyaji UI statis, scheduler,
+worker pemrosesan
+Database MySQL 8 Produk, toko, snapshot, agregat,
+antrean job
+Scraper Node.js + Playwright (service
+terpisah)
+Pengambilan data dari marketplace
+Antrean
+job
+robfig/cron + tabel scrape_jobs
+dengan FOR UPDATE SKIP LOCKED
+Penjadwalan dan retry tanpa Redis
+PRD - Platform Marketplace Intelligence
+Page 5 of 7
+=== PAGE 6 ===
+Alur data
+1. Scheduler membuat job scraping di tabel scrape_jobs .
+2. Scraper mengambil job, mengakses marketplace, dan menyimpan data mentah.
+3. Data masuk ke tabel product_snapshots .
+4. Proses pengolahan menghitung daily_sales , estimasi omzet, dan ranking, lalu
+menyimpannya di tabel agregat.
+5. API Go menyajikan hasil ke dashboard HTML.
+9. Model Data (Ringkas)
+shops: id, marketplace, nama, lokasi, tipe toko, followers, rating
+products: id, shop_id, nama, kategori, url, created_at
+product_snapshots: product_id, captured_at, harga, total_terjual, stok, rating,
+jumlah_ulasan (index komposit product_id, captured_at , dipartisi per bulan)
+daily_sales: product_id, tanggal, terjual_hari_itu, estimasi_omzet
+scrape_jobs: id, tipe, payload, status, attempts, run_at, locked_at, error_message
+users: id, email, password_hash, role, created_at
+10. Alur Pengguna Utama
+1. Pengguna masuk ke dashboard dan memilih kategori serta periode.
+2. Sistem menampilkan ranking produk terlaris beserta estimasi omzet.
+3. Pengguna membuka detail produk untuk melihat tren harga dan penjualan.
+4. Pengguna membuka profil toko untuk menganalisis kompetitor.
+Komponen Teknologi Fungsi
+Cache Tabel agregat dan cache in-memory
+Go
+Mempercepat dashboard
+PRD - Platform Marketplace Intelligence
+Page 6 of 7
+=== PAGE 7 ===
+11. Risiko dan Mitigasi
+Risiko Dampak Mitigasi
+Proteksi anti-bot marketplace
+(captcha, blokir IP)
+Data tidak lengkap
+atau terhenti
+Playwright dengan mode stealth,
+retry, pemantauan rutin
+Perubahan struktur situs Scraper rusak Scraper terpisah, tes otomatis,
+alert saat gagal
+Pelanggaran Syarat &
+Ketentuan marketplace
+Risiko hukum dan
+pemblokiran
+Hanya data publik, tinjauan legal
+sebelum komersialisasi, rate
+limiting yang sopan
+Pertumbuhan data cepat Query lambat dan
+biaya naik
+Partisi, index, tabel agregat, opsi
+ClickHouse di masa depan
+Akurasi estimasi penjualan Kepercayaan
+pengguna turun
+Jelaskan metode estimasi di UI,
+snapshot rutin dan konsisten
+PRD - Platform Marketplace Intelligence
+Page 7 of 7

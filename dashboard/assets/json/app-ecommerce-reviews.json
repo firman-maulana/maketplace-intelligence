@@ -1,0 +1,82 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "product": "TWS Bluetooth 5.3 Bass Stereo - Baseus",
+      "company_name": "Baseus Official Store",
+      "reviewer": "Budi Santoso",
+      "email": "shopee.co.id/baseus_official",
+      "avatar": "",
+      "date": "21 Okt 2026",
+      "status": "Published",
+      "review": 5,
+      "head": "Suara jernih, bass mantap!",
+      "para": "TWS terbaik di range harga 80rb-100rb. Baterai tahan 8 jam. Pengiriman dari Shopee Mall sangat cepat 1 hari sampai Jakarta."
+    },
+    {
+      "id": 2,
+      "product": "Kemeja Flannel Pria Casual - Erigo",
+      "company_name": "Erigo Official Store",
+      "reviewer": "Rian Pratama",
+      "email": "shopee.co.id/erigo_store",
+      "avatar": "",
+      "date": "20 Okt 2026",
+      "status": "Published",
+      "review": 4,
+      "head": "Bahan adem, jahitan rapi",
+      "para": "Ukuran L pas sesuai size chart. Bahan flannel lembut cocok untuk daily wear. Warna sesuai foto."
+    },
+    {
+      "id": 3,
+      "product": "Botol Termos Stainless 500ml - LocknLock",
+      "company_name": "LocknLock Official",
+      "reviewer": "Dewi Lestari",
+      "email": "tokopedia.com/locknlock-official",
+      "avatar": "",
+      "date": "20 Okt 2026",
+      "status": "Published",
+      "review": 5,
+      "head": "Tahan panas 12 jam lebih",
+      "para": "Kualitas premium LocknLock memang tidak perlu diragukan lagi. Anti tumpah, desain elegan."
+    },
+    {
+      "id": 4,
+      "product": "Charger 33W Type-C Fast Charging - Acome",
+      "company_name": "Acome Official",
+      "reviewer": "Agus Wijaya",
+      "email": "tokopedia.com/acome-official",
+      "avatar": "",
+      "date": "19 Okt 2026",
+      "status": "Published",
+      "review": 4,
+      "head": "Charging cepat, awet",
+      "para": "Sudah pakai 3 bulan, charger masih bagus. Support fast charging Samsung dan Xiaomi. Worth it."
+    },
+    {
+      "id": 5,
+      "product": "Sepatu Sneakers AeroStreet Casual",
+      "company_name": "AeroStreet Indonesia",
+      "reviewer": "Faisal Rahman",
+      "email": "shopee.co.id/aerostreet_id",
+      "avatar": "",
+      "date": "19 Okt 2026",
+      "status": "Published",
+      "review": 5,
+      "head": "Best seller memang pantas!",
+      "para": "Sepatu ringan, sol empuk, desain keren. Cocok buat jalan-jalan maupun kerja casual. Size 42 pas di kaki."
+    },
+    {
+      "id": 6,
+      "product": "Set Alat Masak Teflon 3pcs - GM Bear",
+      "company_name": "GM Bear Official Shop",
+      "reviewer": "Siti Rahayu",
+      "email": "shopee.co.id/gm_bear_official",
+      "avatar": "",
+      "date": "18 Okt 2026",
+      "status": "Pending",
+      "review": 3,
+      "head": "Lumayan untuk harga segini",
+      "para": "Anti lengket masih oke untuk pemakaian 1 bulan. Handle agak tipis tapi overall masih worth harganya."
+    }
+  ]
+}

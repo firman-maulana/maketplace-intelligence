@@ -1,0 +1,748 @@
+const fs = require('fs');
+const path = require('path');
+
+const productDetailHtml = `<!doctype html>
+<html
+  lang="en"
+  class="layout-navbar-fixed layout-menu-fixed layout-compact"
+  dir="ltr" data-skin="bordered" data-bs-theme="light"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-bordered">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+  <title>Detail Produk & Analisis Kompetitor - Rankwise</title>
+  
+  <link rel="icon" type="image/x-icon" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/favicon/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com/" />
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/vendor/fonts/iconify-icons.css" />
+  <link rel="stylesheet" href="../assets/vendor/libs/node-waves/node-waves.css" />
+  <link rel="stylesheet" href="../assets/vendor/libs/pickr/pickr-themes.css" />
+  <link rel="stylesheet" href="../assets/vendor/css/core.css" />
+  <link rel="stylesheet" href="../assets/css/demo.css" />
+  <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+  <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
+
+  <script src="../assets/vendor/js/helpers.js"></script>
+  <script src="../assets/vendor/js/template-customizer.js"></script>
+  <script src="../assets/js/config.js"></script>
+</head>
+
+<body>
+  <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+      
+      <!-- Menu Sidebar -->
+      <aside id="layout-menu" class="layout-menu menu-vertical menu">
+        <div class="app-brand demo">
+          <a href="index.html" class="app-brand-link">
+            <span class="app-brand-logo demo">
+              <span class="text-primary">
+                <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z" fill="currentColor" />
+                  <path opacity="0.06" fill-rule="evenodd" clip-rule="evenodd" d="M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z" fill="#161616" />
+                  <path opacity="0.06" fill-rule="evenodd" clip-rule="evenodd" d="M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z" fill="#161616" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z" fill="currentColor" />
+                </svg>
+              </span>
+            </span>
+            <span class="app-brand-text demo menu-text fw-bold ms-3">Rankwise</span>
+          </a>
+          <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+            <i class="icon-base ti menu-toggle-icon d-none d-xl-block"></i>
+            <i class="icon-base ti tabler-x d-block d-xl-none"></i>
+          </a>
+        </div>
+
+        <div class="menu-inner-shadow"></div>
+
+        <ul class="menu-inner py-1">
+          <!-- Ringkasan Pasar -->
+          <li class="menu-header small">
+            <span class="menu-header-text">Ringkasan &amp; Tren Pasar</span>
+          </li>
+          <li class="menu-item">
+            <a href="index.html" class="menu-link">
+              <i class="menu-icon icon-base ti tabler-smart-home"></i>
+              <div>Dashboard Analytics</div>
+            </a>
+          </li>
+
+          <!-- Riset Produk -->
+          <li class="menu-header small">
+            <span class="menu-header-text">Riset Produk &amp; Tren</span>
+          </li>
+          <li class="menu-item active open">
+            <a href="app-ecommerce-product-list.html" class="menu-link">
+              <i class="menu-icon icon-base ti tabler-trophy"></i>
+              <div>Ranking Produk Terlaris</div>
+            </a>
+          </li>
+
+          <!-- Scraping & Monitoring -->
+          <li class="menu-header small">
+            <span class="menu-header-text">Scraper &amp; Data Pipeline</span>
+          </li>
+          <li class="menu-item">
+            <a href="app-logistics-dashboard.html" class="menu-link">
+              <i class="menu-icon icon-base ti tabler-cpu"></i>
+              <div>Status Scrape Jobs (F-18)</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-logistics-fleet.html" class="menu-link">
+              <i class="menu-icon icon-base ti tabler-activity"></i>
+              <div>Monitoring Node &amp; Alert (F-19)</div>
+            </a>
+          </li>
+
+          <!-- Pengguna & Akses -->
+          <li class="menu-header small">
+            <span class="menu-header-text">Pengguna &amp; Akses</span>
+          </li>
+          <li class="menu-item">
+            <a href="app-user-list.html" class="menu-link">
+              <i class="menu-icon icon-base ti tabler-users"></i>
+              <div>Daftar Pengguna (F-17)</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-access-roles.html" class="menu-link">
+              <i class="menu-icon icon-base ti tabler-shield-lock"></i>
+              <div>Roles &amp; Permissions</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-access-permission.html" class="menu-link">
+              <i class="menu-icon icon-base ti tabler-lock-access"></i>
+              <div>Kelola Hak Akses</div>
+            </a>
+          </li>
+
+          <!-- Pengaturan Akun -->
+          <li class="menu-header small">
+            <span class="menu-header-text">Pengaturan Sistem</span>
+          </li>
+          <li class="menu-item">
+            <a href="pages-account-settings-account.html" class="menu-link">
+              <i class="menu-icon icon-base ti tabler-settings"></i>
+              <div>Pengaturan Akun</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="pages-account-settings-billing.html" class="menu-link">
+              <i class="menu-icon icon-base ti tabler-receipt-2"></i>
+              <div>Langganan &amp; Billing</div>
+            </a>
+          </li>
+        </ul>
+      </aside>
+      <!-- / Menu -->
+
+      <!-- Layout container -->
+      <div class="layout-page">
+        <!-- Navbar -->
+        <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
+          <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+            <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+              <i class="icon-base ti tabler-menu-2 icon-md"></i>
+            </a>
+          </div>
+
+          <div class="navbar-nav-right d-flex align-items-center justify-content-between" id="navbar-collapse">
+            <div class="navbar-nav align-items-center">
+              <div class="nav-item d-flex align-items-center">
+                <i class="icon-base ti tabler-search icon-md me-2 text-body-secondary"></i>
+                <input type="text" class="form-control border-0 shadow-none ps-1 ps-sm-2 d-md-inline d-none" placeholder="Cari SKU, produk, atau kompetitor..." style="width: 280px;" />
+              </div>
+            </div>
+
+            <ul class="navbar-nav flex-row align-items-center ms-auto">
+              <!-- Back to list -->
+              <li class="nav-item me-2">
+                <a href="app-ecommerce-product-list.html" class="btn btn-label-secondary btn-sm">
+                  <i class="icon-base ti tabler-arrow-left me-1"></i>Kembali ke Ranking
+                </a>
+              </li>
+
+              <!-- Style Switcher -->
+              <li class="nav-item dropdown-style-switcher dropdown me-2">
+                <a class="nav-link dropdown-toggle hide-arrow btn btn-icon btn-text-secondary rounded-pill" href="javascript:void(0);" data-bs-toggle="dropdown">
+                  <i class="icon-base ti tabler-sun icon-22px theme-icon-active"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-styles">
+                  <li><button type="button" class="dropdown-item align-items-center" data-bs-theme-value="light"><i class="icon-base ti tabler-sun icon-22px me-3"></i>Light</button></li>
+                  <li><button type="button" class="dropdown-item align-items-center" data-bs-theme-value="dark"><i class="icon-base ti tabler-moon-stars icon-22px me-3"></i>Dark</button></li>
+                  <li><button type="button" class="dropdown-item align-items-center" data-bs-theme-value="system"><i class="icon-base ti tabler-device-desktop-analytics icon-22px me-3"></i>System</button></li>
+                </ul>
+              </li>
+
+              <!-- User -->
+              <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
+                  <div class="avatar avatar-online">
+                    <img src="../assets/img/avatars/1.png" alt class="rounded-circle" />
+                  </div>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <a class="dropdown-item mt-0" href="pages-account-settings-account.html">
+                      <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0 me-2">
+                          <div class="avatar avatar-online">
+                            <img src="../assets/img/avatars/1.png" alt class="rounded-circle" />
+                          </div>
+                        </div>
+                        <div class="flex-grow-1">
+                          <h6 class="mb-0">Admin Rankwise</h6>
+                          <small class="text-body-secondary">Admin</small>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li><div class="dropdown-divider my-1 mx-n2"></div></li>
+                  <li><a class="dropdown-item" href="pages-account-settings-account.html"><i class="icon-base ti tabler-settings me-3 icon-md"></i>Settings</a></li>
+                  <li><a class="dropdown-item" href="auth-login-cover.html"><i class="icon-base ti tabler-logout me-3 icon-md text-danger"></i>Logout</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <!-- / Navbar -->
+
+        <!-- Content wrapper -->
+        <div class="content-wrapper">
+          <div class="container-xxl flex-grow-1 container-p-y">
+            
+            <!-- Breadcrumb & Action Header -->
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-6 gap-4">
+              <div>
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb mb-1">
+                    <li class="breadcrumb-item"><a href="index.html">Intelligence</a></li>
+                    <li class="breadcrumb-item"><a href="app-ecommerce-product-list.html">Ranking Produk</a></li>
+                    <li class="breadcrumb-item active" id="breadcrumbProductName">Detail Produk & Toko</li>
+                  </ol>
+                </nav>
+                <div class="d-flex align-items-center gap-2">
+                  <h4 class="mb-0 fw-bold" id="headerProductName">TWS Baseus Bowie M2+ ANC Earphone</h4>
+                  <span class="badge bg-label-success" id="badgePlatform"><i class="icon-base ti tabler-shopping-bag me-1"></i>Shopee Mall</span>
+                  <span class="badge bg-label-primary">ID Scrape #MP-82019</span>
+                </div>
+              </div>
+              <div class="d-flex gap-2">
+                <a href="https://shopee.co.id" target="_blank" class="btn btn-outline-primary" id="btnMarketplaceLink">
+                  <i class="icon-base ti tabler-external-link me-1"></i>Buka Halaman Produk Asli
+                </a>
+                <button type="button" class="btn btn-primary" onclick="alert('Laporan intelijen produk berhasil diekspor ke format CSV!')">
+                  <i class="icon-base ti tabler-download me-1"></i>Ekspor Laporan
+                </button>
+              </div>
+            </div>
+
+            <!-- Row 1: Product Snapshot Cards & Store Info -->
+            <div class="row g-6 mb-6">
+              
+              <!-- Left: Detail Produk & Foto -->
+              <div class="col-xl-8 col-lg-7">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <div class="row g-4 align-items-center">
+                      <div class="col-md-4 text-center">
+                        <div class="border rounded p-3 bg-light">
+                          <img src="../assets/img/products/amazon-echo.png" alt="Product Image" id="detailProductImage" class="img-fluid rounded" style="max-height: 210px; object-fit: contain;" />
+                        </div>
+                        <div class="d-flex justify-content-center gap-2 mt-3">
+                          <span class="badge bg-label-info">Kategori: Elektronik</span>
+                          <span class="badge bg-label-success">In Stock</span>
+                        </div>
+                      </div>
+                      
+                      <div class="col-md-8">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                          <span class="text-muted small">SKU: <strong class="text-heading" id="detailSku">BS-M2P-BLK</strong></span>
+                          <span class="badge bg-label-warning"><i class="icon-base ti tabler-clock me-1"></i>Snapshot: 15 Menit Lalu</span>
+                        </div>
+                        
+                        <h4 class="fw-bold mb-2 text-primary" id="detailPrice">Rp 489.000</h4>
+                        <div class="d-flex align-items-center gap-2 mb-4">
+                          <span class="text-decoration-line-through text-muted" id="detailOriginalPrice">Rp 699.000</span>
+                          <span class="badge bg-label-danger">-30% Promo</span>
+                          <span class="badge bg-label-success">Diskon Aktif</span>
+                        </div>
+
+                        <!-- Highlights Performance Grid -->
+                        <div class="row g-3 p-3 bg-lighter rounded-3">
+                          <div class="col-sm-4 col-6">
+                            <small class="text-muted d-block">Est. Terjual/Hari</small>
+                            <h5 class="mb-0 fw-bold text-success" id="detailDailySales">+184 unit/hari</h5>
+                            <small class="text-success"><i class="icon-base ti tabler-trending-up me-1"></i>+14.2% MoM</small>
+                          </div>
+                          <div class="col-sm-4 col-6 border-start ps-3">
+                            <small class="text-muted d-block">Total Terjual (All-time)</small>
+                            <h5 class="mb-0 fw-bold" id="detailTotalSold">24.810 unit</h5>
+                            <small class="text-muted">Total Gross Rp 12.1 M</small>
+                          </div>
+                          <div class="col-sm-4 col-12 border-start-sm ps-sm-3">
+                            <small class="text-muted d-block">Estimasi Omzet 30 Hari</small>
+                            <h5 class="mb-0 fw-bold text-primary" id="detailEstRevenue">Rp 2.71 Miliar</h5>
+                            <small class="text-muted">Rank #1 di Audio Portabel</small>
+                          </div>
+                        </div>
+
+                        <!-- Product Specs -->
+                        <div class="mt-4">
+                          <h6 class="mb-2 fw-semibold">Spesifikasi Singkat Pantauan:</h6>
+                          <div class="row small g-2 text-muted">
+                            <div class="col-6"><i class="icon-base ti tabler-check text-success me-1"></i>Driver: 10mm Hybrid ANC</div>
+                            <div class="col-6"><i class="icon-base ti tabler-check text-success me-1"></i>Baterai: 30 Jam dgn Charging Case</div>
+                            <div class="col-6"><i class="icon-base ti tabler-check text-success me-1"></i>Konektivitas: Bluetooth 5.2</div>
+                            <div class="col-6"><i class="icon-base ti tabler-check text-success me-1"></i>Garansi Resmi: 12 Bulan</div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right: Detail Profil Toko Kompetitor -->
+              <div class="col-xl-4 col-lg-5">
+                <div class="card h-100">
+                  <div class="card-header border-bottom pb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h5 class="card-title mb-0"><i class="icon-base ti tabler-building-store me-2 text-primary"></i>Detail Toko Penjual</h5>
+                      <span class="badge bg-label-success">Star+ Seller</span>
+                    </div>
+                  </div>
+                  <div class="card-body pt-4">
+                    <div class="d-flex align-items-center mb-4">
+                      <div class="avatar avatar-lg me-3">
+                        <span class="avatar-initial rounded-circle bg-label-primary fs-4 fw-bold" id="storeAvatar">BO</span>
+                      </div>
+                      <div>
+                        <h5 class="mb-0 fw-bold" id="storeName">Baseus Official Store ID</h5>
+                        <small class="text-muted"><i class="icon-base ti tabler-map-pin me-1"></i>Kota Administrasi Jakarta Barat</small>
+                      </div>
+                    </div>
+
+                    <ul class="list-group list-group-flush mb-4">
+                      <li class="list-group-item d-flex justify-content-between px-0 py-2">
+                        <span class="text-muted">Marketplace</span>
+                        <span class="fw-semibold text-heading" id="storeMarketplace">Shopee Mall &amp; Tokopedia Official</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between px-0 py-2">
+                        <span class="text-muted">Total SKU Aktif</span>
+                        <span class="fw-semibold text-heading" id="storeTotalSku">324 Produk Terpantau</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between px-0 py-2">
+                        <span class="text-muted">Rating Toko</span>
+                        <span class="fw-semibold text-warning"><i class="icon-base ti tabler-star-filled me-1"></i>4.9 / 5.0 (210k Rating)</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between px-0 py-2">
+                        <span class="text-muted">Kecepatan Balas Chat</span>
+                        <span class="fw-semibold text-success">98% (Hitungan Menit)</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between px-0 py-2">
+                        <span class="text-muted">Bergabung Sejak</span>
+                        <span class="fw-semibold text-heading">5 Tahun Lalu (2021)</span>
+                      </li>
+                    </ul>
+
+                    <div class="d-grid gap-2">
+                      <a href="https://shopee.co.id" target="_blank" class="btn btn-label-primary btn-sm" id="btnVisitStore">
+                        <i class="icon-base ti tabler-external-link me-1"></i>Kunjungi Toko di Marketplace
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Row 2: Price History & Stock Movements (F-13 Trend Analysis) -->
+            <div class="row g-6 mb-6">
+              <div class="col-xl-8 col-lg-7">
+                <div class="card h-100">
+                  <div class="card-header d-flex justify-content-between align-items-center">
+                    <div>
+                      <h5 class="card-title mb-1">Riwayat Pergerakan Harga &amp; Penjualan Harian</h5>
+                      <small class="text-muted">Data snapshot scraping selama 30 hari terakhir (Shopee vs Tokopedia)</small>
+                    </div>
+                    <div class="btn-group btn-group-sm" role="group">
+                      <button type="button" class="btn btn-outline-primary active">30 Hari</button>
+                      <button type="button" class="btn btn-outline-primary">60 Hari</button>
+                      <button type="button" class="btn btn-outline-primary">90 Hari</button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <!-- Stat comparison row -->
+                    <div class="row g-4 mb-4 text-center">
+                      <div class="col-3">
+                        <small class="text-muted d-block">Harga Terendah</small>
+                        <h6 class="mb-0 fw-bold text-success">Rp 449.000</h6>
+                        <small class="text-muted">10.10 Flash Sale</small>
+                      </div>
+                      <div class="col-3 border-start">
+                        <small class="text-muted d-block">Harga Rata-rata</small>
+                        <h6 class="mb-0 fw-bold">Rp 499.000</h6>
+                        <small class="text-muted">Normal Price</small>
+                      </div>
+                      <div class="col-3 border-start">
+                        <small class="text-muted d-block">Harga Tertinggi</small>
+                        <h6 class="mb-0 fw-bold text-danger">Rp 549.000</h6>
+                        <small class="text-muted">Awal Bulan</small>
+                      </div>
+                      <div class="col-3 border-start">
+                        <small class="text-muted d-block">Perubahan Terakhir</small>
+                        <h6 class="mb-0 fw-bold text-primary">Turun Rp 20.000</h6>
+                        <small class="text-muted">2 Hari Lalu</small>
+                      </div>
+                    </div>
+                    <!-- Chart container -->
+                    <div id="productPriceTrendChart" style="min-height: 280px;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Rating & Sentimen Ulasan Summary (PRD F-02 & F-15) -->
+              <div class="col-xl-4 col-lg-5">
+                <div class="card h-100">
+                  <div class="card-header pb-2">
+                    <h5 class="card-title mb-1">Statistik Rating &amp; Sentimen AI</h5>
+                    <small class="text-muted">Analisis natural language processing ulasan pembeli</small>
+                  </div>
+                  <div class="card-body">
+                    <div class="d-flex align-items-center mb-4 pt-2">
+                      <h1 class="display-4 fw-bold text-primary mb-0 me-3">4.9</h1>
+                      <div>
+                        <div class="text-warning mb-1">
+                          <i class="icon-base ti tabler-star-filled"></i>
+                          <i class="icon-base ti tabler-star-filled"></i>
+                          <i class="icon-base ti tabler-star-filled"></i>
+                          <i class="icon-base ti tabler-star-filled"></i>
+                          <i class="icon-base ti tabler-star-filled"></i>
+                        </div>
+                        <small class="text-muted d-block">Berdasarkan <strong>4.218 ulasan</strong> terverifikasi</small>
+                      </div>
+                    </div>
+
+                    <!-- Rating Bars -->
+                    <div class="d-flex flex-column gap-2 mb-4">
+                      <div class="d-flex align-items-center gap-2">
+                        <small style="width: 45px;">5 Bintang</small>
+                        <div class="progress flex-grow-1" style="height: 6px;">
+                          <div class="progress-bar bg-primary" style="width: 86%;"></div>
+                        </div>
+                        <small class="text-end" style="width: 45px;">86%</small>
+                      </div>
+                      <div class="d-flex align-items-center gap-2">
+                        <small style="width: 45px;">4 Bintang</small>
+                        <div class="progress flex-grow-1" style="height: 6px;">
+                          <div class="progress-bar bg-primary" style="width: 10%;"></div>
+                        </div>
+                        <small class="text-end" style="width: 45px;">10%</small>
+                      </div>
+                      <div class="d-flex align-items-center gap-2">
+                        <small style="width: 45px;">3 Bintang</small>
+                        <div class="progress flex-grow-1" style="height: 6px;">
+                          <div class="progress-bar bg-warning" style="width: 2.5%;"></div>
+                        </div>
+                        <small class="text-end" style="width: 45px;">2.5%</small>
+                      </div>
+                      <div class="d-flex align-items-center gap-2">
+                        <small style="width: 45px;">2 Bintang</small>
+                        <div class="progress flex-grow-1" style="height: 6px;">
+                          <div class="progress-bar bg-danger" style="width: 1%;"></div>
+                        </div>
+                        <small class="text-end" style="width: 45px;">1%</small>
+                      </div>
+                      <div class="d-flex align-items-center gap-2">
+                        <small style="width: 45px;">1 Bintang</small>
+                        <div class="progress flex-grow-1" style="height: 6px;">
+                          <div class="progress-bar bg-danger" style="width: 0.5%;"></div>
+                        </div>
+                        <small class="text-end" style="width: 45px;">0.5%</small>
+                      </div>
+                    </div>
+
+                    <!-- AI Sentiment breakdown -->
+                    <div class="p-3 bg-lighter rounded-3">
+                      <h6 class="mb-2 fw-semibold"><i class="icon-base ti tabler-brain me-1 text-primary"></i>Kata Kunci Ulasan Paling Sering Muncul:</h6>
+                      <div class="d-flex flex-wrap gap-1">
+                        <span class="badge bg-label-success">Suara Bass Mantap (+840)</span>
+                        <span class="badge bg-label-success">Pengiriman Cepat (+612)</span>
+                        <span class="badge bg-label-success">Baterai Awet (+480)</span>
+                        <span class="badge bg-label-success">Original Baseus (+390)</span>
+                        <span class="badge bg-label-warning">Fitting Agak Longgar (32)</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 3: Daftar Review & Komentar Pembeli Terbaru -->
+            <div class="card mb-6">
+              <div class="card-header border-bottom d-flex justify-content-between align-items-center">
+                <div>
+                  <h5 class="card-title mb-0">Daftar Review &amp; Ulasan Pembeli Marketplace</h5>
+                  <small class="text-muted">Hasil scraping ulasan dengan klasifikasi sentimen otomatis</small>
+                </div>
+                <div class="d-flex gap-2">
+                  <select class="form-select form-select-sm" style="width: 150px;">
+                    <option value="">Semua Rating</option>
+                    <option value="5">Bintang 5</option>
+                    <option value="4">Bintang 4</option>
+                    <option value="3">Bintang 3</option>
+                    <option value="2">Bintang 2</option>
+                    <option value="1">Bintang 1</option>
+                  </select>
+                </div>
+              </div>
+              <div class="table-responsive text-nowrap">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Pembeli / Akun</th>
+                      <th>Rating</th>
+                      <th style="min-width: 320px;">Isi Ulasan &amp; Variasi</th>
+                      <th>Marketplace</th>
+                      <th>Sentimen AI</th>
+                      <th>Waktu Crawl</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-border-bottom-0">
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="avatar avatar-sm me-2">
+                            <span class="avatar-initial rounded-circle bg-label-secondary">RD</span>
+                          </div>
+                          <div>
+                            <h6 class="mb-0 small fw-bold">r*****9 (Rian D.)</h6>
+                            <small class="text-muted">Pembeli Terverifikasi</small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="text-warning">⭐⭐⭐⭐⭐</span>
+                        <small class="d-block text-muted">5.0 / 5.0</small>
+                      </td>
+                      <td>
+                        <p class="mb-1 text-wrap small">Kualitas suaranya luar biasa di harga 400 ribuan! Fitur ANC nya benar-benar memotong noise sekitar saat naik MRT. Packing bubble tebal &amp; original garansi resmi.</p>
+                        <small class="text-muted"><i class="icon-base ti tabler-tag me-1"></i>Variasi: Matte Black</small>
+                      </td>
+                      <td><span class="badge bg-label-warning">Shopee</span></td>
+                      <td><span class="badge bg-label-success">Sangat Positif</span></td>
+                      <td><small class="text-muted">Hari ini, 13:20 WIB</small></td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="avatar avatar-sm me-2">
+                            <span class="avatar-initial rounded-circle bg-label-primary">AS</span>
+                          </div>
+                          <div>
+                            <h6 class="mb-0 small fw-bold">a*****a (Anindya S.)</h6>
+                            <small class="text-muted">Pembeli Terverifikasi</small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="text-warning">⭐⭐⭐⭐⭐</span>
+                        <small class="d-block text-muted">5.0 / 5.0</small>
+                      </td>
+                      <td>
+                        <p class="mb-1 text-wrap small">Sudah coba buat telponan mic nya jernih banget, ga kresek-kresek. Baterai tahan sampai 5 hari pemakaian normal. Recomended seller Baseus.</p>
+                        <small class="text-muted"><i class="icon-base ti tabler-tag me-1"></i>Variasi: Pearl White</small>
+                      </td>
+                      <td><span class="badge bg-label-success">Tokopedia</span></td>
+                      <td><span class="badge bg-label-success">Sangat Positif</span></td>
+                      <td><small class="text-muted">Kemarin, 19:45 WIB</small></td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="avatar avatar-sm me-2">
+                            <span class="avatar-initial rounded-circle bg-label-danger">BW</span>
+                          </div>
+                          <div>
+                            <h6 class="mb-0 small fw-bold">b*****8 (Budi W.)</h6>
+                            <small class="text-muted">Pembeli Terverifikasi</small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="text-warning">⭐⭐⭐⭐☆</span>
+                        <small class="d-block text-muted">4.0 / 5.0</small>
+                      </td>
+                      <td>
+                        <p class="mb-1 text-wrap small">Barang bagus berfungsi semua, cuma pengiriman dari ekspedisi agak terlambat 1 hari dari estimasi. Selebihnya oke.</p>
+                        <small class="text-muted"><i class="icon-base ti tabler-tag me-1"></i>Variasi: Matte Black</small>
+                      </td>
+                      <td><span class="badge bg-label-warning">Shopee</span></td>
+                      <td><span class="badge bg-label-info">Netral / Logistik</span></td>
+                      <td><small class="text-muted">2 hari lalu</small></td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="avatar avatar-sm me-2">
+                            <span class="avatar-initial rounded-circle bg-label-success">MK</span>
+                          </div>
+                          <div>
+                            <h6 class="mb-0 small fw-bold">m*****k (Mega K.)</h6>
+                            <small class="text-muted">Pembeli Terverifikasi</small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="text-warning">⭐⭐⭐⭐⭐</span>
+                        <small class="d-block text-muted">5.0 / 5.0</small>
+                      </td>
+                      <td>
+                        <p class="mb-1 text-wrap small">Aplikasi Baseus nya gampang di-pairing, bisa set equalizer sesuai selera musik. Worth every penny!</p>
+                        <small class="text-muted"><i class="icon-base ti tabler-tag me-1"></i>Variasi: Pearl White</small>
+                      </td>
+                      <td><span class="badge bg-label-success">Tokopedia</span></td>
+                      <td><span class="badge bg-label-success">Positif</span></td>
+                      <td><small class="text-muted">3 hari lalu</small></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Footer -->
+          <footer class="content-footer footer bg-footer-theme">
+            <div class="container-xxl">
+              <div class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
+                <div class="text-body">
+                  &#169; <script>document.write(new Date().getFullYear());</script>, Rankwise Marketplace Intelligence
+                </div>
+                <div>
+                  <a href="index.html" class="footer-link me-4">Dashboard</a>
+                  <a href="app-ecommerce-product-list.html" class="footer-link me-4">Ranking Produk</a>
+                  <a href="app-logistics-dashboard.html" class="footer-link me-4">Scraper Status</a>
+                </div>
+              </div>
+            </div>
+          </footer>
+          <div class="content-backdrop fade"></div>
+        </div>
+      </div>
+    </div>
+    <div class="layout-overlay layout-menu-toggle"></div>
+    <div class="drag-target"></div>
+  </div>
+
+  <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+  <script src="../assets/vendor/libs/popper/popper.js"></script>
+  <script src="../assets/vendor/js/bootstrap.js"></script>
+  <script src="../assets/vendor/libs/node-waves/node-waves.js"></script>
+  <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+  <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+  <script src="../assets/vendor/js/menu.js"></script>
+  <script src="../assets/js/main.js"></script>
+
+  <!-- Interactive script to load URL params or defaults -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const nameParam = urlParams.get('name');
+      const brandParam = urlParams.get('brand');
+      const priceParam = urlParams.get('price');
+      const skuParam = urlParams.get('sku');
+      const imageParam = urlParams.get('image');
+      const qtyParam = urlParams.get('qty');
+
+      if (nameParam) {
+        document.getElementById('headerProductName').textContent = nameParam;
+        document.getElementById('breadcrumbProductName').textContent = nameParam;
+      }
+      if (brandParam) {
+        document.getElementById('storeName').textContent = brandParam + ' Official Store';
+        document.getElementById('storeAvatar').textContent = (brandParam.match(/\\b\\w/g) || []).slice(0, 2).join('').toUpperCase();
+      }
+      if (priceParam) {
+        const numPrice = parseInt(priceParam, 10);
+        if (!isNaN(numPrice)) {
+          document.getElementById('detailPrice').textContent = 'Rp ' + numPrice.toLocaleString('id-ID');
+          document.getElementById('detailOriginalPrice').textContent = 'Rp ' + Math.round(numPrice * 1.35).toLocaleString('id-ID');
+        }
+      }
+      if (skuParam) {
+        document.getElementById('detailSku').textContent = skuParam;
+      }
+      if (imageParam) {
+        document.getElementById('detailProductImage').src = '../assets/img/ecommerce-images/' + imageParam;
+      }
+      if (qtyParam) {
+        document.getElementById('detailDailySales').textContent = '+' + parseInt(qtyParam).toLocaleString('id-ID') + ' unit/hari';
+      }
+
+      // Render Price Trend ApexChart
+      const chartEl = document.querySelector('#productPriceTrendChart');
+      if (chartEl && typeof ApexCharts !== 'undefined') {
+        const options = {
+          series: [
+            {
+              name: 'Harga Rata-rata (Rp)',
+              type: 'line',
+              data: [549000, 549000, 529000, 529000, 499000, 489000, 449000, 489000, 489000]
+            },
+            {
+              name: 'Est. Unit Terjual/Hari',
+              type: 'column',
+              data: [120, 135, 142, 160, 175, 184, 310, 195, 184]
+            }
+          ],
+          chart: {
+            height: 280,
+            type: 'line',
+            toolbar: { show: false }
+          },
+          stroke: {
+            width: [3, 0],
+            curve: 'smooth'
+          },
+          colors: ['#7367F0', '#28C76F'],
+          dataLabels: { enabled: false },
+          labels: ['01 Okt', '04 Okt', '08 Okt', '10 Okt', '12 Okt', '15 Okt', '18 Okt', '20 Okt', '21 Okt'],
+          yaxis: [
+            {
+              title: { text: 'Harga (Rp)' },
+              labels: {
+                formatter: function (val) {
+                  return 'Rp ' + (val / 1000) + 'k';
+                }
+              }
+            },
+            {
+              opposite: true,
+              title: { text: 'Unit/Hari' }
+            }
+          ],
+          legend: { position: 'top' }
+        };
+        const chart = new ApexCharts(chartEl, options);
+        chart.render();
+      }
+    });
+  </script>
+</body>
+</html>
+`;
+
+fs.writeFileSync('d:/Next/marketplace-intelligence/dashboard/pages/app-ecommerce-product-detail.html', productDetailHtml, 'utf8');
+console.log('Created app-ecommerce-product-detail.html successfully!');

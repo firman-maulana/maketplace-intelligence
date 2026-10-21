@@ -1,0 +1,68 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "location": "JOB-8201",
+      "start_city": "Shopee",
+      "end_city": "Elektronik: TWS & Audio",
+      "warnings": 0,
+      "progress": 100
+    },
+    {
+      "id": 2,
+      "location": "JOB-8202",
+      "start_city": "Tokopedia",
+      "end_city": "Elektronik: Charger & Kabel",
+      "warnings": 0,
+      "progress": 100
+    },
+    {
+      "id": 3,
+      "location": "JOB-8203",
+      "start_city": "Shopee",
+      "end_city": "Fashion: Sepatu & Sneakers",
+      "warnings": 1,
+      "progress": 85
+    },
+    {
+      "id": 4,
+      "location": "JOB-8204",
+      "start_city": "Tokopedia",
+      "end_city": "Rumah Tangga: Alat Masak",
+      "warnings": 2,
+      "progress": 42
+    },
+    {
+      "id": 5,
+      "location": "JOB-8205",
+      "start_city": "Shopee",
+      "end_city": "Toko: Baseus Official",
+      "warnings": 0,
+      "progress": 100
+    },
+    {
+      "id": 6,
+      "location": "JOB-8206",
+      "start_city": "Tokopedia",
+      "end_city": "Toko: Acome Official",
+      "warnings": 3,
+      "progress": 15
+    },
+    {
+      "id": 7,
+      "location": "JOB-8207",
+      "start_city": "Shopee",
+      "end_city": "Review: Erigo Store",
+      "warnings": 0,
+      "progress": 92
+    },
+    {
+      "id": 8,
+      "location": "JOB-8208",
+      "start_city": "Tokopedia",
+      "end_city": "Price Tracker: LocknLock",
+      "warnings": 1,
+      "progress": 78
+    }
+  ]
+}

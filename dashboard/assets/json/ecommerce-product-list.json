@@ -1,0 +1,124 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "product_name": "TWS Bluetooth 5.3 Bass Stereo",
+      "product_brand": "Baseus Official - Shopee Mall",
+      "image": "",
+      "category": 0,
+      "stock": 1,
+      "sku": "BSS-TWS-001",
+      "price": 89000,
+      "qty": 342,
+      "status": 2
+    },
+    {
+      "id": 2,
+      "product_name": "Kemeja Flannel Pria Casual Premium",
+      "product_brand": "Erigo Official - Shopee Mall",
+      "image": "",
+      "category": 1,
+      "stock": 1,
+      "sku": "ERG-FLN-042",
+      "price": 149000,
+      "qty": 1240,
+      "status": 2
+    },
+    {
+      "id": 3,
+      "product_name": "Charger Fast Charging 33W Type-C",
+      "product_brand": "Acome Official - Tokopedia",
+      "image": "",
+      "category": 0,
+      "stock": 1,
+      "sku": "ACM-CHG-033",
+      "price": 79900,
+      "qty": 890,
+      "status": 2
+    },
+    {
+      "id": 4,
+      "product_name": "Sepatu Sneakers Pria AeroStreet",
+      "product_brand": "AeroStreet Indonesia - Shopee Mall",
+      "image": "",
+      "category": 1,
+      "stock": 0,
+      "sku": "ARS-SNK-117",
+      "price": 159000,
+      "qty": 2180,
+      "status": 3
+    },
+    {
+      "id": 5,
+      "product_name": "Botol Minum Termos Stainless 500ml",
+      "product_brand": "LocknLock Official - Tokopedia",
+      "image": "",
+      "category": 2,
+      "stock": 1,
+      "sku": "LNL-BTL-500",
+      "price": 125000,
+      "qty": 620,
+      "status": 2
+    },
+    {
+      "id": 6,
+      "product_name": "Kabel Data USB-C to C 100W PD",
+      "product_brand": "Robot Official - Shopee Mall",
+      "image": "",
+      "category": 0,
+      "stock": 1,
+      "sku": "RBT-CBL-100",
+      "price": 49900,
+      "qty": 1540,
+      "status": 2
+    },
+    {
+      "id": 7,
+      "product_name": "Tas Ransel Anti Air Laptop 15.6\"",
+      "product_brand": "Olike Store - Tokopedia",
+      "image": "",
+      "category": 1,
+      "stock": 1,
+      "sku": "OLK-BAG-156",
+      "price": 189000,
+      "qty": 410,
+      "status": 2
+    },
+    {
+      "id": 8,
+      "product_name": "Set Alat Masak Teflon Anti Lengket 3pcs",
+      "product_brand": "GM Bear Shop - Shopee Star",
+      "image": "",
+      "category": 2,
+      "stock": 1,
+      "sku": "GMB-TFN-003",
+      "price": 97500,
+      "qty": 780,
+      "status": 2
+    },
+    {
+      "id": 9,
+      "product_name": "Hoodie Oversize Unisex Cotton Fleece",
+      "product_brand": "Erigo Official - Shopee Mall",
+      "image": "",
+      "category": 1,
+      "stock": 1,
+      "sku": "ERG-HDI-088",
+      "price": 199000,
+      "qty": 1890,
+      "status": 2
+    },
+    {
+      "id": 10,
+      "product_name": "Organizer Storage Box Lipat Multifungsi",
+      "product_brand": "LocknLock Official - Tokopedia",
+      "image": "",
+      "category": 2,
+      "stock": 0,
+      "sku": "LNL-ORG-MF1",
+      "price": 85000,
+      "qty": 320,
+      "status": 1
+    }
+  ]
+}
