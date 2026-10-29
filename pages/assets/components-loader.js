@@ -102,7 +102,68 @@
     if (typeof ScrollTrigger !== 'undefined' && ScrollTrigger.refresh) {
       ScrollTrigger.refresh();
     }
+
+    // 5. Update status login tombol header (Get Started -> Dashboard)
+    updateHeaderAuthState();
   }
+
+  function updateHeaderAuthState() {
+    try {
+      const token = localStorage.getItem('auth_token');
+      const userStr = localStorage.getItem('auth_user');
+      let user = null;
+      try {
+        user = userStr ? JSON.parse(userStr) : null;
+      } catch (e) {}
+
+      // Pengguna dianggap login jika token ada ATAU user profile ada di storage
+      const isLoggedIn = !!(token || (user && (user.id || user.username || user.email)));
+
+      const targetHref = isLoggedIn ? '../dashboard/pages/index.html' : '../dashboard/pages/auth-login-cover.html';
+      const targetText = isLoggedIn ? 'Dashboard' : 'Get started';
+
+      const desktopBtn = document.getElementById('headerAuthBtn');
+      const mobileBtn = document.getElementById('headerAuthBtnMobile');
+
+      if (desktopBtn) {
+        desktopBtn.href = targetHref;
+        const span = desktopBtn.querySelector('span');
+        if (span) {
+          span.textContent = targetText;
+        } else {
+          desktopBtn.textContent = targetText;
+        }
+      }
+
+      if (mobileBtn) {
+        mobileBtn.href = targetHref;
+        const span = mobileBtn.querySelector('span');
+        if (span) {
+          span.textContent = targetText;
+        } else {
+          mobileBtn.textContent = targetText;
+        }
+      }
+
+      // Fallback selector untuk link header manapun
+      document.querySelectorAll('header a, .header-one a, aside.sidebar a').forEach(a => {
+        const txt = (a.textContent || '').trim().toLowerCase();
+        if (txt === 'get started' || txt === 'dashboard' || a.href.includes('auth-login-cover') || a.href.includes('dashboard/pages/index')) {
+          a.href = targetHref;
+          const span = a.querySelector('span');
+          if (span) span.textContent = targetText;
+          else a.textContent = targetText;
+        }
+      });
+    } catch (e) {
+      console.warn('updateHeaderAuthState error:', e);
+    }
+  }
+
+  window.addEventListener('storage', updateHeaderAuthState);
+  window.addEventListener('pageshow', updateHeaderAuthState);
+  document.addEventListener('DOMContentLoaded', updateHeaderAuthState);
+  [50, 150, 300, 600, 1000, 2000].forEach(delay => setTimeout(updateHeaderAuthState, delay));
 
   async function initializeComponents() {
     const customElements = document.querySelectorAll(Object.keys(tagMap).join(','));

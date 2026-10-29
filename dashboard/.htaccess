@@ -1,0 +1,79 @@
+# ==============================================================================
+# Rankwise Marketplace Intelligence - URL Rewrite Configuration (.htaccess)
+# ==============================================================================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # 1. Jangan rewrite jika request mengarah langsung ke file atau direktori fisik yang ada
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # 2. Tangani request assets yang terpanggil dari subpath (seperti /detail-product/assets/...)
+    RewriteRule ^(?:.+/)?assets/(.*)$ assets/$1 [L]
+
+    # --------------------------------------------------------------------------
+    # 3. REDIRECT 301 (Mengalihkan URL .html lama secara permanen ke URL baru)
+    # --------------------------------------------------------------------------
+
+    # Detail Produk: app-ecommerce-product-detail.html?id={id} -> /detail-product/{id}
+    RewriteCond %{THE_REQUEST} (?:pages/)?app-ecommerce-product-detail\.html\?id=([^\s&]+) [NC]
+    RewriteRule ^ detail-product/%1? [R=301,L]
+
+    # Scraping Produk: app-ecommerce-product-list.html -> /scraping-produk
+    RewriteCond %{THE_REQUEST} (?:pages/)?app-ecommerce-product-list\.html[\s?] [NC]
+    RewriteRule ^ scraping-produk [R=301,L]
+
+    # Schedule: app-ecommerce-schedule.html -> /schedule
+    RewriteCond %{THE_REQUEST} (?:pages/)?app-ecommerce-schedule\.html[\s?] [NC]
+    RewriteRule ^ schedule [R=301,L]
+
+    # User Management: app-user-management.html -> /user-management
+    RewriteCond %{THE_REQUEST} (?:pages/)?app-user-management\.html[\s?] [NC]
+    RewriteRule ^ user-management [R=301,L]
+
+    # Settings: app-api-settings.html -> /settings
+    RewriteCond %{THE_REQUEST} (?:pages/)?app-api-settings\.html[\s?] [NC]
+    RewriteRule ^ settings [R=301,L]
+
+    # Login: auth-login-cover.html -> /login
+    RewriteCond %{THE_REQUEST} (?:pages/)?auth-login-cover\.html[\s?] [NC]
+    RewriteRule ^ login [R=301,L]
+
+    # Register: auth-register-cover.html -> /register
+    RewriteCond %{THE_REQUEST} (?:pages/)?auth-register-cover\.html[\s?] [NC]
+    RewriteRule ^ register [R=301,L]
+
+    # --------------------------------------------------------------------------
+    # 4. INTERNAL REWRITES (Memetakan URL Cantik / Clean URL ke File HTML Fisik)
+    # --------------------------------------------------------------------------
+
+    # /detail-product/{id} -> pages/app-ecommerce-product-detail.html?id={id}
+    RewriteRule ^detail-product/([^/]+)/?$ pages/app-ecommerce-product-detail.html?id=$1 [L,QSA]
+
+    # /scraping-produk -> pages/app-ecommerce-product-list.html
+    RewriteRule ^scraping-produk/?$ pages/app-ecommerce-product-list.html [L,QSA]
+
+    # /schedule -> pages/app-ecommerce-schedule.html
+    RewriteRule ^schedule/?$ pages/app-ecommerce-schedule.html [L,QSA]
+
+    # /user-management -> pages/app-user-management.html
+    RewriteRule ^user-management/?$ pages/app-user-management.html [L,QSA]
+
+    # /settings -> pages/app-api-settings.html
+    RewriteRule ^settings/?$ pages/app-api-settings.html [L,QSA]
+
+    # /login -> pages/auth-login-cover.html
+    RewriteRule ^login/?$ pages/auth-login-cover.html [L,QSA]
+
+    # /register -> pages/auth-register-cover.html
+    RewriteRule ^register/?$ pages/auth-register-cover.html [L,QSA]
+
+    # /404 -> pages/pages-misc-error.html
+    RewriteRule ^404/?$ pages/pages-misc-error.html [L,QSA]
+
+    # Root / -> pages/index.html
+    RewriteRule ^$ pages/index.html [L,QSA]
+</IfModule>
+

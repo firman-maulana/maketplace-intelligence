@@ -1562,6 +1562,56 @@ Footer v1
 
   <script src="assets/components-loader.js"></script>
   <script src="assets/main.js"></script>
+  <script>
+    (function () {
+      function syncHeaderButton() {
+        try {
+          var token = localStorage.getItem('auth_token');
+          var userStr = localStorage.getItem('auth_user');
+          var user = null;
+          try { user = userStr ? JSON.parse(userStr) : null; } catch (e) { }
+          var isLoggedIn = !!(token || (user && (user.id || user.username || user.email)));
+
+          var targetHref = isLoggedIn ? '../dashboard/pages/index.html' : '../dashboard/pages/auth-login-cover.html';
+          var targetText = isLoggedIn ? 'Dashboard' : 'Get started';
+
+          var dBtn = document.getElementById('headerAuthBtn');
+          if (dBtn) {
+            dBtn.href = targetHref;
+            var s = dBtn.querySelector('span');
+            if (s) s.textContent = targetText;
+            else dBtn.textContent = targetText;
+          }
+
+          var mBtn = document.getElementById('headerAuthBtnMobile');
+          if (mBtn) {
+            mBtn.href = targetHref;
+            var s2 = mBtn.querySelector('span');
+            if (s2) s2.textContent = targetText;
+            else mBtn.textContent = targetText;
+          }
+
+          document.querySelectorAll('header a, .header-one a, aside.sidebar a').forEach(function (a) {
+            var txt = (a.textContent || '').trim().toLowerCase();
+            if (txt === 'get started' || txt === 'dashboard' || a.href.indexOf('auth-login-cover') !== -1 || a.href.indexOf('dashboard/pages/index') !== -1) {
+              a.href = targetHref;
+              var span = a.querySelector('span');
+              if (span) span.textContent = targetText;
+              else a.textContent = targetText;
+            }
+          });
+        } catch (err) { }
+      }
+
+      document.addEventListener('DOMContentLoaded', syncHeaderButton);
+      document.addEventListener('components:loaded', syncHeaderButton);
+      window.addEventListener('storage', syncHeaderButton);
+      window.addEventListener('pageshow', syncHeaderButton);
+      [50, 150, 300, 500, 800, 1200, 2000, 3000].forEach(function (d) {
+        setTimeout(syncHeaderButton, d);
+      });
+    })();
+  </script>
 </body>
 
 </html>

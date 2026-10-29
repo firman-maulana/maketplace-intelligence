@@ -114,11 +114,11 @@ func initDB() {
 
 	log.Println("[MySQL Success] Berhasil terhubung ke database MySQL (phpMyAdmin)!")
 
-	// 1. Table users
+	// 1. Table users (Username boleh sama/duplikat, Email wajib unik)
 	_, err = db.Exec(`
 	CREATE TABLE IF NOT EXISTS users (
 		id INT AUTO_INCREMENT PRIMARY KEY,
-		username VARCHAR(100) NOT NULL UNIQUE,
+		username VARCHAR(100) NOT NULL,
 		email VARCHAR(191) NOT NULL UNIQUE,
 		password_hash VARCHAR(255) NULL,
 		google_id VARCHAR(191) NULL UNIQUE,
@@ -130,6 +130,14 @@ func initDB() {
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;`)
 	if err != nil {
 		log.Printf("[MySQL Warning] Tabel users: %v", err)
+	}
+
+	// Pastikan index UNIQUE pada kolom username dihapus jika sebelumnya pernah dibuat
+	var usernameIdx string
+	_ = db.QueryRow("SELECT INDEX_NAME FROM information_schema.statistics WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'users' AND COLUMN_NAME = 'username' AND NON_UNIQUE = 0 LIMIT 1").Scan(&usernameIdx)
+	if usernameIdx != "" {
+		_, _ = db.Exec(fmt.Sprintf("ALTER TABLE users DROP INDEX `%s`", usernameIdx))
+		log.Printf("[MySQL Info] Berhasil menghapus UNIQUE index pada username: %s (Username kini boleh sama/duplikat)", usernameIdx)
 	}
 
 	// 2. Table settings (Dynamic API keys: Apify & Fonnte)
@@ -444,13 +452,13 @@ func handleRegister(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 1. Simpan di MySQL jika aktif
+	// 1. Simpan di MySQL jika aktif (Hanya Email yang divalidasi keunikan, Nama Pengguna boleh sama)
 	if db != nil && db.Ping() == nil {
 		var exists int
-		_ = db.QueryRow("SELECT COUNT(*) FROM users WHERE username = ? OR email = ?", req.Username, req.Email).Scan(&exists)
+		_ = db.QueryRow("SELECT COUNT(*) FROM users WHERE email = ?", req.Email).Scan(&exists)
 		if exists > 0 {
 			w.WriteHeader(http.StatusBadRequest)
-			json.NewEncoder(w).Encode(AuthResponse{Success: false, Message: "Username atau Email sudah terdaftar"})
+			json.NewEncoder(w).Encode(AuthResponse{Success: false, Message: "Email sudah terdaftar, silakan gunakan email lain"})
 			return
 		}
 
@@ -494,14 +502,9 @@ func handleRegister(w http.ResponseWriter, r *http.Request) {
 	memUsers.mu.Lock()
 	defer memUsers.mu.Unlock()
 
-	if _, exists := memUsers.users[req.Username]; exists {
-		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(AuthResponse{Success: false, Message: "Username sudah terdaftar"})
-		return
-	}
 	if _, exists := memUsers.users[req.Email]; exists {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(AuthResponse{Success: false, Message: "Email sudah terdaftar"})
+		json.NewEncoder(w).Encode(AuthResponse{Success: false, Message: "Email sudah terdaftar, silakan gunakan email lain"})
 		return
 	}
 
@@ -675,12 +678,15 @@ func handleGoogleAuth(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// User baru -> Otomatis Buat Akun
-		usernameClean := strings.ReplaceAll(displayName, " ", "_")
+		// User baru -> Otomatis Buat Akun (Pertahankan spasi asli dari nama Google, tidak diubah jadi underscore)
+		usernameClean := strings.TrimSpace(displayName)
+		if usernameClean == "" {
+			usernameClean = strings.Split(email, "@")[0]
+		}
 		res, err := db.Exec(`INSERT INTO users (username, email, google_id, avatar, role, status) VALUES (?, ?, ?, ?, 'user', 'active')`,
 			usernameClean, email, googleSub, gToken.Picture)
 		if err != nil {
-			usernameClean = fmt.Sprintf("%s_%d", usernameClean, time.Now().Unix()%1000)
+			usernameClean = fmt.Sprintf("%s %d", usernameClean, time.Now().Unix()%1000)
 			res, _ = db.Exec(`INSERT INTO users (username, email, google_id, avatar, role, status) VALUES (?, ?, ?, ?, 'user', 'active')`,
 				usernameClean, email, googleSub, gToken.Picture)
 		}
@@ -897,10 +903,10 @@ func handleAdminCreateUser(w http.ResponseWriter, r *http.Request) {
 
 	if db != nil && db.Ping() == nil {
 		var exists int
-		_ = db.QueryRow("SELECT COUNT(*) FROM users WHERE username = ? OR email = ?", req.Username, req.Email).Scan(&exists)
+		_ = db.QueryRow("SELECT COUNT(*) FROM users WHERE email = ?", req.Email).Scan(&exists)
 		if exists > 0 {
 			w.WriteHeader(http.StatusBadRequest)
-			json.NewEncoder(w).Encode(map[string]interface{}{"error": "Username atau email sudah digunakan"})
+			json.NewEncoder(w).Encode(map[string]interface{}{"error": "Email sudah digunakan oleh akun lain"})
 			return
 		}
 
@@ -989,6 +995,14 @@ func handleAdminUpdateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if db != nil && db.Ping() == nil {
+		var exists int
+		_ = db.QueryRow("SELECT COUNT(*) FROM users WHERE email = ? AND id != ?", req.Email, id).Scan(&exists)
+		if exists > 0 {
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(map[string]interface{}{"error": "Email sudah digunakan oleh akun lain"})
+			return
+		}
+
 		if strings.TrimSpace(req.Password) != "" {
 			hash, err := bcrypt.GenerateFromPassword([]byte(req.Password), 10)
 			if err != nil {

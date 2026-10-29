@@ -43,7 +43,7 @@
       <!-- Menu Sidebar -->
       <aside id="layout-menu" class="layout-menu menu-vertical menu">
         <div class="app-brand demo">
-          <a href="index.html" class="app-brand-link">
+          <a href="../../pages/index.html" class="app-brand-link">
             <span class="app-brand-logo demo">
               <span class="text-primary">
                 <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -581,6 +581,8 @@
         <div class="content-wrapper">
           <div class="container-xxl flex-grow-1 container-p-y">
 
+            <!-- Product Detail Content Wrapper -->
+            <div id="productDetailContent">
             <!-- Action Header -->
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-6 gap-4">
               <div>
@@ -895,6 +897,28 @@
                 </table>
               </div>
             </div>
+            </div>
+            <!-- /Product Detail Content Wrapper -->
+
+            <!-- Vuexy 404 Not Found State (Tampil jika produk bukan milik akun atau tidak ditemukan) -->
+            <div id="productNotFoundState" style="display: none;" class="card shadow-sm border-0 my-4 py-5 text-center">
+              <div class="card-body p-sm-5 p-4">
+                <div class="misc-wrapper">
+                  <h1 class="mb-2 mx-2 fw-bold text-primary" style="line-height: 6rem; font-size: 6rem;">404</h1>
+                  <h4 class="mb-2 mx-2 fw-semibold">Halaman Produk Tidak Ditemukan</h4>
+                  <p class="mb-6 mx-2">produk yang Anda tuju tidak ditemukan di sistem</p>
+                  <div class="d-flex justify-content-center gap-3 mb-5 flex-wrap">
+                    <a href="app-ecommerce-product-list.html" class="btn btn-primary waves-effect waves-light">
+                      Riset Scraping Produk
+                    </a>
+
+                  </div>
+                  <div class="mt-4">
+                    <img src="../assets/img/illustrations/page-misc-error.png" alt="Produk Tidak Ditemukan" width="235" class="img-fluid" />
+                  </div>
+                </div>
+              </div>
+            </div>
 
           </div>
 
@@ -990,7 +1014,8 @@
 
     document.addEventListener('DOMContentLoaded', function () {
       const urlParams = new URLSearchParams(window.location.search);
-      const prodId = urlParams.get('id') || '1';
+      const pathIdMatch = window.location.pathname.match(/(?:detail-product|products?)\/([0-9a-zA-Z_-]+)/i);
+      const prodId = urlParams.get('id') || (pathIdMatch ? pathIdMatch[1] : '') || '1';
 
       function applyDetails(p, s) {
         if (!p) return;
@@ -1413,23 +1438,24 @@
       }
 
       let activeChart = null;
+      let detailPollInterval = null;
 
-      function showEmptyState() {
-        document.getElementById('headerProductName').textContent = 'Belum Ada Data Produk Terpilih';
-        const imgEl = document.getElementById('detailProductImage');
-        if (imgEl) imgEl.style.display = 'none';
-        const priceEl = document.getElementById('detailPrice');
-        if (priceEl) priceEl.textContent = 'Silakan lakukan live scraping di menu Scraping Produk atau jadwalkan di Schedule';
-        const descCard = document.getElementById('descCard');
-        if (descCard) descCard.style.display = 'none';
-        const priceTrendCard = document.getElementById('priceTrendCard');
-        if (priceTrendCard) priceTrendCard.style.display = 'none';
-        const ratingCard = document.getElementById('ratingCard');
-        if (ratingCard) ratingCard.style.display = 'none';
-        const reviewsCard = document.getElementById('reviewsCard');
-        if (reviewsCard) reviewsCard.style.display = 'none';
-        const storeCard = document.getElementById('storeCard');
-        if (storeCard) storeCard.style.display = 'none';
+      function showNotFoundState() {
+        const detailContent = document.getElementById('productDetailContent');
+        const notFoundState = document.getElementById('productNotFoundState');
+        if (detailContent) detailContent.style.display = 'none';
+        if (notFoundState) notFoundState.style.display = 'block';
+        if (detailPollInterval) {
+          clearInterval(detailPollInterval);
+          detailPollInterval = null;
+        }
+      }
+
+      function showProductContent() {
+        const detailContent = document.getElementById('productDetailContent');
+        const notFoundState = document.getElementById('productNotFoundState');
+        if (detailContent) detailContent.style.display = 'block';
+        if (notFoundState) notFoundState.style.display = 'none';
       }
 
       function loadProductDetail() {
@@ -1438,7 +1464,8 @@
         const userQuery = u.id ? `?user_id=${u.id}&role=${u.role || 'user'}` : '';
 
         const currentUrlParams = new URLSearchParams(window.location.search);
-        const reqId = currentUrlParams.get('id') || prodId || '';
+        const currentPathIdMatch = window.location.pathname.match(/(?:detail-product|products?)\/([0-9a-zA-Z_-]+)/i);
+        const reqId = currentUrlParams.get('id') || (currentPathIdMatch ? currentPathIdMatch[1] : '') || prodId || '';
 
         const apiUrl = 'http://localhost:8080/api/products/' + (reqId ? reqId : '1') + userQuery;
 
@@ -1448,11 +1475,12 @@
           }
         })
           .then(res => {
-            if (!res.ok) throw new Error("Produk tidak ditemukan");
+            if (!res.ok) throw new Error("Produk tidak ditemukan atau bukan milik akun Anda");
             return res.json();
           })
           .then(data => {
-            if (data && data.product) {
+            if (data && data.product && data.product.id) {
+              showProductContent();
               applyDetails(data.product, data.shop);
               if (!activeChart) {
                 renderChart(data.product.price, data.product.qty);
@@ -1464,16 +1492,16 @@
                 } catch (e) {}
               }
             } else {
-              showEmptyState();
+              showNotFoundState();
             }
           })
           .catch(err => {
-            showEmptyState();
+            showNotFoundState();
           });
       }
 
       loadProductDetail();
-      setInterval(loadProductDetail, 5000);
+      detailPollInterval = setInterval(loadProductDetail, 5000);
 
       function renderChart(basePrice, dailyVelocity) {
         const chartEl = document.querySelector('#productPriceTrendChart');

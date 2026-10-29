@@ -445,6 +445,29 @@ func main() {
 
 	FileServer(r, "/dashboard", http.Dir(dashboardPath))
 	FileServer(r, "/pages", http.Dir(pagesPath))
+	FileServer(r, "/assets", http.Dir(filepath.Join(dashboardPath, "assets")))
+	FileServer(r, "/detail-product/assets", http.Dir(filepath.Join(dashboardPath, "assets")))
+	FileServer(r, "/dashboard/detail-product/assets", http.Dir(filepath.Join(dashboardPath, "assets")))
+
+	serveDashboardPage := func(fileName string) http.HandlerFunc {
+		return func(w http.ResponseWriter, r *http.Request) {
+			target := filepath.Join(dashboardPath, "pages", fileName)
+			http.ServeFile(w, r, target)
+		}
+	}
+
+	// Clean URL Rewrites for development & direct Go engine serving
+	for _, prefix := range []string{"", "/dashboard"} {
+		p := prefix
+		r.Get(p+"/scraping-produk", serveDashboardPage("app-ecommerce-product-list.html"))
+		r.Get(p+"/schedule", serveDashboardPage("app-ecommerce-schedule.html"))
+		r.Get(p+"/user-management", serveDashboardPage("app-user-management.html"))
+		r.Get(p+"/settings", serveDashboardPage("app-api-settings.html"))
+		r.Get(p+"/login", serveDashboardPage("auth-login-cover.html"))
+		r.Get(p+"/register", serveDashboardPage("auth-register-cover.html"))
+		r.Get(p+"/detail-product/{id}", serveDashboardPage("app-ecommerce-product-detail.html"))
+		r.Get(p+"/404", serveDashboardPage("pages-misc-error.html"))
+	}
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -583,9 +606,8 @@ func handleGetProductDetail(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	// Jika produk yang diminta tidak ditemukan atau id <= 0,
-	// cari produk pertama milik user ini (atau produk pertama yang ada jika admin)
-	if !exists {
+	// Jika URL tidak menyertakan ID tertentu (id <= 0), ambil produk pertama milik user
+	if id <= 0 {
 		store.mu.RLock()
 		for _, p := range store.products {
 			if reqUserID == 0 || p.UserID == reqUserID || reqRole == "admin" {
@@ -595,62 +617,18 @@ func handleGetProductDetail(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		store.mu.RUnlock()
-	}
 
-	// Jika masih belum ada di memori, coba cari produk milik user di database MySQL
-	if !exists && db != nil && db.Ping() == nil {
-		var rawJson string
-		var uid, dbID int64
-		var row *sql.Row
-		if reqUserID > 0 && reqRole != "admin" {
-			row = db.QueryRow("SELECT id, user_id, raw_json FROM products WHERE user_id = ? ORDER BY id DESC LIMIT 1", reqUserID)
-		} else {
-			row = db.QueryRow("SELECT id, user_id, raw_json FROM products ORDER BY id DESC LIMIT 1")
-		}
-		if row != nil {
-			if err := row.Scan(&dbID, &uid, &rawJson); err == nil {
-				var p Product
-				if err := json.Unmarshal([]byte(rawJson), &p); err == nil {
-					p.ID = dbID
-					p.UserID = uid
-					store.mu.Lock()
-					store.products[dbID] = p
-					store.mu.Unlock()
-					product = p
-					exists = true
-				}
+		if !exists && db != nil && db.Ping() == nil {
+			var rawJson string
+			var uid, dbID int64
+			var row *sql.Row
+			if reqUserID > 0 && reqRole != "admin" {
+				row = db.QueryRow("SELECT id, user_id, raw_json FROM products WHERE user_id = ? ORDER BY id DESC LIMIT 1", reqUserID)
+			} else {
+				row = db.QueryRow("SELECT id, user_id, raw_json FROM products ORDER BY id DESC LIMIT 1")
 			}
-		}
-	}
-
-	if !exists {
-		http.Error(w, "Product not found", http.StatusNotFound)
-		return
-	}
-
-	// Cek akses:
-	// Jika bukan admin dan user_id terdeteksi dan kepemilikannya beda,
-	// berikan produk milik user tersebut sebagai fallback daripada me-return 403
-	if reqRole != "admin" && reqUserID > 0 && product.UserID > 0 && product.UserID != reqUserID {
-		store.mu.RLock()
-		var altProduct Product
-		var foundAlt bool
-		for _, p := range store.products {
-			if p.UserID == reqUserID {
-				altProduct = p
-				foundAlt = true
-				break
-			}
-		}
-		store.mu.RUnlock()
-
-		if foundAlt {
-			product = altProduct
-		} else {
-			if db != nil && db.Ping() == nil {
-				var rawJson string
-				var uid, dbID int64
-				if err := db.QueryRow("SELECT id, user_id, raw_json FROM products WHERE user_id = ? ORDER BY id DESC LIMIT 1", reqUserID).Scan(&dbID, &uid, &rawJson); err == nil {
+			if row != nil {
+				if err := row.Scan(&dbID, &uid, &rawJson); err == nil {
 					var p Product
 					if err := json.Unmarshal([]byte(rawJson), &p); err == nil {
 						p.ID = dbID
@@ -659,15 +637,25 @@ func handleGetProductDetail(w http.ResponseWriter, r *http.Request) {
 						store.products[dbID] = p
 						store.mu.Unlock()
 						product = p
-						foundAlt = true
+						exists = true
 					}
 				}
 			}
-			if !foundAlt {
-				http.Error(w, "Access denied to this product", http.StatusForbidden)
-				return
-			}
 		}
+	}
+
+	// Jika produk yang diminta tidak ditemukan di sistem
+	if !exists {
+		http.Error(w, "Produk tidak ditemukan atau tidak tersedia", http.StatusNotFound)
+		return
+	}
+
+	// Isolasi Kepemilikan Multi-Tenant:
+	// Jika akun A melakukan scraping dan membuka produknya, lalu URL tersebut dibuka oleh akun B:
+	// Kembalikan status 404 Not Found (bukan produk fallback atau teks kosong) demi privasi data antar akun
+	if reqRole != "admin" && reqUserID > 0 && product.UserID > 0 && product.UserID != reqUserID {
+		http.Error(w, "Produk tidak ditemukan atau bukan milik akun Anda", http.StatusNotFound)
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
