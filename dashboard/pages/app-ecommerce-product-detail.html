@@ -1,19 +1,20 @@
 <!doctype html>
-<html
-  lang="en"
-  class="layout-navbar-fixed layout-menu-fixed layout-compact"
-  dir="ltr" data-skin="bordered" data-bs-theme="light"
-  data-assets-path="../assets/"
-  data-template="vertical-menu-template-bordered">
+<html lang="en" class="layout-navbar-fixed layout-menu-fixed layout-compact" dir="ltr" data-skin="bordered"
+  data-bs-theme="light" data-assets-path="../assets/" data-template="vertical-menu-template-bordered">
+
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-  <title>Detail Produk & Analisis Kompetitor - Rankwise</title>
-  
-  <link rel="icon" type="image/x-icon" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/favicon/favicon.ico" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+  <title>Product Detail - Rankwise</title>
+
+  <link rel="icon" type="image/x-icon"
+    href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/favicon/favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com/" />
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="../assets/vendor/fonts/iconify-icons.css" />
   <link rel="stylesheet" href="../assets/vendor/libs/node-waves/node-waves.css" />
   <link rel="stylesheet" href="../assets/vendor/libs/pickr/pickr-themes.css" />
@@ -21,6 +22,14 @@
   <link rel="stylesheet" href="../assets/css/demo.css" />
   <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
   <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
+
+  <meta name="referrer" content="no-referrer" />
+  <style>
+    .breadcrumb-item+.breadcrumb-item::before {
+      content: "/" !important;
+      padding: 0 0.5rem !important;
+    }
+  </style>
 
   <script src="../assets/vendor/js/helpers.js"></script>
   <script src="../assets/vendor/js/template-customizer.js"></script>
@@ -30,7 +39,7 @@
 <body>
   <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
-      
+
       <!-- Menu Sidebar -->
       <aside id="layout-menu" class="layout-menu menu-vertical menu">
         <div class="app-brand demo">
@@ -38,10 +47,16 @@
             <span class="app-brand-logo demo">
               <span class="text-primary">
                 <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z" fill="currentColor" />
-                  <path opacity="0.06" fill-rule="evenodd" clip-rule="evenodd" d="M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z" fill="#161616" />
-                  <path opacity="0.06" fill-rule="evenodd" clip-rule="evenodd" d="M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z" fill="#161616" />
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z" fill="currentColor" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z"
+                    fill="currentColor" />
+                  <path opacity="0.06" fill-rule="evenodd" clip-rule="evenodd"
+                    d="M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z" fill="#161616" />
+                  <path opacity="0.06" fill-rule="evenodd" clip-rule="evenodd"
+                    d="M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z" fill="#161616" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z"
+                    fill="currentColor" />
                 </svg>
               </span>
             </span>
@@ -56,9 +71,9 @@
         <div class="menu-inner-shadow"></div>
 
         <ul class="menu-inner py-1">
-          <!-- Ringkasan Pasar -->
+          <!-- Menu Intelligence -->
           <li class="menu-header small">
-            <span class="menu-header-text">Ringkasan &amp; Tren Pasar</span>
+            <span class="menu-header-text">Marketplace Intelligence</span>
           </li>
           <li class="menu-item">
             <a href="index.html" class="menu-link">
@@ -66,72 +81,33 @@
               <div>Dashboard Analytics</div>
             </a>
           </li>
-
-          <!-- Riset Produk -->
-          <li class="menu-header small">
-            <span class="menu-header-text">Riset Produk &amp; Tren</span>
-          </li>
-          <li class="menu-item active open">
+          <li class="menu-item">
             <a href="app-ecommerce-product-list.html" class="menu-link">
               <i class="menu-icon icon-base ti tabler-trophy"></i>
-              <div>Ranking Produk Terlaris</div>
+              <div>Scraping Produk</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-ecommerce-schedule.html" class="menu-link">
+              <i class="menu-icon icon-base ti tabler-calendar-time"></i>
+              <div>Schedule</div>
             </a>
           </li>
 
-          <!-- Scraping & Monitoring -->
-          <li class="menu-header small">
-            <span class="menu-header-text">Scraper &amp; Data Pipeline</span>
+          <!-- Administrator Menu (Hanya tampil untuk role Admin) -->
+          <li class="menu-header small admin-only-menu" style="display: none;">
+            <span class="menu-header-text">Administrasi Sistem</span>
           </li>
-          <li class="menu-item">
-            <a href="app-logistics-dashboard.html" class="menu-link">
-              <i class="menu-icon icon-base ti tabler-cpu"></i>
-              <div>Status Scrape Jobs (F-18)</div>
-            </a>
-          </li>
-          <li class="menu-item">
-            <a href="app-logistics-fleet.html" class="menu-link">
-              <i class="menu-icon icon-base ti tabler-activity"></i>
-              <div>Monitoring Node &amp; Alert (F-19)</div>
-            </a>
-          </li>
-
-          <!-- Pengguna & Akses -->
-          <li class="menu-header small">
-            <span class="menu-header-text">Pengguna &amp; Akses</span>
-          </li>
-          <li class="menu-item">
-            <a href="app-user-list.html" class="menu-link">
+          <li class="menu-item admin-only-menu" style="display: none;">
+            <a href="app-user-management.html" class="menu-link">
               <i class="menu-icon icon-base ti tabler-users"></i>
-              <div>Daftar Pengguna (F-17)</div>
+              <div>User Management</div>
             </a>
           </li>
-          <li class="menu-item">
-            <a href="app-access-roles.html" class="menu-link">
-              <i class="menu-icon icon-base ti tabler-shield-lock"></i>
-              <div>Roles &amp; Permissions</div>
-            </a>
-          </li>
-          <li class="menu-item">
-            <a href="app-access-permission.html" class="menu-link">
-              <i class="menu-icon icon-base ti tabler-lock-access"></i>
-              <div>Kelola Hak Akses</div>
-            </a>
-          </li>
-
-          <!-- Pengaturan Akun -->
-          <li class="menu-header small">
-            <span class="menu-header-text">Pengaturan Sistem</span>
-          </li>
-          <li class="menu-item">
-            <a href="pages-account-settings-account.html" class="menu-link">
-              <i class="menu-icon icon-base ti tabler-settings"></i>
-              <div>Pengaturan Akun</div>
-            </a>
-          </li>
-          <li class="menu-item">
-            <a href="pages-account-settings-billing.html" class="menu-link">
-              <i class="menu-icon icon-base ti tabler-receipt-2"></i>
-              <div>Langganan &amp; Billing</div>
+          <li class="menu-item admin-only-menu" style="display: none;">
+            <a href="app-api-settings.html" class="menu-link">
+              <i class="menu-icon icon-base ti tabler-key"></i>
+              <div>Setting</div>
             </a>
           </li>
         </ul>
@@ -141,99 +117,481 @@
       <!-- Layout container -->
       <div class="layout-page">
         <!-- Navbar -->
-        <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
-          <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-            <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+
+        <nav
+          class="layout-navbar container-xxl navbar-detached navbar navbar-expand-xl align-items-center bg-navbar-theme"
+          id="layout-navbar">
+
+
+
+
+          <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0   d-xl-none ">
+            <a class="nav-item nav-link px-0 me-xl-6" href="javascript:void(0)">
               <i class="icon-base ti tabler-menu-2 icon-md"></i>
             </a>
           </div>
 
-          <div class="navbar-nav-right d-flex align-items-center justify-content-between" id="navbar-collapse">
+
+          <div class="navbar-nav-right d-flex align-items-center justify-content-end" id="navbar-collapse">
+
+            <!-- Search -->
             <div class="navbar-nav align-items-center">
-              <div class="nav-item d-flex align-items-center">
-                <i class="icon-base ti tabler-search icon-md me-2 text-body-secondary"></i>
-                <input type="text" class="form-control border-0 shadow-none ps-1 ps-sm-2 d-md-inline d-none" placeholder="Cari SKU, produk, atau kompetitor..." style="width: 280px;" />
+              <div class="nav-item navbar-search-wrapper px-md-0 px-2 mb-0">
+                <a class="nav-item nav-link search-toggler d-flex align-items-center px-0" href="javascript:void(0);">
+                  <span class="d-inline-block text-body-secondary fw-normal" id="autocomplete"></span>
+                </a>
               </div>
             </div>
 
-            <ul class="navbar-nav flex-row align-items-center ms-auto">
-              <!-- Back to list -->
-              <li class="nav-item me-2">
-                <a href="app-ecommerce-product-list.html" class="btn btn-label-secondary btn-sm">
-                  <i class="icon-base ti tabler-arrow-left me-1"></i>Kembali ke Ranking
-                </a>
-              </li>
+            <!-- /Search -->
+
+
+
+
+
+            <ul class="navbar-nav flex-row align-items-center ms-md-auto">
+
+
+
+
+              <!-- <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
+          <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+            <i class="icon-base ti tabler-language icon-22px text-heading"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+              <a class="dropdown-item" href="javascript:void(0);" data-language="en" data-text-direction="ltr">
+                <span>English</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="javascript:void(0);" data-language="fr" data-text-direction="ltr">
+                <span>French</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="javascript:void(0);" data-language="ar" data-text-direction="rtl">
+                <span>Arabic</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="javascript:void(0);" data-language="de" data-text-direction="ltr">
+                <span>German</span>
+              </a>
+            </li>
+          </ul>
+        </li> -->
+              <!--/ Language -->
+
+
 
               <!-- Style Switcher -->
-              <li class="nav-item dropdown-style-switcher dropdown me-2">
-                <a class="nav-link dropdown-toggle hide-arrow btn btn-icon btn-text-secondary rounded-pill" href="javascript:void(0);" data-bs-toggle="dropdown">
-                  <i class="icon-base ti tabler-sun icon-22px theme-icon-active"></i>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle hide-arrow btn btn-icon btn-text-secondary rounded-pill"
+                  id="nav-theme" href="javascript:void(0);" data-bs-toggle="dropdown">
+                  <i class="icon-base ti tabler-sun icon-22px theme-icon-active text-heading"></i>
+                  <span class="d-none ms-2" id="nav-theme-text">Toggle theme</span>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-end dropdown-styles">
-                  <li><button type="button" class="dropdown-item align-items-center" data-bs-theme-value="light"><i class="icon-base ti tabler-sun icon-22px me-3"></i>Light</button></li>
-                  <li><button type="button" class="dropdown-item align-items-center" data-bs-theme-value="dark"><i class="icon-base ti tabler-moon-stars icon-22px me-3"></i>Dark</button></li>
-                  <li><button type="button" class="dropdown-item align-items-center" data-bs-theme-value="system"><i class="icon-base ti tabler-device-desktop-analytics icon-22px me-3"></i>System</button></li>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-theme-text">
+                  <li>
+                    <button type="button" class="dropdown-item align-items-center active" data-bs-theme-value="light"
+                      aria-pressed="false">
+                      <span><i class="icon-base ti tabler-sun icon-22px me-3" data-icon="sun"></i>Light</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="dropdown-item align-items-center" data-bs-theme-value="dark"
+                      aria-pressed="true">
+                      <span><i class="icon-base ti tabler-moon-stars icon-22px me-3"
+                          data-icon="moon-stars"></i>Dark</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="dropdown-item align-items-center" data-bs-theme-value="system"
+                      aria-pressed="false">
+                      <span><i class="icon-base ti tabler-device-desktop-analytics icon-22px me-3"
+                          data-icon="device-desktop-analytics"></i>System</span>
+                    </button>
+                  </li>
                 </ul>
               </li>
+              <!-- / Style Switcher-->
 
-              <!-- User -->
+
+              <!-- Quick links  -->
+              <!-- <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown">
+        <a class="nav-link dropdown-toggle hide-arrow btn btn-icon btn-text-secondary rounded-pill" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+          <i class="icon-base ti tabler-layout-grid-add icon-22px text-heading"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end p-0">
+          <div class="dropdown-menu-header border-bottom">
+            <div class="dropdown-header d-flex align-items-center py-3">
+              <h6 class="mb-0 me-auto">Menu Cepat</h6>
+              <a href="javascript:void(0)" class="dropdown-shortcuts-add py-2 btn btn-text-secondary rounded-pill btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Add shortcuts"><i class="icon-base ti tabler-plus icon-20px text-heading"></i></a>
+            </div>
+          </div>
+          <div class="dropdown-shortcuts-list scrollable-container">
+            <div class="row row-bordered overflow-visible g-0">
+              <div class="dropdown-shortcuts-item col">
+                <span class="dropdown-shortcuts-icon rounded-circle mb-3">
+                  <i class="icon-base ti tabler-calendar icon-26px text-heading"></i>
+                </span>
+                <a href="app-ecommerce-product-list.html" class="stretched-link">Riset Produk</a>
+                <small>Produk Terlaris</small>
+              </div>
+              <div class="dropdown-shortcuts-item col">
+                <span class="dropdown-shortcuts-icon rounded-circle mb-3">
+                  <i class="icon-base ti tabler-file-dollar icon-26px text-heading"></i>
+                </span>
+                <a href="app-ecommerce-product-list.html" class="stretched-link">Toko Kompetitor</a>
+                <small>Pantau Toko</small>
+              </div>
+            </div>
+            <div class="row row-bordered overflow-visible g-0">
+              <div class="dropdown-shortcuts-item col">
+                <span class="dropdown-shortcuts-icon rounded-circle mb-3">
+                  <i class="icon-base ti tabler-user icon-26px text-heading"></i>
+                </span>
+                <a href="app-user-list.html" class="stretched-link">Kelola User</a>
+                <small>Manajemen Pengguna</small>
+              </div>
+              <div class="dropdown-shortcuts-item col">
+                <span class="dropdown-shortcuts-icon rounded-circle mb-3">
+                  <i class="icon-base ti tabler-users icon-26px text-heading"></i>
+                </span>
+                <a href="app-access-roles.html" class="stretched-link">Roles & Akses</a>
+                <small>Permission</small>
+              </div>
+            </div>
+            <div class="row row-bordered overflow-visible g-0">
+              <div class="dropdown-shortcuts-item col">
+                <span class="dropdown-shortcuts-icon rounded-circle mb-3">
+                  <i class="icon-base ti tabler-device-desktop-analytics icon-26px text-heading"></i>
+                </span>
+                <a href="index.html" class="stretched-link">Dashboard</a>
+                <small>User Dashboard</small>
+              </div>
+              <div class="dropdown-shortcuts-item col">
+                <span class="dropdown-shortcuts-icon rounded-circle mb-3">
+                  <i class="icon-base ti tabler-settings icon-26px text-heading"></i>
+                </span>
+                <a href="pages-account-settings-account.html" class="stretched-link">Setting</a>
+                <small>Account Settings</small>
+              </div>
+            </div>
+            <div class="row row-bordered overflow-visible g-0">
+              <div class="dropdown-shortcuts-item col">
+                <span class="dropdown-shortcuts-icon rounded-circle mb-3">
+                  <i class="icon-base ti tabler-help-circle icon-26px text-heading"></i>
+                </span>
+                <a href="app-logistics-dashboard.html" class="stretched-link">Scraper Status</a>
+                <small>Monitoring Jobs</small>
+              </div>
+              <div class="dropdown-shortcuts-item col">
+                <span class="dropdown-shortcuts-icon rounded-circle mb-3">
+                  <i class="icon-base ti tabler-square icon-26px text-heading"></i>
+                </span>
+                <a href="app-ecommerce-product-list.html" class="stretched-link">Kategori</a>
+                <small>Filter Kategori</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li> -->
+              <!-- Quick links -->
+
+              <!-- Notification -->
+              <!-- <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-2">
+        <a class="nav-link dropdown-toggle hide-arrow btn btn-icon btn-text-secondary rounded-pill" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+          <span class="position-relative">
+            <i class="icon-base ti tabler-bell icon-22px text-heading"></i>
+            <span class="badge rounded-pill bg-danger badge-dot badge-notifications border"></span>
+          </span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end p-0">
+          <li class="dropdown-menu-header border-bottom">
+            <div class="dropdown-header d-flex align-items-center py-3">
+              <h6 class="mb-0 me-auto">Notification</h6>
+              <div class="d-flex align-items-center h6 mb-0">
+                <span class="badge bg-label-primary me-2">5 Baru</span>
+                <a href="javascript:void(0)" class="dropdown-notifications-all p-2 btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark all as read"><i class="icon-base ti tabler-mail-opened text-heading"></i></a>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown-notifications-list scrollable-container">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                <div class="d-flex">
+                  <div class="flex-shrink-0 me-3">
+                    <div class="avatar">
+                      <img src="../assets/img/avatars/1.png" alt class="rounded-circle" />
+                    </div>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h6 class="small mb-1">Scraping Selesai ✅</h6>
+                    <small class="mb-1 d-block text-body">Job Scrape Shopee Elektronik selesai: 2.140 produk</small>
+                    <small class="text-body-secondary">1h ago</small>
+                  </div>
+                  <div class="flex-shrink-0 dropdown-notifications-actions">
+                    <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
+                    <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="icon-base ti tabler-x"></span></a>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                <div class="d-flex">
+                  <div class="flex-shrink-0 me-3">
+                    <div class="avatar">
+                      <span class="avatar-initial rounded-circle bg-label-danger">CF</span>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1 small">Price Alert</h6>
+                    <small class="mb-1 d-block text-body">TWS Baseus turun harga 15% di Tokopedia</small>
+                    <small class="text-body-secondary">12hr ago</small>
+                  </div>
+                  <div class="flex-shrink-0 dropdown-notifications-actions">
+                    <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
+                    <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="icon-base ti tabler-x"></span></a>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                <div class="d-flex">
+                  <div class="flex-shrink-0 me-3">
+                    <div class="avatar">
+                      <img src="../assets/img/avatars/2.png" alt class="rounded-circle" />
+                    </div>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1 small">Produk Trending 🔥</h6>
+                    <small class="mb-1 d-block text-body">Sepatu AeroStreet naik 340% penjualan hari ini</small>
+                    <small class="text-body-secondary">1h ago</small>
+                  </div>
+                  <div class="flex-shrink-0 dropdown-notifications-actions">
+                    <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
+                    <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="icon-base ti tabler-x"></span></a>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                <div class="d-flex">
+                  <div class="flex-shrink-0 me-3">
+                    <div class="avatar">
+                      <span class="avatar-initial rounded-circle bg-label-success"><i class="icon-base ti tabler-shopping-cart"></i></span>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1 small">Toko Baru Terpantau 🏪</h6>
+                    <small class="mb-1 d-block text-body">Erigo Official Store baru listing 28 produk</small>
+                    <small class="text-body-secondary">1 day ago</small>
+                  </div>
+                  <div class="flex-shrink-0 dropdown-notifications-actions">
+                    <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
+                    <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="icon-base ti tabler-x"></span></a>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                <div class="d-flex">
+                  <div class="flex-shrink-0 me-3">
+                    <div class="avatar">
+                      <img src="../assets/img/avatars/9.png" alt class="rounded-circle" />
+                    </div>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1 small">Data Export Siap 📊</h6>
+                    <small class="mb-1 d-block text-body">Laporan kategori Fashion Okt 2026 sudah bisa diunduh</small>
+                    <small class="text-body-secondary">2 days ago</small>
+                  </div>
+                  <div class="flex-shrink-0 dropdown-notifications-actions">
+                    <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
+                    <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="icon-base ti tabler-x"></span></a>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                <div class="d-flex">
+                  <div class="flex-shrink-0 me-3">
+                    <div class="avatar">
+                      <span class="avatar-initial rounded-circle bg-label-success"><i class="icon-base ti tabler-chart-pie"></i></span>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1 small">Laporan Mingguan 📊</h6>
+                    <small class="mb-1 d-block text-body">Laporan perbandingan harga Shopee vs Tokopedia minggu ini </small>
+                    <small class="text-body-secondary">3 days ago</small>
+                  </div>
+                  <div class="flex-shrink-0 dropdown-notifications-actions">
+                    <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
+                    <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="icon-base ti tabler-x"></span></a>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                <div class="d-flex">
+                  <div class="flex-shrink-0 me-3">
+                    <div class="avatar">
+                      <img src="../assets/img/avatars/5.png" alt class="rounded-circle" />
+                    </div>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1 small">Scraper Warning ⚠️</h6>
+                    <small class="mb-1 d-block text-body">Node scraper-03 rate limited oleh Tokopedia</small>
+                    <small class="text-body-secondary">4 days ago</small>
+                  </div>
+                  <div class="flex-shrink-0 dropdown-notifications-actions">
+                    <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
+                    <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="icon-base ti tabler-x"></span></a>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                <div class="d-flex">
+                  <div class="flex-shrink-0 me-3">
+                    <div class="avatar">
+                      <img src="../assets/img/avatars/6.png" alt class="rounded-circle" />
+                    </div>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1 small">Kompetitor Update</h6>
+                    <small class="mb-1 d-block text-body">GM Bear Shop menaikkan harga 12 item</small>
+                    <small class="text-body-secondary">5 days ago</small>
+                  </div>
+                  <div class="flex-shrink-0 dropdown-notifications-actions">
+                    <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
+                    <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="icon-base ti tabler-x"></span></a>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                <div class="d-flex">
+                  <div class="flex-shrink-0 me-3">
+                    <div class="avatar">
+                      <span class="avatar-initial rounded-circle bg-label-warning"><i class="icon-base ti tabler-alert-triangle"></i></span>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1 small">Worker Overload ⚠️</h6>
+                    <small class="mb-1 d-block text-body">Worker playwright-02 CPU usage 88%, pertimbangkan scaling</small>
+                    <small class="text-body-secondary">5 days ago</small>
+                  </div>
+                  <div class="flex-shrink-0 dropdown-notifications-actions">
+                    <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
+                    <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="icon-base ti tabler-x"></span></a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <li class="border-top">
+            <div class="d-grid p-4">
+              <a class="btn btn-primary btn-sm d-flex" href="javascript:void(0);">
+                <small class="align-middle">View all notifications</small>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </li> -->
+              <!--/ Notification -->
+
+              <!-- User Profile & Avatar -->
               <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
                   <div class="avatar avatar-online">
-                    <img src="../assets/img/avatars/1.png" alt class="rounded-circle" />
+                    <span class="avatar-initial rounded-circle bg-label-primary fw-bold" id="userNavAvatarTop">U</span>
                   </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                   <li>
-                    <a class="dropdown-item mt-0" href="pages-account-settings-account.html">
+                    <a class="dropdown-item mt-0" href="javascript:void(0);">
                       <div class="d-flex align-items-center">
                         <div class="flex-shrink-0 me-2">
                           <div class="avatar avatar-online">
-                            <img src="../assets/img/avatars/1.png" alt class="rounded-circle" />
+                            <span class="avatar-initial rounded-circle bg-label-primary fw-bold" id="userNavAvatar">U</span>
                           </div>
                         </div>
                         <div class="flex-grow-1">
-                          <h6 class="mb-0">Admin Rankwise</h6>
-                          <small class="text-body-secondary">Admin</small>
+                          <h6 class="mb-0" id="userNavName">Pengguna</h6>
+                          <span class="badge bg-label-primary" id="userNavRoleBadge">User</span>
                         </div>
                       </div>
                     </a>
                   </li>
-                  <li><div class="dropdown-divider my-1 mx-n2"></div></li>
-                  <li><a class="dropdown-item" href="pages-account-settings-account.html"><i class="icon-base ti tabler-settings me-3 icon-md"></i>Settings</a></li>
-                  <li><a class="dropdown-item" href="auth-login-cover.html"><i class="icon-base ti tabler-logout me-3 icon-md text-danger"></i>Logout</a></li>
+                  <li>
+                    <div class="dropdown-divider my-1"></div>
+                  </li>
+                  <li>
+                    <div class="d-grid px-2 pt-2 pb-1">
+                      <button class="btn btn-sm btn-danger d-flex align-items-center justify-content-center" onclick="userLogout()">
+                        <small class="align-middle me-2">Logout</small>
+                        <i class="icon-base ti tabler-logout icon-14px"></i>
+                      </button>
+                    </div>
+                  </li>
                 </ul>
+                <script>
+                  function userLogout() {
+                    localStorage.removeItem('auth_token');
+                    localStorage.removeItem('auth_user');
+                    window.location.href = 'auth-login-cover.html';
+                  }
+                  document.addEventListener('DOMContentLoaded', function () {
+                    const u = JSON.parse(localStorage.getItem('auth_user') || '{}');
+                    const uname = u.username || u.name || 'Pengguna';
+                    const initial = uname.slice(0, 2).toUpperCase() || 'U';
+                    const isAdm = u.role === 'admin';
+
+                    const nameEl = document.getElementById('userNavName');
+                    const badgeEl = document.getElementById('userNavRoleBadge');
+                    const avTop = document.getElementById('userNavAvatarTop');
+                    const avEl = document.getElementById('userNavAvatar');
+
+                    if (nameEl) nameEl.textContent = uname;
+                    if (avTop) {
+                      avTop.textContent = initial;
+                      avTop.className = `avatar-initial rounded-circle ${isAdm ? 'bg-label-danger' : 'bg-label-primary'} fw-bold`;
+                    }
+                    if (avEl) {
+                      avEl.textContent = initial;
+                      avEl.className = `avatar-initial rounded-circle ${isAdm ? 'bg-label-danger' : 'bg-label-primary'} fw-bold`;
+                    }
+                    if (badgeEl) {
+                      badgeEl.textContent = isAdm ? 'ADMIN' : 'USER';
+                      badgeEl.className = `badge ${isAdm ? 'bg-label-danger' : 'bg-label-primary'}`;
+                    }
+
+                    if (isAdm) {
+                      document.querySelectorAll('.admin-only-menu').forEach(el => el.style.display = '');
+                    } else {
+                      document.querySelectorAll('.admin-only-menu').forEach(el => el.style.display = 'none');
+                    }
+                  });
+                </script>
               </li>
+              <!--/ User -->
+
             </ul>
           </div>
         </nav>
+
         <!-- / Navbar -->
 
         <!-- Content wrapper -->
         <div class="content-wrapper">
           <div class="container-xxl flex-grow-1 container-p-y">
-            
-            <!-- Breadcrumb & Action Header -->
+
+            <!-- Action Header -->
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-6 gap-4">
               <div>
-                <nav aria-label="breadcrumb">
-                  <ol class="breadcrumb mb-1">
-                    <li class="breadcrumb-item"><a href="index.html">Intelligence</a></li>
-                    <li class="breadcrumb-item"><a href="app-ecommerce-product-list.html">Ranking Produk</a></li>
-                    <li class="breadcrumb-item active" id="breadcrumbProductName">Detail Produk & Toko</li>
-                  </ol>
-                </nav>
                 <div class="d-flex align-items-center gap-2">
-                  <h4 class="mb-0 fw-bold" id="headerProductName">TWS Baseus Bowie M2+ ANC Earphone</h4>
-                  <span class="badge bg-label-success" id="badgePlatform"><i class="icon-base ti tabler-shopping-bag me-1"></i>Shopee Mall</span>
-                  <span class="badge bg-label-primary">ID Scrape #MP-82019</span>
+                  <h4 class="mb-0 fw-bold" id="headerProductName">Memuat Data Produk...</h4>
                 </div>
               </div>
-              <div class="d-flex gap-2">
-                <a href="https://shopee.co.id" target="_blank" class="btn btn-outline-primary" id="btnMarketplaceLink">
-                  <i class="icon-base ti tabler-external-link me-1"></i>Buka Halaman Produk Asli
-                </a>
-                <button type="button" class="btn btn-primary" onclick="alert('Laporan intelijen produk berhasil diekspor ke format CSV!')">
+              <div class="d-flex gap-2 flex-wrap">
+                <a href="#" target="_blank" class="btn btn-primary" id="btnMarketplaceLink" style="display: none;">Buka
+                  di Tokopedia</a>
+                <button type="button" class="btn btn-outline-primary" id="btnExportReport" onclick="exportProductReportCSV()">
                   <i class="icon-base ti tabler-download me-1"></i>Ekspor Laporan
                 </button>
               </div>
@@ -241,62 +599,78 @@
 
             <!-- Row 1: Product Snapshot Cards & Store Info -->
             <div class="row g-6 mb-6">
-              
+
               <!-- Left: Detail Produk & Foto -->
               <div class="col-xl-8 col-lg-7">
-                <div class="card h-100">
-                  <div class="card-body">
+                <div class="card h-100 shadow-sm">
+                  <div class="card-body p-4">
                     <div class="row g-4 align-items-center">
-                      <div class="col-md-4 text-center">
-                        <div class="border rounded p-3 bg-light">
-                          <img src="../assets/img/products/amazon-echo.png" alt="Product Image" id="detailProductImage" class="img-fluid rounded" style="max-height: 210px; object-fit: contain;" />
+                      <div class="col-md-5 text-center">
+                        <div
+                          class="border rounded-3 p-3 bg-white shadow-xs d-flex align-items-center justify-content-center"
+                          style="min-height: 280px;">
+                          <img src="" alt="Product Image" id="detailProductImage" class="img-fluid rounded"
+                            style="max-height: 250px; width: 100%; object-fit: contain;" referrerpolicy="no-referrer"
+                            onerror="this.onerror=null; this.src='';" />
                         </div>
-                        <div class="d-flex justify-content-center gap-2 mt-3">
-                          <span class="badge bg-label-info">Kategori: Elektronik</span>
-                          <span class="badge bg-label-success">In Stock</span>
+                        <div class="d-flex justify-content-center gap-2 mt-3 flex-wrap">
+                          <span class="badge bg-label-info" id="detailCategoryBadge" style="display: none;">-</span>
+                          <span class="badge bg-label-success" id="detailStockBadge" style="display: none;">-</span>
                         </div>
                       </div>
-                      
-                      <div class="col-md-8">
-                        <div class="d-flex justify-content-between align-items-start mb-2">
-                          <span class="text-muted small">SKU: <strong class="text-heading" id="detailSku">BS-M2P-BLK</strong></span>
-                          <span class="badge bg-label-warning"><i class="icon-base ti tabler-clock me-1"></i>Snapshot: 15 Menit Lalu</span>
+
+                      <div class="col-md-7">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                          <span class="badge bg-label-primary fs-6 px-3 py-2" id="badgePlatform"><i
+                              class="icon-base ti tabler-shopping-bag me-1"></i>Marketplace Live</span>
+                          <span class="text-muted small">SKU: <strong class="text-heading"
+                              id="detailSku">-</strong></span>
                         </div>
-                        
-                        <h4 class="fw-bold mb-2 text-primary" id="detailPrice">Rp 489.000</h4>
-                        <div class="d-flex align-items-center gap-2 mb-4">
-                          <span class="text-decoration-line-through text-muted" id="detailOriginalPrice">Rp 699.000</span>
-                          <span class="badge bg-label-danger">-30% Promo</span>
-                          <span class="badge bg-label-success">Diskon Aktif</span>
+
+                        <h3 class="fw-bold mb-2 text-primary" id="detailPrice">-</h3>
+                        <div class="d-flex align-items-center gap-2 mb-4" id="detailDiscountContainer"
+                          style="display: none;">
+                          <span class="text-decoration-line-through text-muted" id="detailOriginalPrice">-</span>
+                          <span class="badge bg-label-danger" id="detailDiscountBadge">-</span>
+                          <span class="badge bg-label-success" id="detailDiscountStatus"></span>
                         </div>
 
                         <!-- Highlights Performance Grid -->
-                        <div class="row g-3 p-3 bg-lighter rounded-3">
-                          <div class="col-sm-4 col-6">
-                            <small class="text-muted d-block">Est. Terjual/Hari</small>
-                            <h5 class="mb-0 fw-bold text-success" id="detailDailySales">+184 unit/hari</h5>
-                            <small class="text-success"><i class="icon-base ti tabler-trending-up me-1"></i>+14.2% MoM</small>
+                        <div class="row g-3 p-3 bg-lighter rounded-3 border" id="highlightGrid" style="display: none;">
+                          <div class="col-sm-4 col-6" id="detailDailySalesCol">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                              <span class="badge rounded bg-label-success p-1"><i
+                                  class="icon-base ti tabler-flame icon-16px"></i></span>
+                              <small class="text-muted">Est. Terjual/Hari</small>
+                            </div>
+                            <h5 class="mb-0 fw-bold text-success" id="detailDailySales">-</h5>
+                            <small class="text-success" id="detailSalesTrend"><i
+                                class="icon-base ti tabler-trending-up me-1"></i>Penjualan Aktif</small>
                           </div>
-                          <div class="col-sm-4 col-6 border-start ps-3">
-                            <small class="text-muted d-block">Total Terjual (All-time)</small>
-                            <h5 class="mb-0 fw-bold" id="detailTotalSold">24.810 unit</h5>
-                            <small class="text-muted">Akumulasi Snapshot</small>
+                          <div class="col-sm-4 col-6 border-start ps-3" id="detailTotalSoldCol">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                              <span class="badge rounded bg-label-warning p-1"><i
+                                  class="icon-base ti tabler-trophy icon-16px"></i></span>
+                              <small class="text-muted">Total Terjual</small>
+                            </div>
+                            <h5 class="mb-0 fw-bold" id="detailTotalSold">-</h5>
+                            <small class="text-muted">Akumulasi Bestseller</small>
                           </div>
-                          <div class="col-sm-4 col-12 border-start-sm ps-sm-3">
-                            <small class="text-muted d-block">Total Terjual 30 Hari</small>
-                            <h5 class="mb-0 fw-bold text-primary" id="detailEstRevenue">5.520 Unit</h5>
-                            <small class="text-muted">Rank #1 di Audio Portabel</small>
+                          <div class="col-sm-4 col-12 border-start-sm ps-sm-3" id="detailEstRevenueCol">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                              <span class="badge rounded bg-label-primary p-1"><i
+                                  class="icon-base ti tabler-calendar-event icon-16px"></i></span>
+                              <small class="text-muted">Terjual 30 Hari</small>
+                            </div>
+                            <h5 class="mb-0 fw-bold text-primary" id="detailEstRevenue">-</h5>
+                            <small class="text-muted" id="detailRankCategory">Bestseller Marketplace</small>
                           </div>
                         </div>
 
-                        <!-- Product Specs -->
-                        <div class="mt-4">
-                          <h6 class="mb-2 fw-semibold">Spesifikasi Singkat Pantauan:</h6>
-                          <div class="row small g-2 text-muted">
-                            <div class="col-6"><i class="icon-base ti tabler-check text-success me-1"></i>Driver: 10mm Hybrid ANC</div>
-                            <div class="col-6"><i class="icon-base ti tabler-check text-success me-1"></i>Baterai: 30 Jam dgn Charging Case</div>
-                            <div class="col-6"><i class="icon-base ti tabler-check text-success me-1"></i>Konektivitas: Bluetooth 5.2</div>
-                            <div class="col-6"><i class="icon-base ti tabler-check text-success me-1"></i>Garansi Resmi: 12 Bulan</div>
+                        <!-- Product Variants -->
+                        <div class="mt-4" id="variantSection" style="display: none;">
+                          <h6 class="mb-2 fw-semibold">Pilihan Variasi / Ukuran Produk:</h6>
+                          <div class="d-flex flex-wrap gap-2" id="detailVariants">
                           </div>
                         </div>
 
@@ -307,50 +681,57 @@
               </div>
 
               <!-- Right: Detail Profil Toko Kompetitor -->
-              <div class="col-xl-4 col-lg-5">
+              <div class="col-xl-4 col-lg-5" id="storeCard">
                 <div class="card h-100">
                   <div class="card-header border-bottom pb-3">
                     <div class="d-flex justify-content-between align-items-center">
-                      <h5 class="card-title mb-0"><i class="icon-base ti tabler-building-store me-2 text-primary"></i>Detail Toko Penjual</h5>
-                      <span class="badge bg-label-success">Star+ Seller</span>
+                      <h5 class="card-title mb-0"><i
+                          class="icon-base ti tabler-building-store me-2 text-primary"></i>Detail Toko Penjual</h5>
+                      <span class="badge bg-label-success" id="storeBadge" style="display: none;"></span>
                     </div>
                   </div>
                   <div class="card-body pt-4">
                     <div class="d-flex align-items-center mb-4">
                       <div class="avatar avatar-lg me-3">
-                        <span class="avatar-initial rounded-circle bg-label-primary fs-4 fw-bold" id="storeAvatar">BO</span>
+                        <span class="avatar-initial rounded-circle bg-label-primary fs-4 fw-bold"
+                          id="storeAvatar">-</span>
                       </div>
                       <div>
-                        <h5 class="mb-0 fw-bold" id="storeName">Baseus Official Store ID</h5>
-                        <small class="text-muted"><i class="icon-base ti tabler-map-pin me-1"></i>Kota Administrasi Jakarta Barat</small>
+                        <h5 class="mb-0 fw-bold" id="storeName">-</h5>
+                        <small class="text-muted" id="storeLocation"><i
+                            class="icon-base ti tabler-map-pin me-1"></i>-</small>
                       </div>
                     </div>
 
                     <ul class="list-group list-group-flush mb-4">
-                      <li class="list-group-item d-flex justify-content-between px-0 py-2">
+                      <li class="list-group-item d-flex justify-content-between px-0 py-2" id="storeMarketplaceItem">
                         <span class="text-muted">Marketplace</span>
-                        <span class="fw-semibold text-heading" id="storeMarketplace">Shopee Mall &amp; Tokopedia Official</span>
+                        <span class="fw-semibold text-heading" id="storeMarketplace">-</span>
                       </li>
-                      <li class="list-group-item d-flex justify-content-between px-0 py-2">
-                        <span class="text-muted">Total SKU Aktif</span>
-                        <span class="fw-semibold text-heading" id="storeTotalSku">324 Produk Terpantau</span>
+                      <li class="list-group-item d-flex justify-content-between px-0 py-2" id="storeFollowersItem"
+                        style="display: none;">
+                        <span class="text-muted">Jumlah Pengikut Toko</span>
+                        <span class="fw-semibold text-heading" id="storeFollowers">-</span>
                       </li>
-                      <li class="list-group-item d-flex justify-content-between px-0 py-2">
+                      <li class="list-group-item d-flex justify-content-between px-0 py-2" id="storeRatingItem"
+                        style="display: none;">
                         <span class="text-muted">Rating Toko</span>
-                        <span class="fw-semibold text-warning"><i class="icon-base ti tabler-star-filled me-1"></i>4.9 / 5.0 (210k Rating)</span>
+                        <span class="fw-semibold text-warning" id="storeRating">-</span>
                       </li>
-                      <li class="list-group-item d-flex justify-content-between px-0 py-2">
-                        <span class="text-muted">Kecepatan Balas Chat</span>
-                        <span class="fw-semibold text-success">98% (Hitungan Menit)</span>
+                      <li class="list-group-item d-flex justify-content-between px-0 py-2" id="storeChatItem"
+                        style="display: none;">
+                        <span class="text-muted">Persentase Chat Dibalas</span>
+                        <span class="fw-semibold text-success" id="storeChatResponse">-</span>
                       </li>
-                      <li class="list-group-item d-flex justify-content-between px-0 py-2">
+                      <li class="list-group-item d-flex justify-content-between px-0 py-2" id="storeJoinItem"
+                        style="display: none;">
                         <span class="text-muted">Bergabung Sejak</span>
-                        <span class="fw-semibold text-heading">5 Tahun Lalu (2021)</span>
+                        <span class="fw-semibold text-heading" id="storeJoinDate">-</span>
                       </li>
                     </ul>
 
                     <div class="d-grid gap-2">
-                      <a href="https://shopee.co.id" target="_blank" class="btn btn-label-primary btn-sm" id="btnVisitStore">
+                      <a href="#" target="_blank" class="btn btn-label-primary btn-sm" id="btnVisitStore">
                         <i class="icon-base ti tabler-external-link me-1"></i>Kunjungi Toko di Marketplace
                       </a>
                     </div>
@@ -360,19 +741,24 @@
 
             </div>
 
-            <!-- Row 2: Price History & Stock Movements (F-13 Trend Analysis) -->
+            <!-- Product Full Description Card -->
+            <div class="card mb-6" id="descCard">
+              <div class="card-header border-bottom">
+                <h5 class="card-title mb-0"><i class="icon-base ti tabler-file-text me-2 text-primary"></i>Deskripsi
+                  Produk</h5>
+              </div>
+              <div class="card-body pt-4">
+                <p class="mb-0 text-body lh-base" id="detailDescription" style="white-space: pre-line;">-</p>
+              </div>
+            </div>
+
+            <!-- Row 2: Price History & Stock Movements -->
             <div class="row g-6 mb-6">
-              <div class="col-xl-8 col-lg-7">
+              <div class="col-xl-8 col-lg-7" id="priceTrendCard">
                 <div class="card h-100">
                   <div class="card-header d-flex justify-content-between align-items-center">
                     <div>
                       <h5 class="card-title mb-1">Riwayat Pergerakan Harga &amp; Penjualan Harian</h5>
-                      <small class="text-muted">Data snapshot scraping selama 30 hari terakhir (Shopee vs Tokopedia)</small>
-                    </div>
-                    <div class="btn-group btn-group-sm" role="group">
-                      <button type="button" class="btn btn-outline-primary active">30 Hari</button>
-                      <button type="button" class="btn btn-outline-primary">60 Hari</button>
-                      <button type="button" class="btn btn-outline-primary">90 Hari</button>
                     </div>
                   </div>
                   <div class="card-body">
@@ -380,23 +766,23 @@
                     <div class="row g-4 mb-4 text-center">
                       <div class="col-3">
                         <small class="text-muted d-block">Harga Terendah</small>
-                        <h6 class="mb-0 fw-bold text-success">Rp 449.000</h6>
-                        <small class="text-muted">10.10 Flash Sale</small>
+                        <h6 class="mb-0 fw-bold text-success" id="priceStatLowest">-</h6>
+                        <small class="text-muted">Historis</small>
                       </div>
                       <div class="col-3 border-start">
                         <small class="text-muted d-block">Harga Rata-rata</small>
-                        <h6 class="mb-0 fw-bold">Rp 499.000</h6>
-                        <small class="text-muted">Normal Price</small>
+                        <h6 class="mb-0 fw-bold" id="priceStatAverage">-</h6>
+                        <small class="text-muted">Rata-rata</small>
                       </div>
                       <div class="col-3 border-start">
                         <small class="text-muted d-block">Harga Tertinggi</small>
-                        <h6 class="mb-0 fw-bold text-danger">Rp 549.000</h6>
-                        <small class="text-muted">Awal Bulan</small>
+                        <h6 class="mb-0 fw-bold text-danger" id="priceStatHighest">-</h6>
+                        <small class="text-muted">Puncak</small>
                       </div>
                       <div class="col-3 border-start">
                         <small class="text-muted d-block">Perubahan Terakhir</small>
-                        <h6 class="mb-0 fw-bold text-primary">Turun Rp 20.000</h6>
-                        <small class="text-muted">2 Hari Lalu</small>
+                        <h6 class="mb-0 fw-bold text-primary" id="priceStatChange">-</h6>
+                        <small class="text-muted">Live Update</small>
                       </div>
                     </div>
                     <!-- Chart container -->
@@ -405,76 +791,60 @@
                 </div>
               </div>
 
-              <!-- Rating & Sentimen Ulasan Summary (PRD F-02 & F-15) -->
-              <div class="col-xl-4 col-lg-5">
+              <!-- Rating & Sentimen Ulasan Summary -->
+              <div class="col-xl-4 col-lg-5" id="ratingCard">
                 <div class="card h-100">
                   <div class="card-header pb-2">
-                    <h5 class="card-title mb-1">Statistik Rating &amp; Sentimen AI</h5>
-                    <small class="text-muted">Analisis natural language processing ulasan pembeli</small>
+                    <h5 class="card-title mb-1">Statistik Rating</h5>
+                    <small class="text-muted">Analisis data ulasan pembeli</small>
                   </div>
                   <div class="card-body">
                     <div class="d-flex align-items-center mb-4 pt-2">
-                      <h1 class="display-4 fw-bold text-primary mb-0 me-3">4.9</h1>
+                      <h1 class="display-4 fw-bold text-primary mb-0 me-3" id="ratingStatScore">-</h1>
                       <div>
-                        <div class="text-warning mb-1">
-                          <i class="icon-base ti tabler-star-filled"></i>
-                          <i class="icon-base ti tabler-star-filled"></i>
-                          <i class="icon-base ti tabler-star-filled"></i>
-                          <i class="icon-base ti tabler-star-filled"></i>
-                          <i class="icon-base ti tabler-star-filled"></i>
+                        <div class="text-warning mb-1" id="ratingStatStars">
+                          <i class="icon-base ti tabler-star text-muted"></i>
                         </div>
-                        <small class="text-muted d-block">Berdasarkan <strong>4.218 ulasan</strong> terverifikasi</small>
+                        <small class="text-muted d-block" id="ratingStatReviews">-</small>
                       </div>
                     </div>
 
                     <!-- Rating Bars -->
-                    <div class="d-flex flex-column gap-2 mb-4">
+                    <div class="d-flex flex-column gap-2 mb-2">
                       <div class="d-flex align-items-center gap-2">
-                        <small style="width: 45px;">5 Bintang</small>
+                        <small class="text-nowrap" style="width: 70px;">5 Bintang</small>
                         <div class="progress flex-grow-1" style="height: 6px;">
-                          <div class="progress-bar bg-primary" style="width: 86%;"></div>
+                          <div class="progress-bar bg-primary" id="ratingBar5" style="width: 0%;"></div>
                         </div>
-                        <small class="text-end" style="width: 45px;">86%</small>
+                        <small class="text-end" id="ratingBar5Text" style="width: 45px;">0%</small>
                       </div>
                       <div class="d-flex align-items-center gap-2">
-                        <small style="width: 45px;">4 Bintang</small>
+                        <small class="text-nowrap" style="width: 70px;">4 Bintang</small>
                         <div class="progress flex-grow-1" style="height: 6px;">
-                          <div class="progress-bar bg-primary" style="width: 10%;"></div>
+                          <div class="progress-bar bg-primary" id="ratingBar4" style="width: 0%;"></div>
                         </div>
-                        <small class="text-end" style="width: 45px;">10%</small>
+                        <small class="text-end" id="ratingBar4Text" style="width: 45px;">0%</small>
                       </div>
                       <div class="d-flex align-items-center gap-2">
-                        <small style="width: 45px;">3 Bintang</small>
+                        <small class="text-nowrap" style="width: 70px;">3 Bintang</small>
                         <div class="progress flex-grow-1" style="height: 6px;">
-                          <div class="progress-bar bg-warning" style="width: 2.5%;"></div>
+                          <div class="progress-bar bg-warning" id="ratingBar3" style="width: 0%;"></div>
                         </div>
-                        <small class="text-end" style="width: 45px;">2.5%</small>
+                        <small class="text-end" id="ratingBar3Text" style="width: 45px;">0%</small>
                       </div>
                       <div class="d-flex align-items-center gap-2">
-                        <small style="width: 45px;">2 Bintang</small>
+                        <small class="text-nowrap" style="width: 70px;">2 Bintang</small>
                         <div class="progress flex-grow-1" style="height: 6px;">
-                          <div class="progress-bar bg-danger" style="width: 1%;"></div>
+                          <div class="progress-bar bg-danger" id="ratingBar2" style="width: 0%;"></div>
                         </div>
-                        <small class="text-end" style="width: 45px;">1%</small>
+                        <small class="text-end" id="ratingBar2Text" style="width: 45px;">0%</small>
                       </div>
                       <div class="d-flex align-items-center gap-2">
-                        <small style="width: 45px;">1 Bintang</small>
+                        <small class="text-nowrap" style="width: 70px;">1 Bintang</small>
                         <div class="progress flex-grow-1" style="height: 6px;">
-                          <div class="progress-bar bg-danger" style="width: 0.5%;"></div>
+                          <div class="progress-bar bg-danger" id="ratingBar1" style="width: 0%;"></div>
                         </div>
-                        <small class="text-end" style="width: 45px;">0.5%</small>
-                      </div>
-                    </div>
-
-                    <!-- AI Sentiment breakdown -->
-                    <div class="p-3 bg-lighter rounded-3">
-                      <h6 class="mb-2 fw-semibold"><i class="icon-base ti tabler-brain me-1 text-primary"></i>Kata Kunci Ulasan Paling Sering Muncul:</h6>
-                      <div class="d-flex flex-wrap gap-1">
-                        <span class="badge bg-label-success">Suara Bass Mantap (+840)</span>
-                        <span class="badge bg-label-success">Pengiriman Cepat (+612)</span>
-                        <span class="badge bg-label-success">Baterai Awet (+480)</span>
-                        <span class="badge bg-label-success">Original Baseus (+390)</span>
-                        <span class="badge bg-label-warning">Fitting Agak Longgar (32)</span>
+                        <small class="text-end" id="ratingBar1Text" style="width: 45px;">0%</small>
                       </div>
                     </div>
 
@@ -484,11 +854,12 @@
             </div>
 
             <!-- Row 3: Daftar Review & Komentar Pembeli Terbaru -->
-            <div class="card mb-6">
+            <div class="card mb-6" id="reviewsCard">
               <div class="card-header border-bottom d-flex justify-content-between align-items-center">
                 <div>
-                  <h5 class="card-title mb-0">Daftar Review &amp; Ulasan Pembeli Marketplace</h5>
-                  <small class="text-muted">Hasil scraping ulasan dengan klasifikasi sentimen otomatis</small>
+                  <h5 class="card-title mb-0"><i class="icon-base ti tabler-message-2 me-2 text-primary"></i>Ulasan
+                    Terbaru Pembeli</h5>
+                  <small class="text-muted">Menampilkan ulasan paling baru langsung dari pembeli</small>
                 </div>
                 <div class="d-flex gap-2">
                   <select class="form-select form-select-sm" style="width: 150px;">
@@ -505,113 +876,20 @@
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th>Pembeli / Akun</th>
+                      <th>Akun</th>
                       <th>Rating</th>
-                      <th style="min-width: 320px;">Isi Ulasan &amp; Variasi</th>
+                      <th style="min-width: 320px;">Ulasan</th>
                       <th>Marketplace</th>
                       <th>Sentimen AI</th>
                       <th>Waktu Crawl</th>
                     </tr>
                   </thead>
-                  <tbody class="table-border-bottom-0">
+                  <tbody class="table-border-bottom-0" id="detailReviewTableBody">
                     <tr>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <div class="avatar avatar-sm me-2">
-                            <span class="avatar-initial rounded-circle bg-label-secondary">RD</span>
-                          </div>
-                          <div>
-                            <h6 class="mb-0 small fw-bold">r*****9 (Rian D.)</h6>
-                            <small class="text-muted">Pembeli Terverifikasi</small>
-                          </div>
-                        </div>
+                      <td colspan="6" class="text-center py-4">
+                        <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                        <span class="ms-2">Memuat ulasan real-time marketplace...</span>
                       </td>
-                      <td>
-                        <span class="text-warning">⭐⭐⭐⭐⭐</span>
-                        <small class="d-block text-muted">5.0 / 5.0</small>
-                      </td>
-                      <td>
-                        <p class="mb-1 text-wrap small">Kualitas suaranya luar biasa di harga 400 ribuan! Fitur ANC nya benar-benar memotong noise sekitar saat naik MRT. Packing bubble tebal &amp; original garansi resmi.</p>
-                        <small class="text-muted"><i class="icon-base ti tabler-tag me-1"></i>Variasi: Matte Black</small>
-                      </td>
-                      <td><span class="badge bg-label-warning">Shopee</span></td>
-                      <td><span class="badge bg-label-success">Sangat Positif</span></td>
-                      <td><small class="text-muted">Hari ini, 13:20 WIB</small></td>
-                    </tr>
-
-                    <tr>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <div class="avatar avatar-sm me-2">
-                            <span class="avatar-initial rounded-circle bg-label-primary">AS</span>
-                          </div>
-                          <div>
-                            <h6 class="mb-0 small fw-bold">a*****a (Anindya S.)</h6>
-                            <small class="text-muted">Pembeli Terverifikasi</small>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <span class="text-warning">⭐⭐⭐⭐⭐</span>
-                        <small class="d-block text-muted">5.0 / 5.0</small>
-                      </td>
-                      <td>
-                        <p class="mb-1 text-wrap small">Sudah coba buat telponan mic nya jernih banget, ga kresek-kresek. Baterai tahan sampai 5 hari pemakaian normal. Recomended seller Baseus.</p>
-                        <small class="text-muted"><i class="icon-base ti tabler-tag me-1"></i>Variasi: Pearl White</small>
-                      </td>
-                      <td><span class="badge bg-label-success">Tokopedia</span></td>
-                      <td><span class="badge bg-label-success">Sangat Positif</span></td>
-                      <td><small class="text-muted">Kemarin, 19:45 WIB</small></td>
-                    </tr>
-
-                    <tr>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <div class="avatar avatar-sm me-2">
-                            <span class="avatar-initial rounded-circle bg-label-danger">BW</span>
-                          </div>
-                          <div>
-                            <h6 class="mb-0 small fw-bold">b*****8 (Budi W.)</h6>
-                            <small class="text-muted">Pembeli Terverifikasi</small>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <span class="text-warning">⭐⭐⭐⭐☆</span>
-                        <small class="d-block text-muted">4.0 / 5.0</small>
-                      </td>
-                      <td>
-                        <p class="mb-1 text-wrap small">Barang bagus berfungsi semua, cuma pengiriman dari ekspedisi agak terlambat 1 hari dari estimasi. Selebihnya oke.</p>
-                        <small class="text-muted"><i class="icon-base ti tabler-tag me-1"></i>Variasi: Matte Black</small>
-                      </td>
-                      <td><span class="badge bg-label-warning">Shopee</span></td>
-                      <td><span class="badge bg-label-info">Netral / Logistik</span></td>
-                      <td><small class="text-muted">2 hari lalu</small></td>
-                    </tr>
-
-                    <tr>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <div class="avatar avatar-sm me-2">
-                            <span class="avatar-initial rounded-circle bg-label-success">MK</span>
-                          </div>
-                          <div>
-                            <h6 class="mb-0 small fw-bold">m*****k (Mega K.)</h6>
-                            <small class="text-muted">Pembeli Terverifikasi</small>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <span class="text-warning">⭐⭐⭐⭐⭐</span>
-                        <small class="d-block text-muted">5.0 / 5.0</small>
-                      </td>
-                      <td>
-                        <p class="mb-1 text-wrap small">Aplikasi Baseus nya gampang di-pairing, bisa set equalizer sesuai selera musik. Worth every penny!</p>
-                        <small class="text-muted"><i class="icon-base ti tabler-tag me-1"></i>Variasi: Pearl White</small>
-                      </td>
-                      <td><span class="badge bg-label-success">Tokopedia</span></td>
-                      <td><span class="badge bg-label-success">Positif</span></td>
-                      <td><small class="text-muted">3 hari lalu</small></td>
                     </tr>
                   </tbody>
                 </table>
@@ -623,14 +901,11 @@
           <!-- Footer -->
           <footer class="content-footer footer bg-footer-theme">
             <div class="container-xxl">
-              <div class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
+              <div
+                class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
                 <div class="text-body">
-                  &#169; <script>document.write(new Date().getFullYear());</script>, Rankwise Marketplace Intelligence
-                </div>
-                <div>
-                  <a href="index.html" class="footer-link me-4">Dashboard</a>
-                  <a href="app-ecommerce-product-list.html" class="footer-link me-4">Ranking Produk</a>
-                  <a href="app-logistics-dashboard.html" class="footer-link me-4">Scraper Status</a>
+                  &#169;
+                  <script>document.write(new Date().getFullYear());</script> Rankwise Marketplace Intelligence
                 </div>
               </div>
             </div>
@@ -652,90 +927,613 @@
   <script src="../assets/vendor/js/menu.js"></script>
   <script src="../assets/js/main.js"></script>
 
-  <!-- Interactive script to load URL params or defaults -->
+  <!-- Interactive script to load live product from API or URL params -->
   <script>
+    let currentProductData = null;
+
+    function exportProductReportCSV() {
+      if (!currentProductData) {
+        alert("Data produk belum dimuat atau tidak tersedia.");
+        return;
+      }
+      const p = currentProductData;
+      const pName = p.product_name || p.name || "Produk";
+      const pPrice = p.price || 0;
+      const pOriginalPrice = p.original_price || pPrice;
+      const pDailySold = p.daily_sold || 0;
+      const pTotalSold = p.total_sold || 0;
+      const pRevenue = pDailySold * pPrice;
+      const pMarketplace = (p.shop && p.shop.marketplace) || (p.sku && p.sku.startsWith('SHP') ? 'Shopee' : 'Tokopedia');
+      const pShopName = (p.shop && p.shop.name) || p.shop_name || '-';
+      const pShopLoc = (p.shop && p.shop.location) || p.shop_location || '-';
+      const pRating = p.rating || 0;
+      const pReviews = p.review_count || 0;
+      const pCategory = p.category || '-';
+      const pStock = p.stock || 0;
+      const pStatus = p.stock_status || (pStock > 0 ? 'Tersedia' : 'Stok Habis');
+      const pUrl = p.url || '-';
+      const exportTime = new Date().toLocaleString('id-ID');
+
+      const csvRows = [
+        ["Parameter Intelijen", "Nilai / Data Marketplace"],
+        ["Nama Produk", `"${pName.replace(/"/g, '""')}"`],
+        ["Marketplace Platform", pMarketplace],
+        ["Kategori", `"${pCategory}"`],
+        ["Harga Jual (Rp)", pPrice],
+        ["Harga Asli (Rp)", pOriginalPrice],
+        ["Diskon", p.discount || "0%"],
+        ["Penjualan Harian (Unit)", pDailySold],
+        ["Total Produk Terjual", pTotalSold],
+        ["Estimasi Omset Harian (Rp)", pRevenue],
+        ["Rating Toko / Produk", pRating],
+        ["Jumlah Ulasan Pembeli", pReviews],
+        ["Nama Toko Penjual", `"${pShopName}"`],
+        ["Lokasi Toko", `"${pShopLoc}"`],
+        ["Status Stok", pStatus],
+        ["Sisa Stok Terpantau", pStock],
+        ["Tautan URL Asli", `"${pUrl}"`],
+        ["Waktu Ekspor Laporan", `"${exportTime}"`]
+      ];
+
+      const csvContent = "\uFEFF" + csvRows.map(e => e.join(",")).join("\n");
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      const safeTitle = pName.toLowerCase().replace(/[^a-z0-9]/g, "-").substring(0, 30);
+      link.setAttribute("href", url);
+      link.setAttribute("download", `laporan-intelijen-${safeTitle}-${Date.now()}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
       const urlParams = new URLSearchParams(window.location.search);
-      const nameParam = urlParams.get('name');
-      const brandParam = urlParams.get('brand');
-      const priceParam = urlParams.get('price');
-      const skuParam = urlParams.get('sku');
-      const imageParam = urlParams.get('image');
-      const qtyParam = urlParams.get('qty');
+      const prodId = urlParams.get('id') || '1';
 
-      if (nameParam) {
-        document.getElementById('headerProductName').textContent = nameParam;
-        document.getElementById('breadcrumbProductName').textContent = nameParam;
-      }
-      if (brandParam) {
-        document.getElementById('storeName').textContent = brandParam + ' Official Store';
-        document.getElementById('storeAvatar').textContent = (brandParam.match(/\b\w/g) || []).slice(0, 2).join('').toUpperCase();
-      }
-      if (priceParam) {
-        const numPrice = parseInt(priceParam, 10);
-        if (!isNaN(numPrice)) {
-          document.getElementById('detailPrice').textContent = 'Rp ' + numPrice.toLocaleString('id-ID');
-          document.getElementById('detailOriginalPrice').textContent = 'Rp ' + Math.round(numPrice * 1.35).toLocaleString('id-ID');
+      function applyDetails(p, s) {
+        if (!p) return;
+        currentProductData = p;
+
+        // Reset visibility of elements hidden by empty state
+        const imgEl = document.getElementById('detailProductImage');
+        if (imgEl) imgEl.style.display = 'block';
+
+        // 1. Title
+        if (p.product_name || p.name) {
+          const title = p.product_name || p.name;
+          document.getElementById('headerProductName').textContent = title;
+        }
+
+        // 2. Direct Marketplace Product URL
+        if (p.url) {
+          const linkBtn = document.getElementById('btnMarketplaceLink');
+          if (linkBtn) {
+            linkBtn.style.display = 'inline-flex';
+            linkBtn.href = p.url;
+            linkBtn.setAttribute('target', '_blank');
+            const isShp = (p.shop && p.shop.marketplace && p.shop.marketplace.toLowerCase().includes('shopee')) || (p.sku && p.sku.startsWith('SHP'));
+            if (isShp) {
+              linkBtn.className = 'btn btn-warning text-white';
+              linkBtn.textContent = 'Buka di Shopee';
+            } else {
+              linkBtn.className = 'btn btn-success text-white';
+              linkBtn.textContent = 'Buka di Tokopedia';
+            }
+          }
+        }
+
+        // 3. Platform Badge
+        if (p.shop && p.shop.marketplace) {
+          const badge = document.getElementById('badgePlatform');
+          const isShp = p.shop.marketplace.toLowerCase().includes('shopee') || (p.sku && p.sku.startsWith('SHP'));
+          if (badge) {
+            badge.className = isShp ? 'badge bg-label-warning' : 'badge bg-label-success';
+            badge.innerHTML = `<i class="icon-base ti ${isShp ? 'tabler-shopping-bag' : 'tabler-building-store'} me-1"></i>` + p.shop.marketplace;
+          }
+        }
+        if (p.id) {
+          const scrapeEl = document.getElementById('badgeScrapeId');
+          if (scrapeEl) scrapeEl.textContent = 'ID Scrape #MP-' + p.id;
+        }
+
+        // 4. SKU & Category
+        if (p.sku) document.getElementById('detailSku').textContent = p.sku;
+        if (p.category) {
+          const rankEl = document.getElementById('detailRankCategory');
+          if (rankEl) rankEl.textContent = 'Top Seller di ' + p.category;
+        }
+
+        // 5. Image
+        if (p.image) {
+          const imgEl = document.getElementById('detailProductImage');
+          if (imgEl) {
+            imgEl.onerror = function () {
+              this.onerror = null;
+              if (p.category === 'Fashion') {
+                this.src = '../assets/img/ecommerce-images/nike-air-jordan.png';
+              } else if (p.product_name && (p.product_name.toLowerCase().includes('watch') || p.product_name.toLowerCase().includes('jam'))) {
+                this.src = '../assets/img/ecommerce-images/apple-watch.png';
+              } else {
+                this.src = '../assets/img/ecommerce-images/headphones.png';
+              }
+            };
+            imgEl.src = p.image;
+          }
+        }
+
+        // 6. Price & Discount
+        if (p.price) {
+          const pr = Number(p.price);
+          document.getElementById('detailPrice').textContent = 'Rp ' + pr.toLocaleString('id-ID');
+        }
+        // Discount & Original Price
+        const discContainer = document.getElementById('detailDiscountContainer');
+        const discBadge = document.getElementById('detailDiscountBadge');
+        const origPriceEl = document.getElementById('detailOriginalPrice');
+        const discStatus = document.getElementById('detailDiscountStatus');
+
+        if (p.discount && p.original_price && p.original_price > p.price) {
+          if (discContainer) discContainer.style.display = 'flex';
+          if (discBadge) {
+            discBadge.style.display = 'inline-block';
+            discBadge.textContent = p.discount + ' Promo';
+          }
+          if (origPriceEl) {
+            origPriceEl.style.display = 'inline-block';
+            origPriceEl.textContent = 'Rp ' + Number(p.original_price).toLocaleString('id-ID');
+          }
+          if (discStatus) discStatus.style.display = 'inline-block';
+        } else if (p.original_price && p.original_price > p.price) {
+          if (discContainer) discContainer.style.display = 'flex';
+          if (discBadge) discBadge.style.display = 'none';
+          if (origPriceEl) {
+            origPriceEl.style.display = 'inline-block';
+            origPriceEl.textContent = 'Rp ' + Number(p.original_price).toLocaleString('id-ID');
+          }
+          if (discStatus) discStatus.style.display = 'none';
+        } else {
+          if (discContainer) discContainer.style.display = 'none';
+        }
+
+        // Dynamic Price Trends Statistics
+        if (p.price && Number(p.price) > 0) {
+          const pr = Number(p.price);
+          const orig = (p.original_price && Number(p.original_price) > pr) ? Number(p.original_price) : pr;
+          const lowPrice = pr;
+          const highPrice = orig;
+          const dropAmount = highPrice - lowPrice;
+          const lowEl = document.getElementById('priceStatLowest');
+          const avgEl = document.getElementById('priceStatAverage');
+          const highEl = document.getElementById('priceStatHighest');
+          const chgEl = document.getElementById('priceStatChange');
+
+          if (lowEl) lowEl.textContent = 'Rp ' + lowPrice.toLocaleString('id-ID');
+          if (avgEl) avgEl.textContent = 'Rp ' + pr.toLocaleString('id-ID');
+          if (highEl) highEl.textContent = 'Rp ' + highPrice.toLocaleString('id-ID');
+          if (chgEl) {
+            if (dropAmount > 0) {
+              chgEl.textContent = 'Diskon Rp ' + dropAmount.toLocaleString('id-ID');
+              chgEl.className = 'mb-0 fw-bold text-success';
+            } else {
+              chgEl.textContent = 'Harga Normal';
+              chgEl.className = 'mb-0 fw-bold text-primary';
+            }
+          }
+        }
+
+        // 7. Dynamic Stock & Category Badges
+        const stockEl = document.getElementById('detailStockBadge');
+        if (stockEl) {
+          const stk = Number(p.stock) || 0;
+          if (stk > 0) {
+            stockEl.className = 'badge bg-label-success';
+            stockEl.textContent = 'In Stock (' + stk.toLocaleString('id-ID') + ' unit)';
+          } else {
+            stockEl.className = 'badge bg-label-danger';
+            stockEl.textContent = 'Stok Habis / Out of Stock';
+          }
+        }
+        const catEl = document.getElementById('detailCategoryBadge');
+        if (catEl) {
+          if (p.category) {
+            catEl.style.display = 'inline-block';
+            catEl.textContent = 'Kategori: ' + p.category;
+          } else {
+            catEl.style.display = 'none';
+          }
+        }
+
+        // 8. Sales Highlights (Hide completely if data absent)
+        const dailyCol = document.getElementById('detailDailySalesCol');
+        const totalSoldCol = document.getElementById('detailTotalSoldCol');
+        const estRevCol = document.getElementById('detailEstRevenueCol');
+        const highlightGrid = document.getElementById('highlightGrid');
+
+        let hasSalesData = false;
+        if (p.qty !== undefined && Number(p.qty) > 0) {
+          if (dailyCol) dailyCol.style.display = 'block';
+          document.getElementById('detailDailySales').textContent = '+' + Number(p.qty).toLocaleString('id-ID') + ' unit/hari';
+          if (estRevCol) {
+            estRevCol.style.display = 'block';
+            document.getElementById('detailEstRevenue').textContent = (Number(p.qty) * 30).toLocaleString('id-ID') + ' Unit';
+          }
+          hasSalesData = true;
+        } else {
+          if (dailyCol) dailyCol.style.display = 'none';
+          if (estRevCol) estRevCol.style.display = 'none';
+        }
+
+        if (p.total_sold !== undefined && Number(p.total_sold) > 0) {
+          if (totalSoldCol) totalSoldCol.style.display = 'block';
+          document.getElementById('detailTotalSold').textContent = Number(p.total_sold).toLocaleString('id-ID') + ' unit';
+          hasSalesData = true;
+        } else {
+          if (totalSoldCol) totalSoldCol.style.display = 'none';
+        }
+
+        if (highlightGrid) {
+          highlightGrid.style.display = hasSalesData ? 'flex' : 'none';
+        }
+
+        // 9. Variants (Hide section if absent)
+        const variantSec = document.getElementById('variantSection');
+        const variantsContainer = document.getElementById('detailVariants');
+        if (p.variants && p.variants.length > 0) {
+          if (variantSec) variantSec.style.display = 'block';
+          variantsContainer.innerHTML = p.variants.map((v, i) => `
+            <span class="badge ${i === 0 ? 'bg-primary text-white' : 'bg-label-primary'} px-3 py-2 cursor-pointer" onclick="this.parentElement.querySelectorAll('span').forEach(s => s.className='badge bg-label-primary px-3 py-2 cursor-pointer'); this.className='badge bg-primary text-white px-3 py-2 cursor-pointer';">
+              ${v}
+            </span>
+          `).join('');
+        } else {
+          if (variantSec) variantSec.style.display = 'none';
+        }
+
+        // 10. Specifications (Hide section if absent)
+        const specsSec = document.getElementById('specsSection');
+        const specsContainer = document.getElementById('detailSpecsContainer');
+        if (p.specifications && Object.keys(p.specifications).length > 0) {
+          if (specsSec) specsSec.style.display = 'block';
+          let specHtml = '';
+          for (const [key, val] of Object.entries(p.specifications)) {
+            specHtml += `
+              <div class="col-12 col-md-6 mb-1">
+                <i class="icon-base ti tabler-check text-success me-1"></i>
+                <strong class="text-heading">${key}:</strong> ${val}
+              </div>
+            `;
+          }
+          specsContainer.innerHTML = specHtml;
+        } else {
+          if (specsSec) specsSec.style.display = 'none';
+        }
+
+        // 11. Description (Hide section if absent)
+        const descCard = document.getElementById('descCard');
+        const descEl = document.getElementById('detailDescription');
+        if (p.description && p.description.trim().length > 0) {
+          if (descCard) descCard.style.display = 'block';
+          if (descEl) descEl.textContent = p.description;
+        } else {
+          if (descCard) descCard.style.display = 'none';
+        }
+
+        // 12. Price Trend Card (Hide if no price)
+        const priceTrendCard = document.getElementById('priceTrendCard');
+        if (priceTrendCard) {
+          priceTrendCard.style.display = (p.price && Number(p.price) > 0) ? 'block' : 'none';
+        }
+
+        // 13. Rating & AI Sentiment Statistics
+        const ratingCard = document.getElementById('ratingCard');
+        const scoreEl = document.getElementById('ratingStatScore');
+        const revCountEl = document.getElementById('ratingStatReviews');
+        const starsEl = document.getElementById('ratingStatStars');
+        const rVal = Number(p.rating || 0);
+        if (rVal > 0) {
+          if (ratingCard) ratingCard.style.display = 'block';
+          if (scoreEl) scoreEl.textContent = rVal.toFixed(1);
+          if (starsEl) {
+            const fullStars = Math.floor(rVal);
+            starsEl.innerHTML = '<i class="icon-base ti tabler-star-filled text-warning"></i>'.repeat(fullStars) +
+              (rVal % 1 >= 0.5 ? '<i class="icon-base ti tabler-star-half-filled text-warning"></i>' : '') +
+              '<i class="icon-base ti tabler-star text-muted"></i>'.repeat(Math.max(0, 5 - Math.ceil(rVal)));
+          }
+          if (revCountEl) {
+            if (p.review_count && Number(p.review_count) > 0) {
+              revCountEl.style.display = 'block';
+              revCountEl.innerHTML = `Berdasarkan <strong>${Number(p.review_count).toLocaleString('id-ID')} ulasan</strong> marketplace`;
+            } else {
+              revCountEl.style.display = 'none';
+            }
+          }
+          const p5 = Math.min(100, Math.max(10, Math.round((rVal / 5) * 85)));
+          const p4 = Math.min(100 - p5, Math.max(5, Math.round((100 - p5) * 0.7)));
+          const p3 = Math.min(100 - p5 - p4, Math.max(2, Math.round((100 - p5 - p4) * 0.6)));
+          const p2 = Math.min(100 - p5 - p4 - p3, Math.max(1, Math.round((100 - p5 - p4 - p3) * 0.5)));
+          const p1 = Math.max(0, 100 - p5 - p4 - p3 - p2);
+
+          const setBar = (id, pct) => {
+            const bar = document.getElementById('ratingBar' + id);
+            const txt = document.getElementById('ratingBar' + id + 'Text');
+            if (bar) bar.style.width = pct + '%';
+            if (txt) txt.textContent = pct + '%';
+          };
+          setBar('5', p5); setBar('4', p4); setBar('3', p3); setBar('2', p2); setBar('1', p1);
+        } else {
+          if (ratingCard) ratingCard.style.display = 'none';
+        }
+
+        // 14. Shop Details (Hide absent items)
+        const shop = s || p.shop;
+        const storeCard = document.getElementById('storeCard');
+        if (shop && (shop.name || shop.marketplace)) {
+          if (storeCard) storeCard.style.display = 'block';
+          if (shop.name) {
+            document.getElementById('storeName').textContent = shop.name;
+            const avatarEl = document.getElementById('storeAvatar');
+            if (avatarEl) avatarEl.textContent = (shop.name.match(/\b\w/g) || []).slice(0, 2).join('').toUpperCase();
+          }
+
+          const badgeEl = document.getElementById('storeBadge');
+          if (badgeEl) {
+            if (shop.badge && shop.badge.trim().length > 0) {
+              badgeEl.style.display = 'inline-block';
+              badgeEl.textContent = shop.badge;
+            } else {
+              badgeEl.style.display = 'none';
+            }
+          }
+
+          const locEl = document.getElementById('storeLocation');
+          if (locEl) {
+            if (shop.location && shop.location.trim().length > 0) {
+              locEl.style.display = 'block';
+              locEl.innerHTML = '<i class="icon-base ti tabler-map-pin me-1"></i>' + shop.location;
+            } else {
+              locEl.style.display = 'none';
+            }
+          }
+
+          const mktItem = document.getElementById('storeMarketplaceItem');
+          if (mktItem) {
+            if (shop.marketplace) {
+              mktItem.style.display = 'flex';
+              document.getElementById('storeMarketplace').textContent = shop.marketplace;
+            } else {
+              mktItem.style.display = 'none';
+            }
+          }
+
+          const folItem = document.getElementById('storeFollowersItem');
+          if (folItem) {
+            if (shop.followers && shop.followers.trim().length > 0) {
+              folItem.style.display = 'flex';
+              document.getElementById('storeFollowers').textContent = shop.followers;
+            } else {
+              folItem.style.display = 'none';
+            }
+          }
+
+          const rateItem = document.getElementById('storeRatingItem');
+          if (rateItem) {
+            if (shop.rating && Number(shop.rating) > 0) {
+              rateItem.style.display = 'flex';
+              document.getElementById('storeRating').innerHTML = `<i class="icon-base ti tabler-star-filled me-1"></i>${shop.rating} / 5.0`;
+            } else {
+              rateItem.style.display = 'none';
+            }
+          }
+
+          const chatItem = document.getElementById('storeChatItem');
+          if (chatItem) {
+            if (shop.chat_response_rate && shop.chat_response_rate.trim().length > 0) {
+              chatItem.style.display = 'flex';
+              document.getElementById('storeChatResponse').textContent = shop.chat_response_rate;
+            } else {
+              chatItem.style.display = 'none';
+            }
+          }
+
+          const joinItem = document.getElementById('storeJoinItem');
+          if (joinItem) {
+            if (shop.join_date && shop.join_date.trim().length > 0) {
+              joinItem.style.display = 'flex';
+              document.getElementById('storeJoinDate').textContent = shop.join_date;
+            } else {
+              joinItem.style.display = 'none';
+            }
+          }
+
+          const visitBtn = document.getElementById('btnVisitStore');
+          if (visitBtn) {
+            if (shop.url) {
+              visitBtn.style.display = 'block';
+              visitBtn.href = shop.url;
+            } else {
+              visitBtn.style.display = 'none';
+            }
+          }
+        } else {
+          if (storeCard) storeCard.style.display = 'none';
+        }
+
+        // 15. 3 Ulasan Terbaru Terverifikasi
+        const reviewsCard = document.getElementById('reviewsCard');
+        const reviewTable = document.getElementById('detailReviewTableBody');
+        if (p.reviews && p.reviews.length > 0) {
+          if (reviewsCard) reviewsCard.style.display = 'block';
+          const latest3 = p.reviews.slice(0, 3);
+          let revHtml = '';
+          latest3.forEach(r => {
+            const stars = '⭐'.repeat(Math.round(r.rating || 5));
+            const initials = ((r.buyer_name || 'U').match(/\b\w/g) || ['U']).slice(0, 2).join('').toUpperCase();
+            revHtml += `
+              <tr>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="avatar avatar-sm me-2">
+                      <span class="avatar-initial rounded-circle bg-label-primary">${initials}</span>
+                    </div>
+                    <div>
+                      <h6 class="mb-0 small fw-bold">${r.buyer_name || 'Pembeli'}</h6>
+                      <small class="text-muted">Pembeli Terverifikasi</small>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span class="text-warning">${stars}</span>
+                  <small class="d-block text-muted">${(r.rating || 5).toFixed(1)} / 5.0</small>
+                </td>
+                <td>
+                  <p class="mb-1 text-wrap small">${r.comment || '-'}</p>
+                  <small class="text-muted"><i class="icon-base ti tabler-tag me-1"></i>Variasi: ${r.variant || 'Default'}</small>
+                </td>
+                <td><span class="badge ${r.marketplace === 'Shopee' || r.marketplace === 'Shopee Mall' ? 'bg-label-warning' : 'bg-label-success'}">${r.marketplace || 'Marketplace'}</span></td>
+                <td><span class="badge bg-label-success">Positif</span></td>
+                <td><small class="text-muted">${r.date || 'Live'}</small></td>
+              </tr>
+            `;
+          });
+          reviewTable.innerHTML = revHtml;
+        } else {
+          if (reviewsCard) reviewsCard.style.display = 'block';
+          if (reviewTable) {
+            reviewTable.innerHTML = `
+              <tr>
+                <td colspan="6" class="text-center py-4 text-muted">
+                  <i class="icon-base ti tabler-info-circle me-1"></i>Data ulasan teks individual tidak disediakan oleh API ringkas marketplace. Silakan klik tombol Buka di Marketplace untuk membaca seluruh ulasan pembeli langsung.
+                </td>
+              </tr>
+            `;
+          }
         }
       }
-      if (skuParam) {
-        document.getElementById('detailSku').textContent = skuParam;
-      }
-      if (imageParam) {
-        document.getElementById('detailProductImage').src = '../assets/img/ecommerce-images/' + imageParam;
-      }
-      if (qtyParam) {
-        document.getElementById('detailDailySales').textContent = '+' + parseInt(qtyParam).toLocaleString('id-ID') + ' unit/hari';
+
+      let activeChart = null;
+
+      function showEmptyState() {
+        document.getElementById('headerProductName').textContent = 'Belum Ada Data Produk Terpilih';
+        const imgEl = document.getElementById('detailProductImage');
+        if (imgEl) imgEl.style.display = 'none';
+        const priceEl = document.getElementById('detailPrice');
+        if (priceEl) priceEl.textContent = 'Silakan lakukan live scraping di menu Scraping Produk atau jadwalkan di Schedule';
+        const descCard = document.getElementById('descCard');
+        if (descCard) descCard.style.display = 'none';
+        const priceTrendCard = document.getElementById('priceTrendCard');
+        if (priceTrendCard) priceTrendCard.style.display = 'none';
+        const ratingCard = document.getElementById('ratingCard');
+        if (ratingCard) ratingCard.style.display = 'none';
+        const reviewsCard = document.getElementById('reviewsCard');
+        if (reviewsCard) reviewsCard.style.display = 'none';
+        const storeCard = document.getElementById('storeCard');
+        if (storeCard) storeCard.style.display = 'none';
       }
 
-      // Render Price Trend ApexChart
-      const chartEl = document.querySelector('#productPriceTrendChart');
-      if (chartEl && typeof ApexCharts !== 'undefined') {
-        const options = {
-          series: [
-            {
-              name: 'Harga Rata-rata (Rp)',
-              type: 'line',
-              data: [549000, 549000, 529000, 529000, 499000, 489000, 449000, 489000, 489000]
-            },
-            {
-              name: 'Est. Unit Terjual/Hari',
-              type: 'column',
-              data: [120, 135, 142, 160, 175, 184, 310, 195, 184]
-            }
-          ],
-          chart: {
-            height: 280,
-            type: 'line',
-            toolbar: { show: false }
-          },
-          stroke: {
-            width: [3, 0],
-            curve: 'smooth'
-          },
-          colors: ['#7367F0', '#28C76F'],
-          dataLabels: { enabled: false },
-          labels: ['01 Okt', '04 Okt', '08 Okt', '10 Okt', '12 Okt', '15 Okt', '18 Okt', '20 Okt', '21 Okt'],
-          yaxis: [
-            {
-              title: { text: 'Harga (Rp)' },
-              labels: {
-                formatter: function (val) {
-                  return 'Rp ' + (val / 1000) + 'k';
-                }
+      function loadProductDetail() {
+        const u = JSON.parse(localStorage.getItem('auth_user') || '{}');
+        const token = localStorage.getItem('auth_token') || '';
+        const userQuery = u.id ? `?user_id=${u.id}&role=${u.role || 'user'}` : '';
+
+        const currentUrlParams = new URLSearchParams(window.location.search);
+        const reqId = currentUrlParams.get('id') || prodId || '';
+
+        const apiUrl = 'http://localhost:8080/api/products/' + (reqId ? reqId : '1') + userQuery;
+
+        fetch(apiUrl, {
+          headers: {
+            'Authorization': 'Bearer ' + token
+          }
+        })
+          .then(res => {
+            if (!res.ok) throw new Error("Produk tidak ditemukan");
+            return res.json();
+          })
+          .then(data => {
+            if (data && data.product) {
+              applyDetails(data.product, data.shop);
+              if (!activeChart) {
+                renderChart(data.product.price, data.product.qty);
               }
-            },
-            {
-              opposite: true,
-              title: { text: 'Unit/Hari' }
+              if (!currentUrlParams.get('id') && data.product.id) {
+                try {
+                  const newUrl = window.location.pathname + '?id=' + data.product.id;
+                  window.history.replaceState({ path: newUrl }, '', newUrl);
+                } catch (e) {}
+              }
+            } else {
+              showEmptyState();
             }
-          ],
-          legend: { position: 'top' }
-        };
-        const chart = new ApexCharts(chartEl, options);
-        chart.render();
+          })
+          .catch(err => {
+            showEmptyState();
+          });
+      }
+
+      loadProductDetail();
+      setInterval(loadProductDetail, 5000);
+
+      function renderChart(basePrice, dailyVelocity) {
+        const chartEl = document.querySelector('#productPriceTrendChart');
+        if (chartEl && typeof ApexCharts !== 'undefined') {
+          chartEl.innerHTML = '';
+          const p = Number(basePrice) || 0;
+          const v = Number(dailyVelocity) || 0;
+          if (p <= 0) return;
+
+          const dateLabels = [];
+          const now = new Date();
+          for (let i = 6; i >= 0; i--) {
+            const d = new Date(now);
+            d.setDate(d.getDate() - i);
+            dateLabels.push(d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }));
+          }
+
+          const priceData = [p, p, p, p, p, p, p];
+          const soldData = [Math.round(v * 0.9), Math.round(v * 0.95), Math.round(v * 0.9), v, Math.round(v * 1.05), Math.round(v * 0.98), v];
+
+          const options = {
+            series: [
+              {
+                name: 'Harga (Rp)',
+                type: 'line',
+                data: priceData
+              },
+              {
+                name: 'Est. Unit Terjual/Hari',
+                type: 'column',
+                data: soldData
+              }
+            ],
+            chart: { height: 280, type: 'line', toolbar: { show: false } },
+            stroke: { width: [3, 0], curve: 'smooth' },
+            colors: ['#7367F0', '#28C76F'],
+            dataLabels: { enabled: false },
+            labels: dateLabels,
+            yaxis: [
+              {
+                title: { text: 'Harga (Rp)' },
+                labels: {
+                  formatter: function (val) {
+                    return 'Rp ' + (val / 1000).toFixed(0) + 'k';
+                  }
+                }
+              },
+              {
+                opposite: true,
+                title: { text: 'Unit/Hari' }
+              }
+            ],
+            legend: { position: 'top' }
+          };
+          activeChart = new ApexCharts(chartEl, options);
+          activeChart.render();
+        }
       }
     });
   </script>
 </body>
+
 </html>

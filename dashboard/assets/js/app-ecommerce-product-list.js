@@ -1,56 +1,399 @@
-document.addEventListener("DOMContentLoaded",function(e){config.colors.borderColor,config.colors.bodyBg,config.colors.headingColor;let t=document.querySelector(".datatables-products"),o={1:{title:"Data Lama",class:"bg-label-warning"},2:{title:"Aktif",class:"bg-label-success"},3:{title:"Stok Habis",class:"bg-label-danger"}},s={0:{title:"Elektronik"},1:{title:"Fashion"},2:{title:"Rumah Tangga"}},r={0:{title:"Out_of_Stock"},1:{title:"In_Stock"}};t&&new DataTable(t,{ajax:{url:"http://localhost:8080/api/products",dataSrc:function(json){return json.data||[];},error:function(){return assetsPath+"json/ecommerce-product-list.json";}},columns:[{data:"id"},{data:"id",orderable:!1,render:DataTable.render.select()},{data:"product_name"},{data:"category"},{data:"stock"},{data:"sku"},{data:"price"},{data:"quantity"},{data:"status"},{data:"id"}],columnDefs:[{className:"control",searchable:!1,orderable:!1,responsivePriority:2,targets:0,render:function(e,t,n,a){return""}},{targets:1,orderable:!1,searchable:!1,responsivePriority:3,checkboxes:!0,checkboxes:{selectAllRender:'<input type="checkbox" class="form-check-input">'},render:function(){return'<input type="checkbox" class="dt-checkboxes form-check-input">'}},{targets:2,responsivePriority:1,render:function(e,t,n,a){var o=n.product_name,s=n.product_brand,r=n.image;let c;return`
-              <div class="d-flex justify-content-start align-items-center product-name">
-                <div class="avatar-wrapper">
-                  <div class="avatar avatar me-2 me-sm-4 rounded-2 bg-label-secondary">${c=r?`<img src="${assetsPath}img/ecommerce-images/${r}" alt="Product-${n.id}" class="rounded">`:`<span class="avatar-initial rounded-2 bg-label-${["success","danger","warning","info","dark","primary","secondary"][Math.floor(6*Math.random())]}">${(s.match(/\b\w/g)||[]).slice(0,2).join("").toUpperCase()}</span>`}</div>
-                </div>
-                <div class="d-flex flex-column">
-                  <h6 class="text-nowrap mb-0"><a href="app-ecommerce-product-detail.html?id=${n.id}&name=${encodeURIComponent(o)}&brand=${encodeURIComponent(s)}&price=${n.price}&sku=${n.sku}&qty=${n.qty}&image=${r||''}" class="text-heading text-primary-hover fw-medium text-truncate">${o}</a></h6>
-                  <small class="text-truncate d-none d-sm-block">${s}</small>
+/**
+ * Marketplace Intelligence - Product List with Multi-dimensional Filters
+ * Category, Price Range, Location, Search, and Live Sync
+ */
+
+document.addEventListener("DOMContentLoaded", function () {
+  const tableEl = document.querySelector(".datatables-products");
+  if (!tableEl) return;
+
+  const statusMap = {
+    1: { title: "Data Lama", class: "bg-label-warning" },
+    2: { title: "Aktif", class: "bg-label-success" },
+    3: { title: "Stok Habis", class: "bg-label-danger" }
+  };
+
+  const categoryIcons = {
+    "Elektronik": '<span class="w-px-30 h-px-30 rounded-circle d-flex justify-content-center align-items-center bg-label-danger me-2"><i class="icon-base ti tabler-device-mobile icon-18px"></i></span>',
+    "Fashion": '<span class="w-px-30 h-px-30 rounded-circle d-flex justify-content-center align-items-center bg-label-warning me-2"><i class="icon-base ti tabler-shirt icon-18px"></i></span>',
+    "Rumah Tangga": '<span class="w-px-30 h-px-30 rounded-circle d-flex justify-content-center align-items-center bg-label-success me-2"><i class="icon-base ti tabler-home-2 icon-18px"></i></span>',
+    "Perlengkapan Rumah": '<span class="w-px-30 h-px-30 rounded-circle d-flex justify-content-center align-items-center bg-label-success me-2"><i class="icon-base ti tabler-home-2 icon-18px"></i></span>'
+  };
+
+  // Initialize DataTable
+  const dtInstance = new DataTable(tableEl, {
+    ajax: {
+      url: "http://localhost:8080/api/products",
+      headers: {
+        "Authorization": "Bearer " + (localStorage.getItem("auth_token") || "")
+      },
+      data: function (d) {
+        const cat = document.getElementById("filterCategory")?.value || "";
+        const loc = document.getElementById("filterLocation")?.value || "";
+        const stk = document.getElementById("filterStock")?.value || "";
+        const priceRange = document.getElementById("filterPrice")?.value || "";
+
+        const u = JSON.parse(localStorage.getItem("auth_user") || "{}");
+        if (u.id) d.user_id = u.id;
+        if (u.role) d.role = u.role;
+
+        if (cat) d.category = cat;
+        if (loc) d.location = loc;
+        if (stk) d.stock_status = stk;
+        if (priceRange) {
+          const parts = priceRange.split("-");
+          if (parts[0]) d.min_price = parts[0];
+          if (parts[1]) d.max_price = parts[1];
+        }
+      },
+      dataSrc: function (json) {
+        return json.data || [];
+      }
+    },
+    columns: [
+      { data: "id" },
+      { data: "id" },
+      { data: "product_name" },
+      { data: "category" },
+      { data: "stock" },
+      { data: "price" },
+      { data: "qty" },
+      { data: "status" },
+      { data: "id" }
+    ],
+    columnDefs: [
+      {
+        className: "control",
+        searchable: false,
+        orderable: false,
+        responsivePriority: 2,
+        targets: 0,
+        render: function () { return ""; }
+      },
+      {
+        targets: 1,
+        orderable: false,
+        searchable: false,
+        responsivePriority: 3,
+        render: function () {
+          return '<input type="checkbox" class="dt-checkboxes form-check-input">';
+        }
+      },
+      {
+        // Product Name & Shop Info (Marketplace badge removed per requirement)
+        targets: 2,
+        responsivePriority: 1,
+        render: function (data, type, row) {
+          const name = row.product_name || "Produk Marketplace";
+          const brand = row.product_brand || (row.shop ? row.shop.name : "Toko Official");
+          const img = row.image || "../assets/img/ecommerce-images/amazon-echo.png";
+          const location = (row.shop && row.shop.location) ? row.shop.location : "Indonesia";
+
+          return `
+            <div class="d-flex justify-content-start align-items-center product-name py-1">
+              <div class="avatar-wrapper me-3">
+                <div class="avatar rounded-2 bg-label-secondary">
+                  <img src="${img}" alt="${name}" class="rounded" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='../assets/img/ecommerce-images/amazon-echo.png'">
                 </div>
               </div>
-            `}},{targets:3,responsivePriority:5,render:function(e,t,n,a){let catVal=typeof n.category==="number"?(s[n.category]?s[n.category].title:"Elektronik"):n.category;return"display"===t?`
-                <span class="text-truncate d-flex align-items-center text-heading">
-                  ${{Elektronik:`
-                  <span class="w-px-30 h-px-30 rounded-circle d-flex justify-content-center align-items-center bg-label-danger me-4">
-                    <i class="icon-base ti tabler-device-mobile icon-18px"></i>
-                  </span>
-                  `,Fashion:`
-                  <span class="w-px-30 h-px-30 rounded-circle d-flex justify-content-center align-items-center bg-label-warning me-4">
-                    <i class="icon-base ti tabler-shirt icon-18px"></i>
-                </span>
-                  `,"Rumah Tangga":`
-                <span class="w-px-30 h-px-30 rounded-circle d-flex justify-content-center align-items-center bg-label-success me-4">
-                  <i class="icon-base ti tabler-home-2 icon-18px"></i>
-                </span>
-                `,}[catVal]||""}${catVal}
-                </span>`:n}},{targets:4,orderable:!1,responsivePriority:3,render:function(e,t,n,a){let stockTitle=r[n.stock]?r[n.stock].title:"In_Stock";return"display"===t?`
-                <span class="text-truncate">
-                  ${{Out_of_Stock:`
-                  <label class="switch switch-primary switch-sm">
-                  <input type="checkbox" class="switch-input" id="switch">
-                    <span class="switch-toggle-slider">
-                      <span class="switch-off"></span>
-                    </span>
-                  </label>`,In_Stock:`
-                  <label class="switch switch-primary switch-sm">
-                    <input type="checkbox" class="switch-input" checked>
-                    <span class="switch-toggle-slider">
-                      <span class="switch-on"></span>
-                    </span>
-                  </label>`}[stockTitle]}
-                  <span class="d-none">In_Stock</span>
-                </span>`:n}},{targets:5,render:function(e,t,n,a){return"<span>"+n.sku+"</span>"}},{targets:6,render:function(e,t,n,a){return"<span>Rp "+n.price.toLocaleString("id-ID")+"</span>"}},{targets:7,responsivePriority:4,render:function(e,t,n,a){return"<span>"+n.qty.toLocaleString("id-ID")+"/hari</span>"}},{targets:-2,render:function(e,t,n,a){let st=o[n.status]||{class:"bg-label-success",title:"Aktif"};return'<span class="badge '+st.class+'" text-capitalized>'+st.title+"</span>"}},{targets:-1,title:"Actions",searchable:!1,orderable:!1,render:function(e,t,n,a){return`
-              <div class="d-inline-block text-nowrap">
-                <button class="btn btn-text-secondary rounded-pill waves-effect btn-icon"><i class="icon-base ti tabler-edit icon-22px"></i></button>
-                <button class="btn btn-text-secondary rounded-pill waves-effect btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                  <i class="icon-base ti tabler-dots-vertical icon-22px"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-end m-0">
-                  <a href="app-ecommerce-product-detail.html?id=${n.id}&name=${encodeURIComponent(o)}&brand=${encodeURIComponent(s)}&price=${n.price}&sku=${n.sku}&qty=${n.qty}&image=${r||''}" class="dropdown-item">Detail Lengkap Produk</a>
-                  <a href="javascript:void(0);" class="dropdown-item">Hapus Pantauan</a>
-                </div>
+              <div class="d-flex flex-column" style="max-width: 340px;">
+                <h6 class="text-truncate mb-1">
+                  <a href="app-ecommerce-product-detail.html?id=${row.id}" class="text-heading text-primary-hover fw-medium" title="${name}">
+                    ${name}
+                  </a>
+                </h6>
+                <small class="text-muted text-truncate">${brand} &bull; <i class="icon-base ti tabler-map-pin"></i> ${location}</small>
               </div>
-            `}}],select:{style:"multi",selector:"td:nth-child(2)"},order:[2,"asc"],displayLength:7,layout:{topStart:{rowClass:"card-header d-flex border-top rounded-0 flex-wrap py-0 flex-column flex-md-row align-items-start",features:[{search:{className:"me-5 ms-n4 pe-5 mb-n6 mb-md-0",placeholder:"Cari Produk",text:"_INPUT_"}}]},topEnd:{rowClass:"row m-3 my-0 justify-content-between",features:[{pageLength:{menu:[7,10,25,50,100],text:"_MENU_"},buttons:[{extend:"collection",className:"btn btn-label-secondary dropdown-toggle me-4",text:'<span class="d-flex align-items-center gap-1"><i class="icon-base ti tabler-upload icon-xs"></i> <span class="d-none d-sm-inline-block">Export</span></span>',buttons:[{extend:"print",text:'<span class="d-flex align-items-center"><i class="icon-base ti tabler-printer me-1"></i>Print</span>',exportOptions:{columns:[2,3,4,5,6,7,8],format:{body:function(e,t,n){if(e.length<=0||!(-1<e.indexOf("<")))return e;{e=(new DOMParser).parseFromString(e,"text/html");let t="";var a=e.querySelectorAll(".product-name");return 0<a.length?a.forEach(e=>{e=e.querySelector(".fw-medium")?.textContent||e.querySelector(".d-block")?.textContent||e.textContent;t+=e.trim()+" "}):t=e.body.textContent||e.body.innerText,t.trim()}}}},customize:function(e){e.document.body.style.color=config.colors.headingColor,e.document.body.style.borderColor=config.colors.borderColor,e.document.body.style.backgroundColor=config.colors.bodyBg;e=e.document.body.querySelector("table");e.classList.add("compact"),e.style.color="inherit",e.style.borderColor="inherit",e.style.backgroundColor="inherit"}},{extend:"csv",text:'<span class="d-flex align-items-center"><i class="icon-base ti tabler-file me-1"></i>Csv</span>',exportOptions:{columns:[2,3,4,5,6,7,8],format:{body:function(e,t,n){if(e.length<=0)return e;e=(new DOMParser).parseFromString(e,"text/html");let a="";var o=e.querySelectorAll(".product-name");return 0<o.length?o.forEach(e=>{e=e.querySelector(".fw-medium")?.textContent||e.querySelector(".d-block")?.textContent||e.textContent;a+=e.trim()+" "}):a=e.body.textContent||e.body.innerText,a.trim()}}}},{extend:"excel",text:'<span class="d-flex align-items-center"><i class="icon-base ti tabler-upload me-1"></i>Excel</span>',exportOptions:{columns:[2,3,4,5,6,7,8],format:{body:function(e,t,n){if(e.length<=0)return e;e=(new DOMParser).parseFromString(e,"text/html");let a="";var o=e.querySelectorAll(".product-name");return 0<o.length?o.forEach(e=>{e=e.querySelector(".fw-medium")?.textContent||e.querySelector(".d-block")?.textContent||e.textContent;a+=e.trim()+" "}):a=e.body.textContent||e.body.innerText,a.trim()}}}},{extend:"pdf",text:'<span class="d-flex align-items-center"><i class="icon-base ti tabler-file-text me-1"></i>Pdf</span>',exportOptions:{columns:[2,3,4,5,6,7,8],format:{body:function(e,t,n){if(e.length<=0)return e;e=(new DOMParser).parseFromString(e,"text/html");let a="";var o=e.querySelectorAll(".product-name");return 0<o.length?o.forEach(e=>{e=e.querySelector(".fw-medium")?.textContent||e.querySelector(".d-block")?.textContent||e.textContent;a+=e.trim()+" "}):a=e.body.textContent||e.body.innerText,a.trim()}}}},{extend:"copy",text:'<i class="icon-base ti tabler-copy me-1"></i>Copy',exportOptions:{columns:[2,3,4,5,6,7,8],format:{body:function(e,t,n){if(e.length<=0)return e;e=(new DOMParser).parseFromString(e,"text/html");let a="";var o=e.querySelectorAll(".product-name");return 0<o.length?o.forEach(e=>{e=e.querySelector(".fw-medium")?.textContent||e.querySelector(".d-block")?.textContent||e.textContent;a+=e.trim()+" "}):a=e.body.textContent||e.body.innerText,a.trim()}}}}]},{text:'<i class="icon-base ti tabler-plus me-0 me-sm-1 icon-16px"></i><span class="d-none d-sm-inline-block">Tambah Pantauan</span>',className:"add-new btn btn-primary",action:function(){window.location.href="app-ecommerce-product-list.html"}}]}]},bottomStart:{rowClass:"row mx-3 justify-content-between",features:["info"]},bottomEnd:"paging"},language:{paginate:{next:'<i class="icon-base ti tabler-chevron-right scaleX-n1-rtl icon-18px"></i>',previous:'<i class="icon-base ti tabler-chevron-left scaleX-n1-rtl icon-18px"></i>',first:'<i class="icon-base ti tabler-chevrons-left scaleX-n1-rtl icon-18px"></i>',last:'<i class="icon-base ti tabler-chevrons-right scaleX-n1-rtl icon-18px"></i>'}},responsive:{details:{display:DataTable.Responsive.display.modal({header:function(e){return"Details of "+e.data().product_name}}),type:"column",renderer:function(e,t,n){var a,o,s,n=n.map(function(e){return""!==e.title?`<tr data-dt-row="${e.rowIndex}" data-dt-column="${e.columnIndex}">
-                      <td>${e.title}:</td>
-                      <td>${e.data}</td>
-                    </tr>`:""}).join("");return!!n&&((a=document.createElement("div")).classList.add("table-responsive"),o=document.createElement("table"),a.appendChild(o),o.classList.add("table"),(s=document.createElement("tbody")).innerHTML=n,o.appendChild(s),a)}}},initComplete:function(){var e=this.api();e.columns(-2).every(function(){let t=this,n=document.createElement("select");n.id="ProductStatus",n.className="form-select text-capitalize",n.innerHTML='<option value="">Status Data</option>',document.querySelector(".product_status").appendChild(n),n.addEventListener("change",function(){var e=n.value?`^${n.value}$`:"";t.search(e,!0,!1).draw()}),t.data().unique().sort().each(function(e){var t=document.createElement("option");let oVal=o[e]?o[e].title:e;t.value=oVal,t.textContent=oVal,n.appendChild(t)})}),e.columns(3).every(function(){let t=this,n=document.createElement("select");n.id="ProductCategory",n.className="form-select text-capitalize",n.innerHTML='<option value="">Kategori</option>',document.querySelector(".product_category").appendChild(n),n.addEventListener("change",function(){var e=n.value?`^${n.value}$`:"";t.search(e,!0,!1).draw()}),t.data().unique().sort().each(function(e){var t=document.createElement("option");let tVal=s[e]?s[e].title:e;t.value=tVal,t.textContent=tVal,n.appendChild(t)})}),e.columns(4).every(function(){let t=this,n=document.createElement("select");n.id="ProductStock",n.className="form-select text-capitalize",n.innerHTML='<option value="">Ketersediaan</option>',document.querySelector(".product_stock").appendChild(n),n.addEventListener("change",function(){var e=n.value?`^${n.value}$`:"";t.search(e,!0,!1).draw()}),t.data().unique().sort().each(function(e){var t=document.createElement("option");let rVal=r[e]?r[e].title:e;t.value=rVal,t.textContent=rVal,n.appendChild(t)})})}}),setTimeout(()=>{[{selector:".dt-buttons .btn",classToRemove:"btn-secondary"},{selector:".dt-buttons.btn-group",classToAdd:"mb-md-0 mb-6"},{selector:".dt-search .form-control",classToRemove:"form-control-sm",classToAdd:"ms-0"},{selector:".dt-search",classToAdd:"mb-0 mb-md-6"},{selector:".dt-length .form-select",classToRemove:"form-select-sm"},{selector:".dt-layout-end",classToAdd:"gap-md-2 gap-0 mt-0"},{selector:".dt-layout-start",classToAdd:"mt-0"},{selector:".dt-layout-table",classToRemove:"row mt-2"},{selector:".dt-layout-full",classToRemove:"col-md col-12",classToAdd:"table-responsive"}].forEach(({selector:e,classToRemove:n,classToAdd:a})=>{document.querySelectorAll(e).forEach(t=>{n&&n.split(" ").forEach(e=>t.classList.remove(e)),a&&a.split(" ").forEach(e=>t.classList.add(e))})})},100)});
+            </div>
+          `;
+        }
+      },
+      {
+        // Category
+        targets: 3,
+        responsivePriority: 5,
+        render: function (data, type, row) {
+          const cat = row.category || "Fashion";
+          const icon = categoryIcons[cat] || categoryIcons["Fashion"];
+          return `
+            <span class="d-flex align-items-center text-heading text-nowrap">
+              ${icon}${cat}
+            </span>
+          `;
+        }
+      },
+      {
+        // Stock (Without badge, plain text per requirement)
+        targets: 4,
+        orderable: true,
+        responsivePriority: 3,
+        render: function (data, type, row) {
+          const stk = Number(row.stock) || 0;
+          if (stk <= 0) {
+            return '<span class="text-danger fw-semibold">Habis</span>';
+          }
+          return `<span class="text-heading fw-medium">${stk.toLocaleString("id-ID")} unit</span>`;
+        }
+      },
+      {
+        // Price
+        targets: 5,
+        orderable: true,
+        render: function (data, type, row) {
+          const p = Number(row.price) || 0;
+          return `<strong class="text-heading text-nowrap">Rp ${p.toLocaleString("id-ID")}</strong>`;
+        }
+      },
+      {
+        // Est. Daily Sales & Total Sold
+        targets: 6,
+        orderable: true,
+        responsivePriority: 4,
+        render: function (data, type, row) {
+          const daily = Number(row.qty || row.quantity || 0);
+          const total = Number(row.total_sold || 0);
+          return `
+            <div>
+              <span class="text-primary fw-bold text-nowrap">+${daily.toLocaleString("id-ID")}/hari</span>
+              <small class="text-muted d-block font-11">${total.toLocaleString("id-ID")} total terjual</small>
+            </div>
+          `;
+        }
+      },
+      {
+        // Status Data
+        targets: 7,
+        render: function (data, type, row) {
+          const st = statusMap[row.status] || { class: "bg-label-success", title: "Aktif" };
+          return `<span class="badge ${st.class}">${st.title}</span>`;
+        }
+      },
+      {
+        // Actions
+        targets: 8,
+        title: "Aksi",
+        searchable: false,
+        orderable: false,
+        render: function (data, type, row) {
+          return `
+            <div class="d-flex align-items-center gap-1">
+              <a href="app-ecommerce-product-detail.html?id=${row.id}" class="btn btn-sm btn-icon btn-label-primary waves-effect" title="Lihat Detail Intelijen">
+                <i class="icon-base ti tabler-eye icon-18px"></i>
+              </a>
+              <a href="${row.url || '#'}" target="_blank" class="btn btn-sm btn-icon btn-label-secondary waves-effect" title="Buka di Marketplace Asli">
+                <i class="icon-base ti tabler-external-link icon-18px"></i>
+              </a>
+            </div>
+          `;
+        }
+      }
+    ],
+    order: [[6, "desc"]], // Sort by daily sales / total sold descending (terlaris pertama)
+    displayLength: 10,
+    dom: '<"card-header d-flex border-top rounded-0 flex-wrap py-3 flex-column flex-md-row align-items-md-center justify-content-between"<"me-md-5 my-1"f><"d-flex align-items-center gap-3 my-1"l>>t<"row mx-3 my-3 align-items-center"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center"p>>',
+    language: {
+      search: "",
+      searchPlaceholder: "Cari produk / toko / brand...",
+      lengthMenu: "_MENU_ per halaman",
+      info: "Menampilkan _START_ - _END_ dari _TOTAL_ produk terlaris",
+      infoEmpty: "Tidak ada produk yang cocok",
+      emptyTable: "Belum ada produk yang ditemukan. Silakan gunakan fitur 'Pencarian & Live Scraping' di atas untuk mengambil data produk terlaris.",
+      paginate: {
+        next: '<i class="icon-base ti tabler-chevron-right icon-18px"></i>',
+        previous: '<i class="icon-base ti tabler-chevron-left icon-18px"></i>'
+      }
+    },
+    initComplete: function () {
+      const searchInput = document.querySelector(".dataTables_filter input");
+      if (searchInput) {
+        searchInput.classList.add("form-control");
+        searchInput.style.minWidth = "260px";
+      }
+      const lengthSelect = document.querySelector(".dataTables_length select");
+      if (lengthSelect) {
+        lengthSelect.classList.add("form-select");
+      }
+    }
+  });
+
+  // Attach Filter Change Listeners
+  const filterInputs = ["filterCategory", "filterPrice", "filterLocation", "filterStock"];
+  filterInputs.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener("change", function () {
+        dtInstance.ajax.reload();
+      });
+    }
+  });
+
+  // Reset Filters Button
+  const resetBtn = document.getElementById("btnResetFilters");
+  if (resetBtn) {
+    resetBtn.addEventListener("click", function () {
+      filterInputs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = "";
+      });
+      dtInstance.search("").draw();
+      dtInstance.ajax.reload();
+    });
+  }
+
+  // Update Top Widget Stats (Per-User Scope)
+  function updateListStats() {
+    const u = JSON.parse(localStorage.getItem("auth_user") || "{}");
+    const token = localStorage.getItem("auth_token") || "";
+    const url = u.id ? `http://localhost:8080/api/analytics/summary?user_id=${u.id}&role=${u.role || 'user'}` : "http://localhost:8080/api/analytics/summary";
+
+    fetch(url, {
+      headers: {
+        "Authorization": "Bearer " + token
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (!data) return;
+        const totalProdEl = document.getElementById("listTotalProducts");
+        const dailySoldEl = document.getElementById("listDailySold");
+        const totalShopsEl = document.getElementById("listTotalShops");
+        const catCountEl = document.getElementById("listCategoryCount");
+        const catBadgeEl = document.getElementById("listCategoryBadge");
+
+        if (totalProdEl) {
+          totalProdEl.textContent = (data.total_products || 0).toLocaleString("id-ID") + " Item";
+        }
+        if (dailySoldEl) {
+          dailySoldEl.textContent = (data.daily_sold_sum || 0).toLocaleString("id-ID") + " Unit/Hari";
+        }
+        if (totalShopsEl) {
+          totalShopsEl.textContent = (data.total_shops || 0).toLocaleString("id-ID") + " Toko";
+        }
+        const cats = (data.category_counts && typeof data.category_counts === "object") ? Object.keys(data.category_counts) : [];
+        if (catCountEl) {
+          catCountEl.textContent = cats.length + " Kategori";
+        }
+        if (catBadgeEl) {
+          catBadgeEl.textContent = cats.length > 0 ? cats.join(", ") : "-";
+        }
+      })
+      .catch(err => console.warn("List summary fetch note:", err));
+  }
+
+  // Live On-Demand Scraping Trigger (Keyword & Category)
+  const btnLiveCrawl = document.getElementById("btnLiveCrawl");
+  const btnLiveCrawlText = document.getElementById("btnLiveCrawlText");
+  const targetKeywordInput = document.getElementById("targetKeyword");
+  const targetCategorySelect = document.getElementById("targetCategory");
+  const liveCrawlStatus = document.getElementById("liveCrawlStatus");
+  const liveCrawlStatusMsg = document.getElementById("liveCrawlStatusMsg");
+
+  function triggerLiveCrawl() {
+    const kw = (targetKeywordInput?.value || "").trim();
+    const cat = targetCategorySelect?.value || "Fashion";
+
+    if (!kw) {
+      if (targetKeywordInput) {
+        targetKeywordInput.focus();
+        targetKeywordInput.classList.add("is-invalid");
+        setTimeout(() => targetKeywordInput.classList.remove("is-invalid"), 2500);
+      }
+      return;
+    }
+
+    // Set Loading UI
+    if (btnLiveCrawl) btnLiveCrawl.disabled = true;
+    if (btnLiveCrawlText) {
+      btnLiveCrawlText.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Scraping Live...';
+    }
+    if (liveCrawlStatus) {
+      liveCrawlStatus.className = "alert alert-primary d-flex align-items-center mt-3 mb-0 py-2 px-3";
+      liveCrawlStatus.classList.remove("d-none");
+    }
+    if (liveCrawlStatusMsg) {
+      liveCrawlStatusMsg.innerHTML = `<strong>Menjalankan Apify Crawler...</strong> Mengambil produk terlaris untuk kata kunci: <em>"${kw}"</em> pada kategori <strong>${cat}</strong> secara live dari marketplace.`;
+    }
+
+    const activeUser = JSON.parse(localStorage.getItem('auth_user') || '{}');
+    const activeToken = localStorage.getItem('auth_token') || '';
+
+    fetch("http://localhost:8080/api/scrape/trigger", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + activeToken
+      },
+      body: JSON.stringify({
+        keyword: kw,
+        category: cat,
+        limit: 25,
+        platforms: ["tokopedia", "shopee"],
+        user_id: activeUser.id || 0,
+        username: activeUser.username || activeUser.name || "User",
+        role: activeUser.role || "user"
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (btnLiveCrawl) btnLiveCrawl.disabled = false;
+        if (btnLiveCrawlText) {
+          btnLiveCrawlText.textContent = "Cari & Scrape Live";
+        }
+
+        if (liveCrawlStatus && liveCrawlStatusMsg) {
+          liveCrawlStatus.className = "alert alert-success d-flex align-items-center mt-3 mb-0 py-2 px-3";
+          liveCrawlStatusMsg.innerHTML = `<i class="icon-base ti tabler-check me-2 text-success"></i><strong>Scraping Selesai!</strong> ${data.total_scraped || 0} produk live baru untuk "${kw}" berhasil disinkronkan ke tabel.`;
+          setTimeout(() => {
+            liveCrawlStatus.classList.add("d-none");
+          }, 8000);
+        }
+
+        // Set local category to match newly crawled category if present
+        const filterCat = document.getElementById("filterCategory");
+        if (filterCat && cat) {
+          filterCat.value = cat;
+        }
+
+        // Reload table & stats immediately
+        dtInstance.ajax.reload();
+        updateListStats();
+      })
+      .catch(err => {
+        console.error("Live crawl error:", err);
+        if (btnLiveCrawl) btnLiveCrawl.disabled = false;
+        if (btnLiveCrawlText) {
+          btnLiveCrawlText.textContent = "Cari & Scrape Live";
+        }
+        if (liveCrawlStatus && liveCrawlStatusMsg) {
+          liveCrawlStatus.className = "alert alert-danger d-flex align-items-center mt-3 mb-0 py-2 px-3";
+          liveCrawlStatusMsg.innerHTML = `<i class="icon-base ti tabler-alert-triangle me-2 text-danger"></i>Gagal melakukan scraping: ${err.message || "Koneksi terputus"}`;
+        }
+      });
+  }
+
+  if (btnLiveCrawl) {
+    btnLiveCrawl.addEventListener("click", triggerLiveCrawl);
+  }
+  if (targetKeywordInput) {
+    targetKeywordInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        triggerLiveCrawl();
+      }
+    });
+  }
+
+  updateListStats();
+
+  // Auto sync when user returns to tab
+  window.addEventListener("focus", function () {
+    if (dtInstance) dtInstance.ajax.reload(null, false);
+    updateListStats();
+  });
+
+  // Periodically refresh list & stats every 15s to catch scheduled crawler ingestion
+  setInterval(function () {
+    if (dtInstance) dtInstance.ajax.reload(null, false);
+    updateListStats();
+  }, 15000);
+});

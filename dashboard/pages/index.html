@@ -63,9 +63,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
     
     
-      <meta name="robots" content="noindex, nofollow" />
-    
+    <meta name="referrer" content="no-referrer" />
     <title>Dashboard Analytics - Rankwise Marketplace Intelligence</title>
+    <style>
+      .breadcrumb-item + .breadcrumb-item::before {
+        content: "/" !important;
+        padding: 0 0.5rem !important;
+      }
+    </style>
+    
+    <!-- Auth Guard -->
+    <script>
+      (function () {
+        const token = localStorage.getItem('auth_token');
+        if (!token) {
+          window.location.href = 'auth-login-cover.html';
+          return;
+        }
+      })();
+    </script>
     
       <meta name="description" content="Rankwise - Platform analisis marketplace Shopee & Tokopedia untuk riset produk terlaris dan monitoring kompetitor." />
       <!-- Canonical SEO -->
@@ -176,21 +192,44 @@
 
   <div class="menu-inner-shadow"></div>
 
-  <ul class="menu-inner py-1">
+  <ul class="menu-inner py-1" id="mainSidebarMenu">
     <!-- Menu Intelligence -->
     <li class="menu-header small">
       <span class="menu-header-text">Marketplace Intelligence</span>
     </li>
-    <li class="menu-item active">
+    <li class="menu-item active" id="menuItemAnalytics">
       <a href="index.html" class="menu-link">
         <i class="menu-icon icon-base ti tabler-smart-home"></i>
         <div>Dashboard Analytics</div>
       </a>
     </li>
-    <li class="menu-item ">
+    <li class="menu-item">
       <a href="app-ecommerce-product-list.html" class="menu-link">
         <i class="menu-icon icon-base ti tabler-trophy"></i>
-        <div>Ranking Produk Terlaris</div>
+        <div>Scraping Produk</div>
+      </a>
+    </li>
+    <li class="menu-item">
+      <a href="app-ecommerce-schedule.html" class="menu-link">
+        <i class="menu-icon icon-base ti tabler-calendar-time"></i>
+        <div>Schedule</div>
+      </a>
+    </li>
+
+    <!-- Administrator Menu (Hanya tampil untuk role Admin) -->
+    <li class="menu-header small admin-only-menu" style="display: none;">
+      <span class="menu-header-text">Administrasi Sistem</span>
+    </li>
+    <li class="menu-item admin-only-menu" id="menuItemUserManagement" style="display: none;">
+      <a href="app-user-management.html" class="menu-link">
+        <i class="menu-icon icon-base ti tabler-users"></i>
+        <div>User Management</div>
+      </a>
+    </li>
+    <li class="menu-item admin-only-menu" id="menuItemApiSettings" style="display: none;">
+      <a href="app-api-settings.html" class="menu-link">
+        <i class="menu-icon icon-base ti tabler-key"></i>
+        <div>Setting</div>
       </a>
     </li>
   </ul>
@@ -249,7 +288,7 @@
 
       
       
-        <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
+        <!-- <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
             <i class="icon-base ti tabler-language icon-22px text-heading"></i>
           </a>
@@ -275,7 +314,7 @@
               </a>
             </li>
           </ul>
-        </li>
+        </li> -->
         <!--/ Language -->
       
 
@@ -308,7 +347,7 @@
       
 
       <!-- Quick links  -->
-      <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown">
+      <!-- <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown">
         <a class="nav-link dropdown-toggle hide-arrow btn btn-icon btn-text-secondary rounded-pill" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
           <i class="icon-base ti tabler-layout-grid-add icon-22px text-heading"></i>
         </a>
@@ -386,11 +425,11 @@
             </div>
           </div>
         </div>
-      </li>
+      </li> -->
       <!-- Quick links -->
 
       <!-- Notification -->
-      <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-2">
+      <!-- <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-2">
         <a class="nav-link dropdown-toggle hide-arrow btn btn-icon btn-text-secondary rounded-pill" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
           <span class="position-relative">
             <i class="icon-base ti tabler-bell icon-22px text-heading"></i>
@@ -581,64 +620,41 @@
             </div>
           </li>
         </ul>
-      </li>
+      </li> -->
       <!--/ Notification -->
 
       <!-- User -->
       <li class="nav-item navbar-dropdown dropdown-user dropdown">
         <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
           <div class="avatar avatar-online">
-            <img src="../assets/img/avatars/1.png" alt class="rounded-circle" />
+            <span class="avatar-initial rounded-circle bg-label-primary fw-bold" id="userNavAvatarTop">U</span>
           </div>
         </a>
         <ul class="dropdown-menu dropdown-menu-end">
           <li>
-            <a class="dropdown-item mt-0" href="pages-account-settings-account.html">
+            <a class="dropdown-item mt-0" href="javascript:void(0);">
               <div class="d-flex align-items-center">
                 <div class="flex-shrink-0 me-2">
                   <div class="avatar avatar-online">
-                    <img src="../assets/img/avatars/1.png" alt class="rounded-circle" />
+                    <span class="avatar-initial rounded-circle bg-label-primary fw-bold" id="userNavAvatar">U</span>
                   </div>
                 </div>
                 <div class="flex-grow-1">
-                  <h6 class="mb-0">Admin Rankwise</h6>
-                  <small class="text-body-secondary">Admin</small>
+                  <h6 class="mb-0" id="userNavName">Pengguna</h6>
+                  <span class="badge bg-label-primary" id="userNavRoleBadge">User</span>
                 </div>
               </div>
             </a>
           </li>
           <li>
-            <div class="dropdown-divider my-1 mx-n2"></div>
-          </li>
-          <li>
-            <a class="dropdown-item" href="pages-account-settings-account.html"> <i class="icon-base ti tabler-user me-3 icon-md"></i><span class="align-middle">Profil Saya</span> </a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="pages-account-settings-account.html"> <i class="icon-base ti tabler-settings me-3 icon-md"></i><span class="align-middle">Pengaturan</span> </a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="pages-account-settings-billing.html">
-              <span class="d-flex align-items-center align-middle">
-                <i class="flex-shrink-0 icon-base ti tabler-file-dollar me-3 icon-md"></i><span class="flex-grow-1 align-middle">Langganan</span>
-                <span class="flex-shrink-0 badge bg-danger d-flex align-items-center justify-content-center">4</span>
-              </span>
-            </a>
-          </li>
-          <li>
-            <div class="dropdown-divider my-1 mx-n2"></div>
-          </li>
-          <li>
-            <a class="dropdown-item" href="pages-account-settings-billing.html"> <i class="icon-base ti tabler-currency-dollar me-3 icon-md"></i><span class="align-middle">Paket Harga</span> </a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="app-logistics-dashboard.html"> <i class="icon-base ti tabler-question-mark me-3 icon-md"></i><span class="align-middle">Bantuan</span> </a>
+            <div class="dropdown-divider my-1"></div>
           </li>
           <li>
             <div class="d-grid px-2 pt-2 pb-1">
-              <a class="btn btn-sm btn-danger d-flex" href="auth-login-cover.html" target="_blank">
-                <small class="align-middle">Logout</small>
-                <i class="icon-base ti tabler-logout ms-2 icon-14px"></i>
-              </a>
+              <button class="btn btn-sm btn-danger d-flex align-items-center justify-content-center" onclick="userLogout()">
+                <small class="align-middle me-2">Logout</small>
+                <i class="icon-base ti tabler-logout icon-14px"></i>
+              </button>
             </div>
           </li>
         </ul>
@@ -666,7 +682,7 @@
             <div class="row">
               <div class="col-12">
                 <h5 class="text-white mb-0">Marketplace Intelligence</h5>
-                <small>Data Scraping Terakhir: Hari Ini 14:00 WIB</small>
+                <small id="statLastUpdated1">Data Scraping Terakhir: Hari Ini 15:00 WIB</small>
               </div>
               <div class="row">
                 <div class="col-lg-7 col-md-9 col-12 order-2 order-md-1 pt-md-9">
@@ -675,11 +691,11 @@
                     <div class="col-6">
                       <ul class="list-unstyled mb-0">
                         <li class="d-flex mb-4 align-items-center">
-                          <p class="mb-0 fw-medium me-2 website-analytics-text-bg">248.5k</p>
+                          <p class="mb-0 fw-medium me-2 website-analytics-text-bg" id="statBannerTotalSold">0</p>
                           <p class="mb-0">Unit Terjual</p>
                         </li>
                         <li class="d-flex align-items-center">
-                          <p class="mb-0 fw-medium me-2 website-analytics-text-bg">840</p>
+                          <p class="mb-0 fw-medium me-2 website-analytics-text-bg" id="statBannerShops">0</p>
                           <p class="mb-0">Toko Terpantau</p>
                         </li>
                       </ul>
@@ -687,11 +703,11 @@
                     <div class="col-6">
                       <ul class="list-unstyled mb-0">
                         <li class="d-flex mb-4 align-items-center">
-                          <p class="mb-0 fw-medium me-2 website-analytics-text-bg">10.420</p>
+                          <p class="mb-0 fw-medium me-2 website-analytics-text-bg" id="statBannerProducts">0</p>
                           <p class="mb-0">Produk Dipantau</p>
                         </li>
                         <li class="d-flex align-items-center">
-                          <p class="mb-0 fw-medium me-2 website-analytics-text-bg">92.4%</p>
+                          <p class="mb-0 fw-medium me-2 website-analytics-text-bg" id="statBannerSuccessRate">-</p>
                           <p class="mb-0">Scrape Success</p>
                         </li>
                       </ul>
@@ -708,7 +724,7 @@
             <div class="row">
               <div class="col-12">
                 <h5 class="text-white mb-0">Marketplace Intelligence</h5>
-                <small>Data Scraping Terakhir: Hari Ini 14:00 WIB</small>
+                <small id="statLastUpdated2">Data Scraping Terakhir: Live</small>
               </div>
               <div class="col-lg-7 col-md-9 col-12 order-2 order-md-1 pt-md-9">
                 <h6 class="text-white mt-0 mt-md-3 mb-4">Kategori Terpopuler</h6>
@@ -716,11 +732,11 @@
                   <div class="col-6">
                     <ul class="list-unstyled mb-0">
                       <li class="d-flex mb-4 align-items-center">
-                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg">4.210</p>
+                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg" id="statCatElektronik">0</p>
                         <p class="mb-0">Elektronik</p>
                       </li>
                       <li class="d-flex align-items-center">
-                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg">3.890</p>
+                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg" id="statCatFashion">0</p>
                         <p class="mb-0">Fashion</p>
                       </li>
                     </ul>
@@ -728,12 +744,12 @@
                   <div class="col-6">
                     <ul class="list-unstyled mb-0">
                       <li class="d-flex mb-4 align-items-center">
-                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg">2.320</p>
-                        <p class="mb-0">Rumah Tangga</p>
+                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg" id="statCatRumah">0</p>
+                        <p class="mb-0">Perlengkapan Rumah</p>
                       </li>
                       <li class="d-flex align-items-center">
-                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg">3</p>
-                        <p class="mb-0">Kategori MVP</p>
+                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg" id="statCatTotal">3</p>
+                        <p class="mb-0">Kategori Utama</p>
                       </li>
                     </ul>
                   </div>
@@ -748,7 +764,7 @@
             <div class="row">
               <div class="col-12">
                 <h5 class="text-white mb-0">Marketplace Intelligence</h5>
-                <small>Data Scraping Terakhir: Hari Ini 14:00 WIB</small>
+                <small id="statLastUpdated3">Data Scraping Terakhir: Live</small>
               </div>
               <div class="col-lg-7 col-md-9 col-12 order-2 order-md-1 pt-md-9">
                 <h6 class="text-white mt-0 mt-md-3 mb-4">Distribusi Marketplace</h6>
@@ -756,11 +772,11 @@
                   <div class="col-6">
                     <ul class="list-unstyled mb-0">
                       <li class="d-flex mb-4 align-items-center">
-                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg">7.140</p>
+                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg" id="statShopeeCount">0</p>
                         <p class="mb-0">Shopee</p>
                       </li>
                       <li class="d-flex align-items-center">
-                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg">3.280</p>
+                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg" id="statTokpedCount">0</p>
                         <p class="mb-0">Tokopedia</p>
                       </li>
                     </ul>
@@ -768,11 +784,11 @@
                   <div class="col-6">
                     <ul class="list-unstyled mb-0">
                       <li class="d-flex mb-4 align-items-center">
-                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg">68.5%</p>
+                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg" id="statShopeePct">0%</p>
                         <p class="mb-0">Shopee Share</p>
                       </li>
                       <li class="d-flex align-items-center">
-                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg">31.5%</p>
+                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg" id="statTokpedPct">0%</p>
                         <p class="mb-0">Tokopedia Share</p>
                       </li>
                     </ul>
@@ -795,8 +811,8 @@
       <div class="card h-100">
         <div class="card-header pb-0">
           <h5 class="mb-3 card-title">Volume Penjualan Harian (Unit)</h5>
-          <p class="mb-0 text-body">Total Unit Terjual Bulan Ini</p>
-          <h4 class="mb-0">1.842.000 Unit</h4>
+          <p class="mb-0 text-body">Total Unit Terjual Hari Ini</p>
+          <h4 class="mb-0" id="statCardDailySold">0 Unit</h4>
         </div>
         <div class="card-body px-0">
           <div id="averageDailySales"></div>
@@ -811,9 +827,9 @@
         <div class="card-header">
           <div class="d-flex justify-content-between">
             <p class="mb-0 text-body">Pangsa Marketplace</p>
-            <p class="card-text fw-medium text-success">+14.2%</p>
+            <p class="card-text fw-medium text-muted">-</p>
           </div>
-          <h4 class="card-title mb-1">10.420 Produk</h4>
+          <h4 class="card-title mb-1" id="statOverviewTotalProducts">0 Produk</h4>
         </div>
         <div class="card-body">
           <div class="row">
@@ -822,8 +838,8 @@
                 <span class="badge bg-label-warning p-1 rounded"><i class="icon-base ti tabler-shopping-bag icon-sm"></i></span>
                 <p class="mb-0">Shopee</p>
               </div>
-              <h5 class="mb-0 pt-1">68.5%</h5>
-              <small class="text-body-secondary">7.140 item</small>
+              <h5 class="mb-0 pt-1" id="statOverviewShopeePct">0%</h5>
+              <small class="text-body-secondary" id="statOverviewShopeeCount">0 item</small>
             </div>
             <div class="col-4">
               <div class="divider divider-vertical">
@@ -837,14 +853,14 @@
                 <p class="mb-0">Tokopedia</p>
                 <span class="badge bg-label-success p-1 rounded"><i class="icon-base ti tabler-basket icon-sm"></i></span>
               </div>
-              <h5 class="mb-0 pt-1">31.5%</h5>
-              <small class="text-body-secondary">3.280 item</small>
+              <h5 class="mb-0 pt-1" id="statOverviewTokpedPct">0%</h5>
+              <small class="text-body-secondary" id="statOverviewTokpedCount">0 item</small>
             </div>
           </div>
           <div class="d-flex align-items-center mt-6">
             <div class="progress w-100" style="height: 10px;">
-              <div class="progress-bar bg-warning" style="width: 68.5%" role="progressbar" aria-valuenow="68.5" aria-valuemin="0" aria-valuemax="100"></div>
-              <div class="progress-bar bg-success" role="progressbar" style="width: 31.5%" aria-valuenow="31.5" aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="progress-bar bg-warning" id="statOverviewShopeeBar" style="width: 0%" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="progress-bar bg-success" id="statOverviewTokpedBar" style="width: 0%" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
           </div>
         </div>
@@ -874,8 +890,8 @@
           <div class="row align-items-center g-md-8">
             <div class="col-12 col-md-5 d-flex flex-column">
               <div class="d-flex gap-2 align-items-center mb-3 flex-wrap">
-                <h2 class="mb-0">14.280</h2>
-                <div class="badge rounded bg-label-success">+12.8%</div>
+                <h2 class="mb-0" id="statWeeklyTotalSold">0</h2>
+                <div class="badge rounded bg-label-secondary">-</div>
               </div>
               <small class="text-body">Total estimasi unit terjual minggu ini vs minggu lalu</small>
             </div>
@@ -890,9 +906,9 @@
                   <div class="badge rounded bg-label-primary p-1"><i class="icon-base ti tabler-check icon-18px"></i></div>
                   <h6 class="mb-0 fw-normal">Shopee Terjual</h6>
                 </div>
-                <h4 class="my-2">12.840</h4>
+                <h4 class="my-2" id="statWeeklyShopeeSold">0</h4>
                 <div class="progress w-75" style="height:4px">
-                  <div class="progress-bar" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" id="statWeeklyShopeeBar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
               <div class="col-12 col-sm-4">
@@ -900,9 +916,9 @@
                   <div class="badge rounded bg-label-info p-1"><i class="icon-base ti tabler-refresh icon-18px"></i></div>
                   <h6 class="mb-0 fw-normal">Tokopedia Terjual</h6>
                 </div>
-                <h4 class="my-2">1.240</h4>
+                <h4 class="my-2" id="statWeeklyTokpedSold">0</h4>
                 <div class="progress w-75" style="height:4px">
-                  <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar bg-info" id="statWeeklyTokpedBar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
               <div class="col-12 col-sm-4">
@@ -910,9 +926,9 @@
                   <div class="badge rounded bg-label-danger p-1"><i class="icon-base ti tabler-alert-circle icon-18px"></i></div>
                   <h6 class="mb-0 fw-normal">Stok Terbatas</h6>
                 </div>
-                <h4 class="my-2">200</h4>
+                <h4 class="my-2" id="statWeeklyLimitedStock">0</h4>
                 <div class="progress w-75" style="height:4px">
-                  <div class="progress-bar bg-danger" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar bg-danger" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
             </div>
@@ -943,7 +959,7 @@
         <div class="card-body row">
           <div class="col-12 col-sm-4">
             <div class="mt-lg-4 mt-lg-2 mb-lg-6 mb-2">
-              <h2 class="mb-0">10.420</h2>
+              <h2 class="mb-0" id="statSupportTotalProducts">0</h2>
               <p class="mb-0">Total Produk Dipantau</p>
             </div>
             <ul class="p-0 m-0">
@@ -951,21 +967,21 @@
                 <div class="badge rounded bg-label-primary p-1_5"><i class="icon-base ti tabler-ticket icon-md"></i></div>
                 <div>
                   <h6 class="mb-0 text-nowrap">Elektronik & Gadget</h6>
-                  <small class="text-body-secondary">4.210 item</small>
+                  <small class="text-body-secondary" id="statSupportElektronik">0 item</small>
                 </div>
               </li>
               <li class="d-flex gap-4 align-items-center mb-lg-3 pb-1">
                 <div class="badge rounded bg-label-info p-1_5"><i class="icon-base ti tabler-circle-check icon-md"></i></div>
                 <div>
                   <h6 class="mb-0 text-nowrap">Fashion & Pakaian</h6>
-                  <small class="text-body-secondary">3.890 item</small>
+                  <small class="text-body-secondary" id="statSupportFashion">0 item</small>
                 </div>
               </li>
               <li class="d-flex gap-4 align-items-center pb-1">
                 <div class="badge rounded bg-label-warning p-1_5"><i class="icon-base ti tabler-clock icon-md"></i></div>
                 <div>
                   <h6 class="mb-0 text-nowrap">Perlengkapan Rumah</h6>
-                  <small class="text-body-secondary">2.320 item</small>
+                  <small class="text-body-secondary" id="statSupportRumah">0 item</small>
                 </div>
               </li>
             </ul>
@@ -986,133 +1002,10 @@
             <h5 class="mb-1">Top Kategori Terpopuler</h5>
             <p class="card-subtitle">Volume Unit Terjual Berdasarkan Snapshot</p>
           </div>
-          <div class="dropdown">
-            <button class="btn btn-text-secondary btn-icon rounded-pill text-body-secondary border-0 me-n1" type="button" id="salesByCountry" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="icon-base ti tabler-dots-vertical icon-22px text-body-secondary"></i>
-            </button>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="salesByCountry">
-              <a class="dropdown-item" href="javascript:void(0);">Download</a>
-              <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-              <a class="dropdown-item" href="javascript:void(0);">Share</a>
-            </div>
-          </div>
         </div>
         <div class="card-body">
-          <ul class="p-0 m-0">
-            <li class="d-flex align-items-center mb-4">
-              <div class="avatar flex-shrink-0 me-4">
-                <span class="avatar-initial rounded-circle bg-label-primary"><i class="icon-base ti tabler-device-mobile"></i></span>
-              </div>
-              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                <div class="me-2">
-                  <div class="d-flex align-items-center">
-                    <h6 class="mb-0 me-1">42.800 Unit</h6>
-                  </div>
-                  <small class="text-body">Elektronik & Gadget</small>
-                </div>
-                <div class="user-progress">
-                  <p class="text-success fw-medium mb-0 d-flex align-items-center gap-1">
-                    <i class="icon-base ti tabler-chevron-up"></i>
-                    +18.2%
-                  </p>
-                </div>
-              </div>
-            </li>
-            <li class="d-flex align-items-center mb-4">
-              <div class="avatar flex-shrink-0 me-4">
-                <span class="avatar-initial rounded-circle bg-label-warning"><i class="icon-base ti tabler-shirt"></i></span>
-              </div>
-              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                <div class="me-2">
-                  <div class="d-flex align-items-center">
-                    <h6 class="mb-0 me-1">54.100 Unit</h6>
-                  </div>
-                  <small class="text-body">Fashion & Apparel</small>
-                </div>
-                <div class="user-progress">
-                  <p class="text-danger fw-medium mb-0 d-flex align-items-center gap-1">
-                    <i class="icon-base ti tabler-chevron-down"></i>
-                    12.4%
-                  </p>
-                </div>
-              </div>
-            </li>
-            <li class="d-flex align-items-center mb-4">
-              <div class="avatar flex-shrink-0 me-4">
-                <span class="avatar-initial rounded-circle bg-label-success"><i class="icon-base ti tabler-home"></i></span>
-              </div>
-              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                <div class="me-2">
-                  <div class="d-flex align-items-center">
-                    <h6 class="mb-0 me-1">28.400 Unit</h6>
-                  </div>
-                  <small class="text-body">Perlengkapan Rumah</small>
-                </div>
-                <div class="user-progress">
-                  <p class="text-success fw-medium mb-0 d-flex align-items-center gap-1">
-                    <i class="icon-base ti tabler-chevron-up"></i>
-                    12.4%
-                  </p>
-                </div>
-              </div>
-            </li>
-            <li class="d-flex align-items-center mb-4">
-              <div class="avatar flex-shrink-0 me-4">
-                <span class="avatar-initial rounded-circle bg-label-info"><i class="icon-base ti tabler-headphones"></i></span>
-              </div>
-              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                <div class="me-2">
-                  <div class="d-flex align-items-center">
-                    <h6 class="mb-0 me-1">18.900 Unit</h6>
-                  </div>
-                  <small class="text-body">Audio & TWS</small>
-                </div>
-                <div class="user-progress">
-                  <p class="text-danger fw-medium mb-0 d-flex align-items-center gap-1">
-                    <i class="icon-base ti tabler-chevron-down"></i>
-                    11.9%
-                  </p>
-                </div>
-              </div>
-            </li>
-            <li class="d-flex align-items-center mb-4">
-              <div class="avatar flex-shrink-0 me-4">
-                <span class="avatar-initial rounded-circle bg-label-danger"><i class="icon-base ti tabler-bolt"></i></span>
-              </div>
-              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                <div class="me-2">
-                  <div class="d-flex align-items-center">
-                    <h6 class="mb-0 me-1">14.200 Unit</h6>
-                  </div>
-                  <small class="text-body">Charger & Kabel</small>
-                </div>
-                <div class="user-progress">
-                  <p class="text-success fw-medium mb-0 d-flex align-items-center gap-1">
-                    <i class="icon-base ti tabler-chevron-up"></i>
-                    16.2%
-                  </p>
-                </div>
-              </div>
-            </li>
-            <li class="d-flex align-items-center">
-              <div class="avatar flex-shrink-0 me-4">
-                <span class="avatar-initial rounded-circle bg-label-secondary"><i class="icon-base ti tabler-shopping-bag"></i></span>
-              </div>
-              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                <div class="me-2">
-                  <div class="d-flex align-items-center">
-                    <h6 class="mb-0 me-1">9.800 Unit</h6>
-                  </div>
-                  <small class="text-body">Tas & Dompet</small>
-                </div>
-                <div class="user-progress">
-                  <p class="text-success fw-medium mb-0 d-flex align-items-center gap-1">
-                    <i class="icon-base ti tabler-chevron-up"></i>
-                    14.8%
-                  </p>
-                </div>
-              </div>
-            </li>
+          <ul class="p-0 m-0" id="topCategoryList">
+            <li class="text-muted text-center py-4">Belum ada kategori terpantau.</li>
           </ul>
         </div>
       </div>
@@ -1125,20 +1018,9 @@
         <div class="card-header">
           <div class="d-flex justify-content-between align-items-center">
             <h5 class="mb-0 card-title">Total Unit Terjual Terpantau</h5>
-            <div class="dropdown">
-              <button class="btn btn-text-secondary rounded-pill text-body-secondary border-0 p-2 me-n1" type="button" id="totalEarning" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="icon-base ti tabler-dots-vertical icon-md text-body-secondary"></i>
-              </button>
-              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="totalEarning">
-                <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-              </div>
-            </div>
           </div>
           <div class="d-flex align-items-center">
-            <h2 class="mb-0 me-2">842.500 Unit</h2>
-            <i class="icon-base ti tabler-chevron-up text-success me-1"></i>
-            <h6 class="text-success mb-0">+8.3%</h6>
+            <h2 class="mb-0 me-2" id="statTotalSoldBottom">0 Unit</h2>
           </div>
         </div>
         <div class="card-body">
@@ -1148,9 +1030,9 @@
             <div class="d-flex justify-content-between w-100 gap-2 align-items-center">
               <div class="me-2">
                 <h6 class="mb-0">Unit Terjual Shopee</h6>
-                <small class="text-body">68.5% market share</small>
+                <small class="text-body" id="statTotalSoldBottomShopeeShare">0% market share</small>
               </div>
-              <h6 class="mb-0 text-success">577.100 Unit</h6>
+              <h6 class="mb-0 text-success" id="statTotalSoldBottomShopee">0 Unit</h6>
             </div>
           </div>
           <div class="d-flex align-items-start">
@@ -1158,9 +1040,9 @@
             <div class="d-flex justify-content-between w-100 gap-2 align-items-center">
               <div class="me-2">
                 <h6 class="mb-0">Unit Terjual Tokopedia</h6>
-                <small class="text-body">31.5% market share</small>
+                <small class="text-body" id="statTotalSoldBottomTokpedShare">0% market share</small>
               </div>
-              <h6 class="mb-0 text-success">265.400 Unit</h6>
+              <h6 class="mb-0 text-success" id="statTotalSoldBottomTokped">0 Unit</h6>
             </div>
           </div>
         </div>
@@ -1174,17 +1056,7 @@
         <div class="card-header d-flex justify-content-between">
           <div class="card-title mb-0">
             <h5 class="mb-1">Ringkasan Data Tren Produk</h5>
-            <p class="card-subtitle">10.420 Produk Dipantau</p>
-          </div>
-          <div class="dropdown">
-            <button class="btn btn-text-secondary rounded-pill text-body-secondary border-0 p-2 me-n1" type="button" id="MonthlyCampaign" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="icon-base ti tabler-dots-vertical icon-md text-body-secondary"></i>
-            </button>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="MonthlyCampaign">
-              <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-              <a class="dropdown-item" href="javascript:void(0);">Download</a>
-              <a class="dropdown-item" href="javascript:void(0);">View All</a>
-            </div>
+            <p class="card-subtitle" id="statCampaignSubtitle">0 Produk Terlaris Dipantau</p>
           </div>
         </div>
         <div class="card-body">
@@ -1194,58 +1066,58 @@
               <div class="d-flex justify-content-between w-100 flex-wrap">
                 <h6 class="mb-0 ms-4">Trending Naik</h6>
                 <div class="d-flex">
-                  <p class="mb-0">3.240</p>
-                  <p class="ms-4 text-success mb-0">0.3%</p>
+                  <p class="mb-0 fw-bold" id="statTrendTrendingUp">0</p>
+                  <p class="ms-4 text-success mb-0">-</p>
                 </div>
               </div>
             </li>
             <li class="mb-6 d-flex justify-content-between align-items-center">
               <div class="badge bg-label-info rounded p-1_5"><i class="icon-base ti tabler-trending-down icon-md"></i></div>
               <div class="d-flex justify-content-between w-100 flex-wrap">
-                <h6 class="mb-0 ms-4">Trending Turun</h6>
+                <h6 class="mb-0 ms-4">Trending Stabil / Turun</h6>
                 <div class="d-flex">
-                  <p class="mb-0">1.890</p>
-                  <p class="ms-4 text-success mb-0">2.1%</p>
+                  <p class="mb-0 fw-bold" id="statTrendTrendingDown">0</p>
+                  <p class="ms-4 text-muted mb-0">-</p>
                 </div>
               </div>
             </li>
             <li class="mb-6 d-flex justify-content-between align-items-center">
               <div class="badge bg-label-warning rounded p-1_5"><i class="icon-base ti tabler-flame icon-md"></i></div>
               <div class="d-flex justify-content-between w-100 flex-wrap">
-                <h6 class="mb-0 ms-4">Produk Hot</h6>
+                <h6 class="mb-0 ms-4">Produk Hot (Velocity Tinggi)</h6>
                 <div class="d-flex">
-                  <p class="mb-0">520</p>
-                  <p class="ms-4 text-danger mb-0">1.4%</p>
+                  <p class="mb-0 fw-bold text-warning" id="statTrendHotProducts">0</p>
+                  <p class="ms-4 text-warning mb-0">-</p>
                 </div>
               </div>
             </li>
             <li class="mb-6 d-flex justify-content-between align-items-center">
               <div class="badge bg-label-primary rounded p-1_5"><i class="icon-base ti tabler-star icon-md"></i></div>
               <div class="d-flex justify-content-between w-100 flex-wrap">
-                <h6 class="mb-0 ms-4">Rating ≥ 4.5</h6>
+                <h6 class="mb-0 ms-4">Rating Tertinggi ≥ 4.5</h6>
                 <div class="d-flex">
-                  <p class="mb-0">6.140</p>
-                  <p class="ms-4 text-success mb-0">8.5%</p>
+                  <p class="mb-0 fw-bold text-primary" id="statTrendHighRating">0</p>
+                  <p class="ms-4 text-success mb-0">-</p>
                 </div>
               </div>
             </li>
             <li class="mb-6 d-flex justify-content-between align-items-center">
               <div class="badge bg-label-secondary rounded p-1_5"><i class="icon-base ti tabler-package icon-md"></i></div>
               <div class="d-flex justify-content-between w-100 flex-wrap">
-                <h6 class="mb-0 ms-4">Stok Habis</h6>
+                <h6 class="mb-0 ms-4">Stok Habis / Limit</h6>
                 <div class="d-flex">
-                  <p class="mb-0">412</p>
-                  <p class="ms-4 text-danger mb-0">1.5%</p>
+                  <p class="mb-0 fw-bold text-danger" id="statTrendOutOfStock">0</p>
+                  <p class="ms-4 text-danger mb-0">-</p>
                 </div>
               </div>
             </li>
             <li class="mb-3 d-flex justify-content-between align-items-center">
               <div class="badge bg-label-danger rounded p-1_5"><i class="icon-base ti tabler-new-section icon-md"></i></div>
               <div class="d-flex justify-content-between w-100 flex-wrap">
-                <h6 class="mb-0 ms-4">Produk Baru</h6>
+                <h6 class="mb-0 ms-4">Produk Baru Masuk Live</h6>
                 <div class="d-flex">
-                  <p class="mb-0">218</p>
-                  <p class="ms-4 text-success mb-0">0.8%</p>
+                  <p class="mb-0 fw-bold text-success" id="statTrendNewProducts">0</p>
+                  <p class="ms-4 text-success mb-0">-</p>
                 </div>
               </div>
             </li>
@@ -1261,107 +1133,67 @@
         <div class="card-header d-flex justify-content-between">
           <div class="card-title mb-0">
             <h5 class="mb-1">Sumber Data Scraping</h5>
-            <p class="card-subtitle">14.280 Data Points Hari Ini</p>
-          </div>
-          <div class="dropdown">
-            <button class="btn btn-text-secondary rounded-pill text-body-secondary border-0 p-2 me-n1" type="button" id="sourceVisits" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="icon-base ti tabler-dots-vertical icon-md text-body-secondary"></i>
-            </button>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sourceVisits">
-              <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-              <a class="dropdown-item" href="javascript:void(0);">Download</a>
-              <a class="dropdown-item" href="javascript:void(0);">View All</a>
-            </div>
+            <p class="card-subtitle" id="statSourceSubtitle">Data Scraping Real-time Live</p>
           </div>
         </div>
         <div class="card-body">
           <ul class="list-unstyled mb-0">
             <li class="mb-6">
               <div class="d-flex align-items-center">
-                <div class="badge bg-label-secondary text-body p-2 me-4 rounded"><i class="icon-base ti tabler-shadow icon-md"></i></div>
+                <div class="badge bg-label-success text-body p-2 me-4 rounded"><i class="icon-base ti tabler-building-store icon-md text-success"></i></div>
                 <div class="d-flex justify-content-between w-100 flex-wrap gap-2">
                   <div class="me-2">
-                    <h6 class="mb-0">Shopee API</h6>
-                    <small class="text-body">Product & Store Data</small>
+                    <h6 class="mb-0">Tokopedia Intelligence</h6>
+                    <small class="text-body">Live API Scraper</small>
                   </div>
                   <div class="d-flex align-items-center">
-                    <p class="mb-0">7.140</p>
-                    <div class="ms-4 badge bg-label-success">+4.2%</div>
+                    <p class="mb-0 fw-bold" id="statSourceTokped">0 Produk</p>
+                    <div class="ms-3 badge bg-label-secondary">Standby</div>
                   </div>
                 </div>
               </div>
             </li>
             <li class="mb-6">
               <div class="d-flex align-items-center">
-                <div class="badge bg-label-secondary text-body p-2 me-4 rounded"><i class="icon-base ti tabler-globe icon-md"></i></div>
+                <div class="badge bg-label-warning text-body p-2 me-4 rounded"><i class="icon-base ti tabler-shopping-bag icon-md text-warning"></i></div>
                 <div class="d-flex justify-content-between w-100 flex-wrap gap-2">
                   <div class="me-2">
-                    <h6 class="mb-0">Tokopedia Scraper</h6>
-                    <small class="text-body">Playwright Browser Pool</small>
+                    <h6 class="mb-0">Shopee Mall</h6>
+                    <small class="text-body">Marketplace Scraper</small>
                   </div>
                   <div class="d-flex align-items-center">
-                    <p class="mb-0">3.280</p>
-                    <div class="ms-4 badge bg-label-success">+8.2%</div>
+                    <p class="mb-0 fw-bold" id="statSourceShopee">0 Produk</p>
+                    <div class="ms-3 badge bg-label-secondary" id="statSourceShopeeBadge">Standby</div>
                   </div>
                 </div>
               </div>
             </li>
             <li class="mb-6">
               <div class="d-flex align-items-center">
-                <div class="badge bg-label-secondary text-body p-2 me-4 rounded"><i class="icon-base ti tabler-mail icon-md"></i></div>
+                <div class="badge bg-label-primary text-body p-2 me-4 rounded"><i class="icon-base ti tabler-star icon-md text-primary"></i></div>
                 <div class="d-flex justify-content-between w-100 flex-wrap gap-2">
                   <div class="me-2">
                     <h6 class="mb-0">Review Aggregator</h6>
-                    <small class="text-body">Rating & Ulasan Produk</small>
+                    <small class="text-body">Rating & Ulasan Pembeli</small>
                   </div>
                   <div class="d-flex align-items-center">
-                    <p class="mb-0">2.480</p>
-                    <div class="ms-4 badge bg-label-success">+2.4%</div>
+                    <p class="mb-0 fw-bold" id="statSourceReviews">0 Ulasan</p>
+                    <div class="ms-3 badge bg-label-primary">Sinkron</div>
                   </div>
                 </div>
               </div>
             </li>
-            <li class="mb-6">
+            <li class="mb-2">
               <div class="d-flex align-items-center">
-                <div class="badge bg-label-secondary text-body p-2 me-4 rounded"><i class="icon-base ti tabler-external-link icon-md"></i></div>
+                <div class="badge bg-label-info text-body p-2 me-4 rounded"><i class="icon-base ti tabler-chart-line icon-md text-info"></i></div>
                 <div class="d-flex justify-content-between w-100 flex-wrap gap-2">
                   <div class="me-2">
-                    <h6 class="mb-0">Price Tracker</h6>
-                    <small class="text-body">Perubahan Harga Harian</small>
+                    <h6 class="mb-0">Marketplace Price Tracker</h6>
+                    <small class="text-body">Snapshot Pergerakan Harga</small>
                   </div>
                   <div class="d-flex align-items-center">
-                    <p class="mb-0">840</p>
-                    <div class="ms-4 badge bg-label-danger">-0.4%</div>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="mb-6">
-              <div class="d-flex align-items-center">
-                <div class="badge bg-label-secondary text-body p-2 me-4 rounded"><i class="icon-base ti tabler-ad icon-md"></i></div>
-                <div class="d-flex justify-content-between w-100 flex-wrap gap-2">
-                  <div class="me-2">
-                    <h6 class="mb-0">Stock Monitor</h6>
-                    <small class="text-body">Stok & Ketersediaan</small>
-                  </div>
-                  <div class="d-flex align-items-center">
-                    <p class="mb-0">540</p>
-                    <div class="ms-4 badge bg-label-success">+9.1%</div>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center">
-                <div class="badge bg-label-secondary text-body p-2 me-4 rounded"><i class="icon-base ti tabler-star icon-md"></i></div>
-                <div class="d-flex justify-content-between w-100 flex-wrap gap-2">
-                  <div class="me-2">
-                    <h6 class="mb-0">Seller Profile</h6>
-                    <small class="text-body">Info Toko & Badge</small>
-                  </div>
-                  <div class="d-flex align-items-center">
-                    <p class="mb-0">12.5k</p>
-                    <div class="ms-4 badge bg-label-success">+6.2%</div>
+                    <p class="mb-0 fw-bold" id="statSourcePrice">-</p>
+                    <div class="ms-3 badge bg-label-info">Realtime</div>
                   </div>
                 </div>
               </div>
@@ -1371,9 +1203,54 @@
       </div>
     </div>
     <!--/ Source Visit -->
-
-    
+    <!-- Top Bestseller Products Live (PRD F-12, F-15) -->
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+          <div>
+            <h5 class="card-title mb-1">Top Produk Terlaris Live Marketplace</h5>
+            <small class="text-body-secondary">Data real-time produk dengan penjualan tertinggi dari Tokopedia &amp; Shopee</small>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <a href="app-ecommerce-product-list.html" class="btn btn-primary btn-sm">
+              <i class="icon-base ti tabler-trophy me-1"></i>Lihat Semua Ranking
+            </a>
+          </div>
+        </div>
+        <div class="table-responsive text-nowrap">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Ranking</th>
+                <th>Produk</th>
+                <th>Kategori</th>
+                <th>Harga</th>
+                <th>Total Terjual</th>
+                <th>Terjual Hari Ini</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="topBestsellerTableBody">
+              <tr>
+                <td colspan="7" class="text-center py-5 text-muted">
+                  <h6 class="mb-1 text-muted">Belum ada data produk terlaris terpantau</h6>
+                  <small class="text-muted d-block mb-3">Lakukan live scraping untuk menampilkan produk terlaris secara dinamis.</small>
+                  <a href="app-ecommerce-product-list.html" class="btn btn-sm btn-primary">
+                    <i class="icon-base ti tabler-search me-1"></i>Ke Pencarian &amp; Live Scraping
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!--/ Top Bestseller Products Live -->
   </div>
+
+
+
+
 </div>
           <!-- / Content -->
 
@@ -1388,13 +1265,7 @@
         &#169;
         <script>
           document.write(new Date().getFullYear());
-        </script>
-        , Rankwise Marketplace Intelligence
-      </div>
-      <div class="d-none d-lg-inline-block">
-        <a href="index.html" class="footer-link me-4">Dashboard</a>
-        <a href="app-ecommerce-product-list.html" class="footer-link me-4">Riset Produk</a>
-        <a href="app-logistics-dashboard.html" class="footer-link d-none d-sm-inline-block">Scraper</a>
+        </script> Rankwise Marketplace Intelligence
       </div>
     </div>
   </div>
@@ -1462,6 +1333,59 @@
 
     <!-- Page JS -->
     <script src="../assets/js/dashboards-analytics.js"></script>
+
+    <!-- Dynamic Role & Navbar Controller -->
+    <script>
+      let currentUser = {};
+      let authToken = '';
+
+      function userLogout() {
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('auth_user');
+        window.location.href = 'auth-login-cover.html';
+      }
+
+      // --- INIT PAGE ---
+      document.addEventListener('DOMContentLoaded', function () {
+        authToken = localStorage.getItem('auth_token') || '';
+        currentUser = JSON.parse(localStorage.getItem('auth_user') || '{}');
+
+        // Setup navbar user profile
+        const nameEl = document.getElementById('userNavName');
+        const badgeEl = document.getElementById('userNavRoleBadge');
+        const avTop = document.getElementById('userNavAvatarTop');
+        const avEl = document.getElementById('userNavAvatar');
+
+        const uname = currentUser.username || currentUser.name || 'Pengguna';
+        const urole = currentUser.role || 'user';
+        const initial = uname.slice(0, 2).toUpperCase();
+
+        if (nameEl) nameEl.textContent = uname;
+        if (avTop) avTop.textContent = initial;
+        if (avEl) avEl.textContent = initial;
+
+        if (badgeEl) {
+          if (urole === 'admin') {
+            badgeEl.className = 'badge bg-label-danger';
+            badgeEl.textContent = 'Admin';
+          } else {
+            badgeEl.className = 'badge bg-label-primary';
+            badgeEl.textContent = 'User';
+          }
+        }
+
+        // Role-based sidebar menu items
+        if (urole === 'admin') {
+          document.querySelectorAll('.admin-only-menu').forEach(el => {
+            el.style.display = '';
+          });
+        } else {
+          document.querySelectorAll('.admin-only-menu').forEach(el => {
+            el.style.display = 'none';
+          });
+        }
+      });
+    </script>
     
   </body>
 

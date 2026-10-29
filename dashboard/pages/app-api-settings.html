@@ -1,0 +1,654 @@
+<!doctype html>
+
+<html
+  lang="en"
+  class="layout-navbar-fixed layout-menu-fixed layout-compact"
+  dir="ltr"
+  data-skin="default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-bordered"
+  data-bs-theme="light">
+  
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    
+    <title>Settings - Rankwise Marketplace Intelligence</title>
+    
+    <!-- Auth & Admin Role Access Guard -->
+    <script>
+      (function () {
+        const token = localStorage.getItem('auth_token');
+        const user = JSON.parse(localStorage.getItem('auth_user') || '{}');
+        if (!token) {
+          window.location.href = 'auth-login-cover.html';
+          return;
+        }
+        if (user.role !== 'admin') {
+          window.location.href = 'index.html';
+          return;
+        }
+      })();
+    </script>
+    
+    <meta name="description" content="Pengaturan Kredensial API Apify & Fonnte WhatsApp Gateway - Rankwise" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/vendor/fonts/iconify-icons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../assets/vendor/libs/node-waves/node-waves.css" />
+    <link rel="stylesheet" href="../assets/vendor/libs/pickr/pickr-themes.css" />
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- Helpers -->
+    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="../assets/vendor/js/template-customizer.js"></script>
+    <script src="../assets/js/config.js"></script>
+  </head>
+
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        
+        <!-- Menu Sidebar -->
+        <aside id="layout-menu" class="layout-menu menu-vertical menu">
+          <div class="app-brand demo">
+            <a href="index.html" class="app-brand-link">
+              <span class="app-brand-logo demo">
+                <span class="text-primary">
+                  <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z" fill="currentColor" />
+                    <path opacity="0.06" fill-rule="evenodd" clip-rule="evenodd" d="M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z" fill="#161616" />
+                    <path opacity="0.06" fill-rule="evenodd" clip-rule="evenodd" d="M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z" fill="#161616" />
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z" fill="currentColor" />
+                  </svg>
+                </span>
+              </span>
+              <span class="app-brand-text demo menu-text fw-bold ms-3">Rankwise</span>
+            </a>
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+              <i class="icon-base ti menu-toggle-icon d-none d-xl-block"></i>
+              <i class="icon-base ti tabler-x d-block d-xl-none"></i>
+            </a>
+          </div>
+
+          <div class="menu-inner-shadow"></div>
+
+          <ul class="menu-inner py-1">
+            <!-- Menu Intelligence -->
+            <li class="menu-header small">
+              <span class="menu-header-text">Marketplace Intelligence</span>
+            </li>
+            <li class="menu-item">
+              <a href="index.html" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-smart-home"></i>
+                <div>Dashboard Analytics</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="app-ecommerce-product-list.html" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-trophy"></i>
+                <div>Scraping Produk</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="app-ecommerce-schedule.html" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-calendar-time"></i>
+                <div>Schedule</div>
+              </a>
+            </li>
+
+            <!-- Administrator Menu -->
+            <li class="menu-header small">
+              <span class="menu-header-text">Administrasi Sistem</span>
+            </li>
+            <li class="menu-item">
+              <a href="app-user-management.html" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-users"></i>
+                <div>User Management</div>
+              </a>
+            </li>
+            <li class="menu-item active">
+              <a href="app-api-settings.html" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-key"></i>
+                <div>Setting</div>
+              </a>
+            </li>
+          </ul>
+        </aside>
+        <!-- / Menu Sidebar -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+          <nav class="layout-navbar container-xxl navbar-detached navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-6" href="javascript:void(0)">
+                <i class="icon-base ti tabler-menu-2 icon-md"></i>
+              </a>
+            </div>
+
+            <div class="navbar-nav-right d-flex align-items-center justify-content-end" id="navbar-collapse">
+              <!-- Search -->
+              <div class="navbar-nav align-items-center">
+                <div class="nav-item navbar-search-wrapper px-md-0 px-2 mb-0">
+                  <a class="nav-item nav-link search-toggler d-flex align-items-center px-0" href="javascript:void(0);">
+                    <span class="d-inline-block text-body-secondary fw-normal" id="autocomplete"></span>
+                  </a>
+                </div>
+              </div>
+              <!-- /Search -->
+
+              <ul class="navbar-nav flex-row align-items-center ms-md-auto">
+                <!-- Style Switcher -->
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle hide-arrow btn btn-icon btn-text-secondary rounded-pill" id="nav-theme" href="javascript:void(0);" data-bs-toggle="dropdown">
+                    <i class="icon-base ti tabler-sun icon-22px theme-icon-active text-heading"></i>
+                    <span class="d-none ms-2" id="nav-theme-text">Toggle theme</span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-theme-text">
+                    <li>
+                      <button type="button" class="dropdown-item align-items-center active" data-bs-theme-value="light" aria-pressed="false">
+                        <span><i class="icon-base ti tabler-sun icon-22px me-3" data-icon="sun"></i>Light</span>
+                      </button>
+                    </li>
+                    <li>
+                      <button type="button" class="dropdown-item align-items-center" data-bs-theme-value="dark" aria-pressed="true">
+                        <span><i class="icon-base ti tabler-moon-stars icon-22px me-3" data-icon="moon-stars"></i>Dark</span>
+                      </button>
+                    </li>
+                    <li>
+                      <button type="button" class="dropdown-item align-items-center" data-bs-theme-value="system" aria-pressed="false">
+                        <span><i class="icon-base ti tabler-device-desktop-analytics icon-22px me-3" data-icon="device-desktop-analytics"></i>System</span>
+                      </button>
+                    </li>
+                  </ul>
+                </li>
+                <!-- / Style Switcher-->
+
+                <!-- User Profile & Avatar -->
+                <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                  <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
+                    <div class="avatar avatar-online">
+                      <span class="avatar-initial rounded-circle bg-label-danger fw-bold" id="userNavAvatarTop">AD</span>
+                    </div>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                      <a class="dropdown-item mt-0" href="javascript:void(0);">
+                        <div class="d-flex align-items-center">
+                          <div class="flex-shrink-0 me-2">
+                            <div class="avatar avatar-online">
+                              <span class="avatar-initial rounded-circle bg-label-danger fw-bold" id="userNavAvatar">AD</span>
+                            </div>
+                          </div>
+                          <div class="flex-grow-1">
+                            <h6 class="mb-0" id="userNavName">admin</h6>
+                            <span class="badge bg-label-danger" id="userNavRoleBadge">Admin</span>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="dropdown-divider my-1"></div>
+                    </li>
+                    <li>
+                      <div class="d-grid px-2 pt-2 pb-1">
+                        <button class="btn btn-sm btn-danger d-flex align-items-center justify-content-center" onclick="userLogout()">
+                          <small class="align-middle me-2">Logout</small>
+                          <i class="icon-base ti tabler-logout icon-14px"></i>
+                        </button>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <!--/ User Profile -->
+              </ul>
+            </div>
+          </nav>
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                  <h4 class="fw-bold mb-1">Pengaturan API Key</h4>
+                  <p class="text-muted mb-0">Kelola token integrasi eksternal (Apify Live Scraping & Fonnte WhatsApp Gateway) secara dinamis</p>
+                </div>
+              </div>
+
+              <!-- Notification Alert -->
+              <div id="settingsAlertPlaceholder"></div>
+
+              <!-- API Configuration Cards -->
+              <div class="row g-4 mb-4">
+                <!-- Apify API Settings Card -->
+                <div class="col-12 col-lg-6">
+                  <div class="card h-100 shadow-sm border">
+                    <div class="card-header d-flex justify-content-between align-items-center border-bottom pb-3">
+                      <div class="d-flex align-items-center">
+                        <div>
+                          <h5 class="card-title mb-0">Apify Crawler Engine</h5>
+                          <small class="text-muted">Layanan Live Scraping Tokopedia & Shopee</small>
+                        </div>
+                      </div>
+                      <span class="badge bg-label-success" id="badgeApifyStatus">
+                        <i class="icon-base ti tabler-check me-1"></i>Tersimpan
+                      </span>
+                    </div>
+                    <div class="card-body pt-4">
+                      <p class="text-body small mb-3">
+                        Token API Apify digunakan oleh backend untuk memanggil Python Actor crawler secara otomatis saat user melakukan live search & scraping di dashboard.
+                      </p>
+
+                      <div class="mb-3">
+                        <label class="form-label fw-semibold" for="inputApifyToken">Apify API Token</label>
+                        <div class="input-group">
+                          <span class="input-group-text"><i class="icon-base ti tabler-key"></i></span>
+                          <input type="password" id="inputApifyToken" class="form-control" placeholder="apify_api_xxxxxxxxxxxxxxxxxxxxxx" />
+                          <button class="btn btn-outline-secondary" type="button" onclick="toggleTokenVisibility('inputApifyToken')">
+                            <i class="icon-base ti tabler-eye" id="inputApifyTokenEye"></i>
+                          </button>
+                        </div>
+                        <small class="text-muted mt-1 d-block">
+                          Dapatkan token di <a href="https://console.apify.com/account/integrations" target="_blank" class="fw-semibold">Apify Console Integrations</a>.
+                        </small>
+                      </div>
+
+                      <div class="alert alert-secondary d-flex align-items-center mb-4 py-2" role="alert">
+                        <i class="icon-base ti tabler-info-circle icon-18px me-2 text-primary"></i>
+                        <span class="small">Perubahan token akan langsung diaplikasikan ke modul background crawler.</span>
+                      </div>
+
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary" id="btnSaveApify" onclick="saveSettings('apify')">
+                          <i class="icon-base ti tabler-device-floppy me-1"></i> Simpan Token Apify
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Fonnte WhatsApp API Settings Card -->
+                <div class="col-12 col-lg-6">
+                  <div class="card h-100 shadow-sm border">
+                    <div class="card-header d-flex justify-content-between align-items-center border-bottom pb-3">
+                      <div class="d-flex align-items-center">
+                        <div>
+                          <h5 class="card-title mb-0">Fonnte WhatsApp Gateway</h5>
+                          <small class="text-muted">Notifikasi Hasil Crawling Terjadwal</small>
+                        </div>
+                      </div>
+                      <span class="badge bg-label-success" id="badgeFonnteStatus">
+                        <i class="icon-base ti tabler-check me-1"></i>Tersimpan
+                      </span>
+                    </div>
+                    <div class="card-body pt-4">
+                      <p class="text-body small mb-3">
+                        Token Device Fonnte digunakan untuk mengirimkan laporan ringkasan ranking produk terlaris langsung ke nomor WhatsApp penerima sesuai jadwal kalender.
+                      </p>
+
+                      <div class="mb-3">
+                        <label class="form-label fw-semibold" for="inputFonnteToken">Fonnte Device API Token</label>
+                        <div class="input-group">
+                          <span class="input-group-text"><i class="icon-base ti tabler-key"></i></span>
+                          <input type="password" id="inputFonnteToken" class="form-control" placeholder="Device API Token Fonnte..." />
+                          <button class="btn btn-outline-secondary" type="button" onclick="toggleTokenVisibility('inputFonnteToken')">
+                            <i class="icon-base ti tabler-eye" id="inputFonnteTokenEye"></i>
+                          </button>
+                        </div>
+                        <small class="text-muted mt-1 d-block">
+                          Dapatkan token device di dashboard <a href="https://fonnte.com" target="_blank" class="fw-semibold">fonnte.com</a>.
+                        </small>
+                      </div>
+
+                      <!-- Tes Kirim WA -->
+                      <div class="border rounded p-3 mb-3 bg-lighter">
+                        <label class="form-label fw-semibold mb-1" for="inputTestWaPhone">
+                          <i class="icon-base ti tabler-send me-1"></i>Uji Coba Pengiriman Pesan WhatsApp
+                        </label>
+                        <div class="input-group">
+                          <span class="input-group-text">+62</span>
+                          <input type="text" id="inputTestWaPhone" class="form-control" placeholder="08123456789" />
+                          <button class="btn btn-success" type="button" id="btnTestWa" onclick="testWhatsAppMessage()">
+                            <i class="icon-base ti tabler-brand-whatsapp me-1"></i> Tes Kirim
+                          </button>
+                        </div>
+                        <div id="testWaResult" class="small mt-2"></div>
+                      </div>
+
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-success" id="btnSaveFonnte" onclick="saveSettings('fonnte')">
+                          <i class="icon-base ti tabler-device-floppy me-1"></i> Simpan Token Fonnte
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Activity Audit Trail Log Card -->
+              <div class="card shadow-sm border-0">
+                <div class="card-header d-flex justify-content-between align-items-center border-bottom pb-3">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <h5 class="card-title mb-0">Log Aktivitas Sistem</h5>
+                      <small class="text-muted">Menampilkan riwayat 50 aktivitas terbaru yang tercatat di sistem</small>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <button class="btn btn-sm btn-outline-primary d-flex align-items-center" onclick="loadActivities()">
+                      <i class="icon-base ti tabler-refresh me-1"></i> Segarkan Log
+                    </button>
+                  </div>
+                </div>
+                <div class="table-responsive text-nowrap">
+                  <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                      <tr>
+                        <th style="width: 18%;">Waktu (WIB)</th>
+                        <th style="width: 16%;">Pengguna</th>
+                        <th style="width: 18%;">Aksi</th>
+                        <th style="width: 36%;">Detail Aktivitas</th>
+                        <th style="width: 12%;">IP Address</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tableActivitiesBody">
+                      <tr>
+                        <td colspan="5" class="text-center py-5 text-muted">
+                          <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div>
+                          Memuat data aktivitas sistem...
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+            <!-- / Content -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Core JS -->
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/node-waves/node-waves.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="../assets/js/main.js"></script>
+
+    <!-- Page Specific Script -->
+    <script>
+      const API_BASE = 'http://localhost:8080/api';
+      const currentUser = JSON.parse(localStorage.getItem('auth_user') || '{}');
+      const authToken = localStorage.getItem('auth_token');
+
+      // Setup Navbar user info
+      function setupUserNavbar() {
+        const name = currentUser.name || currentUser.username || 'Admin';
+        const role = currentUser.role || 'admin';
+        const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'AD';
+
+        const topAv = document.getElementById('userNavAvatarTop');
+        if (topAv) topAv.textContent = initials;
+        const navAv = document.getElementById('userNavAvatar');
+        if (navAv) navAv.textContent = initials;
+        const nameEl = document.getElementById('userNavName');
+        if (nameEl) nameEl.textContent = name;
+        const roleEl = document.getElementById('userNavRoleBadge');
+        if (roleEl) {
+          roleEl.textContent = role.toUpperCase();
+          roleEl.className = 'badge bg-label-danger';
+        }
+      }
+
+      function userLogout() {
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('auth_user');
+        window.location.href = 'auth-login-cover.html';
+      }
+
+      function toggleTokenVisibility(inputId) {
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById(inputId + 'Eye');
+        if (!input) return;
+        if (input.type === 'password') {
+          input.type = 'text';
+          if (icon) icon.className = 'icon-base ti tabler-eye-off';
+        } else {
+          input.type = 'password';
+          if (icon) icon.className = 'icon-base ti tabler-eye';
+        }
+      }
+
+      function showAlert(type, message) {
+        const container = document.getElementById('settingsAlertPlaceholder');
+        if (!container) return;
+        const icon = type === 'success' ? 'tabler-check' : 'tabler-alert-triangle';
+        container.innerHTML = `
+          <div class="alert alert-${type} alert-dismissible fade show d-flex align-items-center" role="alert">
+            <i class="icon-base ti ${icon} icon-20px me-2"></i>
+            <div>${message}</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        `;
+        setTimeout(() => {
+          container.innerHTML = '';
+        }, 5000);
+      }
+
+      // Fetch API Settings
+      async function loadApiSettings() {
+        try {
+          const res = await fetch(`${API_BASE}/admin/settings`, {
+            headers: { 'Authorization': `Bearer ${authToken}` }
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (data.apify_token) {
+              document.getElementById('inputApifyToken').value = data.apify_token;
+              document.getElementById('badgeApifyStatus').className = 'badge bg-label-success';
+              document.getElementById('badgeApifyStatus').innerHTML = '<i class="icon-base ti tabler-check me-1"></i>Tersimpan';
+            } else {
+              document.getElementById('badgeApifyStatus').className = 'badge bg-label-secondary';
+              document.getElementById('badgeApifyStatus').innerHTML = 'Belum Disetel';
+            }
+
+            if (data.fonnte_token) {
+              document.getElementById('inputFonnteToken').value = data.fonnte_token;
+              document.getElementById('badgeFonnteStatus').className = 'badge bg-label-success';
+              document.getElementById('badgeFonnteStatus').innerHTML = '<i class="icon-base ti tabler-check me-1"></i>Tersimpan';
+            } else {
+              document.getElementById('badgeFonnteStatus').className = 'badge bg-label-secondary';
+              document.getElementById('badgeFonnteStatus').innerHTML = 'Belum Disetel';
+            }
+          }
+        } catch (err) {
+          console.error('Failed to load settings:', err);
+        }
+      }
+
+      // Save Settings
+      async function saveSettings(source) {
+        const apifyToken = document.getElementById('inputApifyToken').value.trim();
+        const fonnteToken = document.getElementById('inputFonnteToken').value.trim();
+
+        const btnId = source === 'apify' ? 'btnSaveApify' : 'btnSaveFonnte';
+        const btn = document.getElementById(btnId);
+        const origText = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status"></span> Menyimpan...';
+
+        try {
+          const res = await fetch(`${API_BASE}/admin/settings`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${authToken}`
+            },
+            body: JSON.stringify({
+              apify_token: apifyToken,
+              fonnte_token: fonnteToken
+            })
+          });
+
+          const data = await res.json();
+          if (res.ok && data.status === 'success') {
+            showAlert('success', 'Pengaturan token API berhasil disimpan ke database!');
+            loadApiSettings();
+            loadActivities();
+          } else {
+            showAlert('danger', data.message || 'Gagal menyimpan pengaturan API');
+          }
+        } catch (err) {
+          showAlert('danger', 'Terjadi kesalahan jaringan saat menyimpan token API');
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = origText;
+        }
+      }
+
+      // Test WhatsApp send
+      async function testWhatsAppMessage() {
+        const phone = document.getElementById('inputTestWaPhone').value.trim();
+        const fonnteToken = document.getElementById('inputFonnteToken').value.trim();
+        const resultEl = document.getElementById('testWaResult');
+
+        if (!phone) {
+          resultEl.innerHTML = '<span class="text-danger"><i class="icon-base ti tabler-alert-circle me-1"></i>Masukkan nomor WhatsApp penerima uji coba!</span>';
+          return;
+        }
+
+        if (!fonnteToken) {
+          resultEl.innerHTML = '<span class="text-danger"><i class="icon-base ti tabler-alert-circle me-1"></i>Fonnte Token belum diisi!</span>';
+          return;
+        }
+
+        const btn = document.getElementById('btnTestWa');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span>';
+        resultEl.innerHTML = '<span class="text-info"><i class="icon-base ti tabler-loader me-1"></i>Mengirim pesan uji coba melalui server Fonnte...</span>';
+
+        try {
+          const res = await fetch(`${API_BASE}/schedule/test-wa`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              whatsapp_number: phone,
+              fonnte_token: fonnteToken
+            })
+          });
+          const data = await res.json();
+          if (res.ok && data.status === 'success') {
+            resultEl.innerHTML = `<span class="text-success fw-semibold"><i class="icon-base ti tabler-circle-check me-1"></i>${data.message}</span>`;
+            loadActivities();
+          } else {
+            resultEl.innerHTML = `<span class="text-danger"><i class="icon-base ti tabler-circle-x me-1"></i>${data.message || 'Gagal kirim WhatsApp'}</span>`;
+          }
+        } catch (err) {
+          resultEl.innerHTML = '<span class="text-danger"><i class="icon-base ti tabler-circle-x me-1"></i>Terjadi kendala koneksi ke server gateway.</span>';
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="icon-base ti tabler-brand-whatsapp me-1"></i> Tes Kirim';
+        }
+      }
+
+      function escapeHtml(str) {
+        if (!str) return '';
+        return String(str).replace(/[&<>"']/g, function(m) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+        });
+      }
+
+      // Load Activities (Tampilkan maksimal 50 baris log terbaru, tanpa badge inisial/role pada nama pengguna)
+      async function loadActivities() {
+        const tbody = document.getElementById('tableActivitiesBody');
+        try {
+          const res = await fetch(`${API_BASE}/activities`, {
+            headers: { 'Authorization': 'Bearer ' + authToken }
+          });
+          if (res.ok) {
+            const data = await res.json();
+            const rawList = Array.isArray(data) ? data : (data.activities || data.data || []);
+            const list = rawList.slice(0, 50);
+
+            if (!list || list.length === 0) {
+              tbody.innerHTML = '<tr><td colspan="5" class="text-center py-5 text-muted"><i class="icon-base ti tabler-history-off me-2"></i>Belum ada riwayat aktivitas tercatat</td></tr>';
+              return;
+            }
+
+            let html = '';
+            list.forEach(act => {
+              const dt = new Date(act.created_at);
+              const formattedDate = isNaN(dt.getTime()) ? act.created_at : dt.toLocaleString('id-ID', {
+                day: '2-digit', month: 'short', year: 'numeric',
+                hour: '2-digit', minute: '2-digit', second: '2-digit'
+              }) + ' WIB';
+
+              let actionBadge = `<span class="badge bg-label-secondary">${escapeHtml(act.action)}</span>`;
+              if (act.action.includes('Login')) {
+                actionBadge = `<span class="badge bg-label-success">${escapeHtml(act.action)}</span>`;
+              } else if (act.action.includes('Scraping') || act.action.includes('Live')) {
+                actionBadge = `<span class="badge bg-label-primary">${escapeHtml(act.action)}</span>`;
+              } else if (act.action.includes('Settings') || act.action.includes('Update') || act.action.includes('Jadwal')) {
+                actionBadge = `<span class="badge bg-label-warning">${escapeHtml(act.action)}</span>`;
+              } else if (act.action.includes('Delete') || act.action.includes('Hapus')) {
+                actionBadge = `<span class="badge bg-label-danger">${escapeHtml(act.action)}</span>`;
+              }
+
+              html += `
+                <tr>
+                  <td><span class="small font-monospace text-body">${formattedDate}</span></td>
+                  <td><span class="fw-semibold text-heading">${escapeHtml(act.username || 'User')}</span></td>
+                  <td>${actionBadge}</td>
+                  <td><span class="text-body">${escapeHtml(act.details || act.description || '-')}</span></td>
+                  <td><small class="text-muted font-monospace">${escapeHtml(act.ip_address || '-')}</small></td>
+                </tr>
+              `;
+            });
+            tbody.innerHTML = html;
+          } else {
+            tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-danger">Gagal memuat log aktivitas (HTTP ' + res.status + ')</td></tr>';
+          }
+        } catch (err) {
+          console.error("Load activities error:", err);
+          tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-danger">Gagal memuat log aktivitas: ' + err.message + '</td></tr>';
+        }
+      }
+
+      // Initialize
+      document.addEventListener('DOMContentLoaded', () => {
+        setupUserNavbar();
+        loadApiSettings();
+        loadActivities();
+      });
+    </script>
+  </body>
+</html>

@@ -65,7 +65,9 @@
     
       <meta name="robots" content="noindex, nofollow" />
     
-    <title>Rankwise - Marketplace Intelligence</title>
+    <title>Sign Up - Rankwise Marketplace Intelligence</title>
+    <!-- Google Identity Services (GIS) -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     
       <meta name="description" content="Vuexy is the best bootstrap 5 dashboard for responsive web apps. Streamline your app development process with ease." />
       <!-- Canonical SEO -->
@@ -173,63 +175,62 @@
       <div class="d-flex col-12 col-xl-4 align-items-center authentication-bg p-sm-12 p-6">
         <div class="w-px-400 mx-auto mt-12 pt-5">
           <h4 class="mb-1">Adventure starts here 🚀</h4>
-          <p class="mb-6">Platform analisis marketplace Shopee & Tokopedia terlengkap</p>
+          <div id="authAlert" class="alert d-none mb-4 py-2 px-3 small" role="alert"></div>
 
-          <form id="formAuthentication" class="mb-6" action="https://demos.pixinvent.com/vuexy-html-admin-template/html/vertical-menu-template-bordered/index.html" method="GET">
+          <form id="formAuthentication" class="mb-6" action="javascript:void(0);" method="POST" onsubmit="return false;">
             <div class="mb-6 form-control-validation">
               <label for="username" class="form-label">Username</label>
-              <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" autofocus />
+              <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan username" autofocus required />
             </div>
             <div class="mb-6 form-control-validation">
               <label for="email" class="form-label">Email</label>
-              <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
+              <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan email" required />
             </div>
             <div class="mb-6 form-password-toggle form-control-validation">
               <label class="form-label" for="password">Password</label>
               <div class="input-group input-group-merge">
-                <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                <input type="password" id="password" class="form-control" name="password" placeholder="Minimal 6 karakter" aria-describedby="password" required minlength="6" />
                 <span class="input-group-text cursor-pointer"><i class="icon-base ti tabler-eye-off"></i></span>
               </div>
             </div>
-            <div class="mb-6 mt-8">
-              <div class="form-check mb-8 ms-2 form-control-validation">
-                <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
+            <div class="mb-6 mt-4">
+              <div class="form-check ms-2 form-control-validation">
+                <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" checked required />
                 <label class="form-check-label" for="terms-conditions">
-                  I agree to
-                  <a href="javascript:void(0);">privacy policy & terms</a>
+                  Saya setuju dengan ketentuan &amp; privasi
                 </label>
               </div>
             </div>
-            <button class="btn btn-primary d-grid w-100">Sign up</button>
+            <button class="btn btn-primary d-grid w-100" id="btnSignUp" type="button">Daftar Akun</button>
           </form>
 
-          <p class="text-center">
-            <span>Already have an account?</span>
+          <p class="text-center mb-4">
+            <span>Sudah memiliki akun?</span>
             <a href="auth-login-cover.html">
-              <span>Sign in instead</span>
+              <span>Masuk Sekarang</span>
             </a>
           </p>
 
-          <div class="divider my-6">
-            <div class="divider-text">or</div>
+          <div class="divider my-4">
+            <div class="divider-text">atau daftar dengan</div>
           </div>
 
           <div class="d-flex justify-content-center">
-            <a href="javascript:;" class="btn btn-icon rounded-circle btn-text-facebook me-1_5">
-              <i class="icon-base ti tabler-brand-facebook-filled icon-20px"></i>
-            </a>
-
-            <a href="javascript:;" class="btn btn-icon rounded-circle btn-text-twitter me-1_5">
-              <i class="icon-base ti tabler-brand-twitter-filled icon-20px"></i>
-            </a>
-
-            <a href="javascript:;" class="btn btn-icon rounded-circle btn-text-github me-1_5">
-              <i class="icon-base ti tabler-brand-github-filled icon-20px"></i>
-            </a>
-
-            <a href="javascript:;" class="btn btn-icon rounded-circle btn-text-google-plus">
-              <i class="icon-base ti tabler-brand-google-filled icon-20px"></i>
-            </a>
+            <div id="g_id_onload"
+                 data-client_id="401944157094-81bs6bm6loldgtma4lva3e2vu1r66ih9.apps.googleusercontent.com"
+                 data-context="signup"
+                 data-ux_mode="popup"
+                 data-callback="handleGoogleRegisterResponse"
+                 data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin"
+                 data-type="standard"
+                 data-shape="rectangular"
+                 data-theme="outline"
+                 data-text="signup_with"
+                 data-size="large"
+                 data-logo_alignment="left">
+            </div>
           </div>
         </div>
       </div>
@@ -278,12 +279,132 @@
       <script src="../assets/js/main.js"></script>
     
 
-    <!-- Page JS -->
-    <script src="../assets/js/pages-auth.js"></script>
-    
-  </body>
+    <!-- Custom Register JS -->
+    <script>
+      function showAlert(msg, type) {
+        const el = document.getElementById('authAlert');
+        if (!el) return;
+        el.className = `alert alert-${type} mb-4 py-2 px-3 small`;
+        el.textContent = msg;
+        el.classList.remove('d-none');
+      }
 
-<!-- Mirrored from demos.pixinvent.com/vuexy-html-admin-template/html/vertical-menu-template-bordered/auth-register-cover.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Oct 2026 11:27:29 GMT -->
+      function handleAuthSuccess(data) {
+        if (data.token) {
+          localStorage.setItem('auth_token', data.token);
+          localStorage.setItem('auth_user', JSON.stringify(data.user));
+          window.location.href = 'index.html';
+        }
+      }
+
+      function handleGoogleRegisterResponse(response) {
+        if (!response || !response.credential) {
+          showAlert('Gagal menerima kredensial akun Google', 'danger');
+          return;
+        }
+
+        fetch('/api/auth/google', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ credential: response.credential })
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success && data.token) {
+              handleAuthSuccess(data);
+            } else {
+              showAlert(data.message || 'Pendaftaran dengan Google gagal', 'danger');
+            }
+          })
+          .catch(err => showAlert('Gagal menghubungi server backend: ' + err.message, 'danger'));
+      }
+
+      function doRegister() {
+        const username = (document.getElementById('username')?.value || '').trim();
+        const email = (document.getElementById('email')?.value || '').trim();
+        const password = document.getElementById('password')?.value || '';
+        const btnSignUp = document.getElementById('btnSignUp');
+
+        if (!username || !email || !password) {
+          showAlert('Harap isi semua kolom formulir', 'warning');
+          return;
+        }
+
+        if (password.length < 6) {
+          showAlert('Password minimal 6 karakter', 'warning');
+          return;
+        }
+
+        if (btnSignUp) {
+          btnSignUp.disabled = true;
+          btnSignUp.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Mendaftarkan...';
+        }
+
+        fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: username, email: email, password: password })
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (btnSignUp) {
+              btnSignUp.disabled = false;
+              btnSignUp.textContent = 'Daftar Akun';
+            }
+            if (data.success) {
+              showAlert('Registrasi berhasil! Silakan masuk dengan akun Anda...', 'success');
+              setTimeout(() => {
+                window.location.href = 'auth-login-cover.html';
+              }, 1200);
+            } else {
+              showAlert(data.message || 'Registrasi gagal, coba username/email lain', 'danger');
+            }
+          })
+          .catch(err => {
+            if (btnSignUp) {
+              btnSignUp.disabled = false;
+              btnSignUp.textContent = 'Daftar Akun';
+            }
+            showAlert('Tidak dapat terhubung ke server backend: ' + err.message, 'danger');
+          });
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('formAuthentication');
+        const btnSignUp = document.getElementById('btnSignUp');
+        const usernameEl = document.getElementById('username');
+        const emailEl = document.getElementById('email');
+        const passEl = document.getElementById('password');
+
+        if (btnSignUp) {
+          btnSignUp.addEventListener('click', function(e) {
+            e.preventDefault();
+            doRegister();
+          });
+        }
+
+        if (form) {
+          form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            doRegister();
+            return false;
+          });
+        }
+
+        [usernameEl, emailEl, passEl].forEach(input => {
+          if (input) {
+            input.addEventListener('keydown', function(e) {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                doRegister();
+              }
+            });
+          }
+        });
+      });
+    </script>
+  </body>
 </html>
 
   <!-- beautify ignore:end -->

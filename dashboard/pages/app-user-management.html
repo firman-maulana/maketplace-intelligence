@@ -1,0 +1,877 @@
+<!doctype html>
+
+<html
+  lang="en"
+  class="layout-navbar-fixed layout-menu-fixed layout-compact"
+  dir="ltr"
+  data-skin="default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-bordered"
+  data-bs-theme="light">
+  
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    
+    <title>User Management - Rankwise Marketplace Intelligence</title>
+    
+    <!-- Auth & Admin Role Access Guard -->
+    <script>
+      (function () {
+        const token = localStorage.getItem('auth_token');
+        const user = JSON.parse(localStorage.getItem('auth_user') || '{}');
+        if (!token) {
+          window.location.href = 'auth-login-cover.html';
+          return;
+        }
+        if (user.role !== 'admin') {
+          window.location.href = 'index.html';
+          return;
+        }
+      })();
+    </script>
+    
+    <meta name="description" content="Manajemen Pengguna dan Hak Akses Akun - Rankwise" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/vendor/fonts/iconify-icons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../assets/vendor/libs/node-waves/node-waves.css" />
+    <link rel="stylesheet" href="../assets/vendor/libs/pickr/pickr-themes.css" />
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- Helpers -->
+    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="../assets/vendor/js/template-customizer.js"></script>
+    <script src="../assets/js/config.js"></script>
+  </head>
+
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        
+        <!-- Menu Sidebar -->
+        <aside id="layout-menu" class="layout-menu menu-vertical menu">
+          <div class="app-brand demo">
+            <a href="index.html" class="app-brand-link">
+              <span class="app-brand-logo demo">
+                <span class="text-primary">
+                  <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z" fill="currentColor" />
+                    <path opacity="0.06" fill-rule="evenodd" clip-rule="evenodd" d="M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z" fill="#161616" />
+                    <path opacity="0.06" fill-rule="evenodd" clip-rule="evenodd" d="M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z" fill="#161616" />
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z" fill="currentColor" />
+                  </svg>
+                </span>
+              </span>
+              <span class="app-brand-text demo menu-text fw-bold ms-3">Rankwise</span>
+            </a>
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+              <i class="icon-base ti menu-toggle-icon d-none d-xl-block"></i>
+              <i class="icon-base ti tabler-x d-block d-xl-none"></i>
+            </a>
+          </div>
+
+          <div class="menu-inner-shadow"></div>
+
+          <ul class="menu-inner py-1">
+            <!-- Menu Intelligence -->
+            <li class="menu-header small">
+              <span class="menu-header-text">Marketplace Intelligence</span>
+            </li>
+            <li class="menu-item">
+              <a href="index.html" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-smart-home"></i>
+                <div>Dashboard Analytics</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="app-ecommerce-product-list.html" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-trophy"></i>
+                <div>Scraping Produk</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="app-ecommerce-schedule.html" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-calendar-time"></i>
+                <div>Schedule</div>
+              </a>
+            </li>
+
+            <!-- Administrator Menu -->
+            <li class="menu-header small">
+              <span class="menu-header-text">Administrasi Sistem</span>
+            </li>
+            <li class="menu-item active">
+              <a href="app-user-management.html" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-users"></i>
+                <div>User Management</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="app-api-settings.html" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-key"></i>
+                <div>Setting</div>
+              </a>
+            </li>
+          </ul>
+        </aside>
+        <!-- / Menu Sidebar -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+          <nav class="layout-navbar container-xxl navbar-detached navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-6" href="javascript:void(0)">
+                <i class="icon-base ti tabler-menu-2 icon-md"></i>
+              </a>
+            </div>
+
+            <div class="navbar-nav-right d-flex align-items-center justify-content-end" id="navbar-collapse">
+              <!-- Search -->
+              <div class="navbar-nav align-items-center">
+                <div class="nav-item navbar-search-wrapper px-md-0 px-2 mb-0">
+                  <a class="nav-item nav-link search-toggler d-flex align-items-center px-0" href="javascript:void(0);">
+                    <span class="d-inline-block text-body-secondary fw-normal" id="autocomplete"></span>
+                  </a>
+                </div>
+              </div>
+              <!-- /Search -->
+
+              <ul class="navbar-nav flex-row align-items-center ms-md-auto">
+                <!-- Style Switcher -->
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle hide-arrow btn btn-icon btn-text-secondary rounded-pill" id="nav-theme" href="javascript:void(0);" data-bs-toggle="dropdown">
+                    <i class="icon-base ti tabler-sun icon-22px theme-icon-active text-heading"></i>
+                    <span class="d-none ms-2" id="nav-theme-text">Toggle theme</span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-theme-text">
+                    <li>
+                      <button type="button" class="dropdown-item align-items-center active" data-bs-theme-value="light" aria-pressed="false">
+                        <span><i class="icon-base ti tabler-sun icon-22px me-3" data-icon="sun"></i>Light</span>
+                      </button>
+                    </li>
+                    <li>
+                      <button type="button" class="dropdown-item align-items-center" data-bs-theme-value="dark" aria-pressed="true">
+                        <span><i class="icon-base ti tabler-moon-stars icon-22px me-3" data-icon="moon-stars"></i>Dark</span>
+                      </button>
+                    </li>
+                    <li>
+                      <button type="button" class="dropdown-item align-items-center" data-bs-theme-value="system" aria-pressed="false">
+                        <span><i class="icon-base ti tabler-device-desktop-analytics icon-22px me-3" data-icon="device-desktop-analytics"></i>System</span>
+                      </button>
+                    </li>
+                  </ul>
+                </li>
+                <!-- / Style Switcher-->
+
+                <!-- User Profile & Avatar -->
+                <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                  <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
+                    <div class="avatar avatar-online">
+                      <span class="avatar-initial rounded-circle bg-label-danger fw-bold" id="userNavAvatarTop">AD</span>
+                    </div>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                      <a class="dropdown-item mt-0" href="javascript:void(0);">
+                        <div class="d-flex align-items-center">
+                          <div class="flex-shrink-0 me-2">
+                            <div class="avatar avatar-online">
+                              <span class="avatar-initial rounded-circle bg-label-danger fw-bold" id="userNavAvatar">AD</span>
+                            </div>
+                          </div>
+                          <div class="flex-grow-1">
+                            <h6 class="mb-0" id="userNavName">admin</h6>
+                            <span class="badge bg-label-danger" id="userNavRoleBadge">Admin</span>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="dropdown-divider my-1"></div>
+                    </li>
+                    <li>
+                      <div class="d-grid px-2 pt-2 pb-1">
+                        <button class="btn btn-sm btn-danger d-flex align-items-center justify-content-center" onclick="userLogout()">
+                          <small class="align-middle me-2">Logout</small>
+                          <i class="icon-base ti tabler-logout icon-14px"></i>
+                        </button>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <!--/ User Profile -->
+              </ul>
+            </div>
+          </nav>
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                  <h4 class="fw-bold mb-1">Manajemen Pengguna</h4>
+                  <p class="text-muted mb-0">Kelola akun, hak akses role, dan status pengguna sistem Rankwise.</p>
+                </div>
+                <div>
+                  <button type="button" class="btn btn-primary" onclick="openAddUserModal()">
+                    <i class="icon-base ti tabler-user-plus me-1"></i>Tambah Pengguna Baru
+                  </button>
+                </div>
+              </div>
+
+              <!-- 4 Stat Cards (Vuexy Layout) -->
+              <div class="row g-6 mb-6">
+                <div class="col-sm-6 col-xl-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-start justify-content-between">
+                        <div class="content-left">
+                          <span class="text-heading">Total Pengguna</span>
+                          <div class="d-flex align-items-center my-1">
+                            <h4 class="mb-0 me-2" id="statUserTotal">0</h4>
+                          </div>
+                          <small class="mb-0 text-muted">Akun terdaftar</small>
+                        </div>
+                        <div class="avatar">
+                          <span class="avatar-initial rounded bg-label-primary">
+                            <i class="icon-base ti tabler-users icon-26px"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-start justify-content-between">
+                        <div class="content-left">
+                          <span class="text-heading">Administrator</span>
+                          <div class="d-flex align-items-center my-1">
+                            <h4 class="mb-0 me-2" id="statUserAdmin">0</h4>
+                          </div>
+                          <small class="mb-0 text-muted">Akses penuh sistem</small>
+                        </div>
+                        <div class="avatar">
+                          <span class="avatar-initial rounded bg-label-danger">
+                            <i class="icon-base ti tabler-shield-check icon-26px"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-start justify-content-between">
+                        <div class="content-left">
+                          <span class="text-heading">Pengguna Aktif</span>
+                          <div class="d-flex align-items-center my-1">
+                            <h4 class="mb-0 me-2" id="statUserActive">0</h4>
+                          </div>
+                          <small class="mb-0 text-muted">Bisa login ke sistem</small>
+                        </div>
+                        <div class="avatar">
+                          <span class="avatar-initial rounded bg-label-success">
+                            <i class="icon-base ti tabler-user-check icon-26px"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-start justify-content-between">
+                        <div class="content-left">
+                          <span class="text-heading">Non-Aktif</span>
+                          <div class="d-flex align-items-center my-1">
+                            <h4 class="mb-0 me-2" id="statUserInactive">0</h4>
+                          </div>
+                          <small class="mb-0 text-muted">Akses dibekukan</small>
+                        </div>
+                        <div class="avatar">
+                          <span class="avatar-initial rounded bg-label-warning">
+                            <i class="icon-base ti tabler-user-x icon-26px"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Users Table Card -->
+              <div class="card shadow-sm border-0">
+                <div class="card-header border-bottom pb-4">
+                  <div class="mb-3">
+                    <h5 class="card-title mb-0">Daftar Pengguna Sistem</h5>
+                  </div>
+                  <div class="row g-3 align-items-end">
+                    <div class="col-md-3">
+                      <label class="form-label small text-muted text-uppercase fw-semibold" for="filterUserRole">Role</label>
+                      <select id="filterUserRole" class="form-select" onchange="loadUsersTable()">
+                        <option value="all">Semua Role</option>
+                        <option value="admin">Administrator</option>
+                        <option value="user">User</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label small text-muted text-uppercase fw-semibold" for="filterUserStatus">Status Akun</label>
+                      <select id="filterUserStatus" class="form-select" onchange="loadUsersTable()">
+                        <option value="all">Semua Status</option>
+                        <option value="active">Aktif (Active)</option>
+                        <option value="inactive">Non-Aktif (Inactive)</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label small text-muted text-uppercase fw-semibold" for="searchUserInput">Pencarian</label>
+                      <div class="input-group">
+                        <span class="input-group-text"><i class="icon-base ti tabler-search text-muted"></i></span>
+                        <input type="text" id="searchUserInput" class="form-control" placeholder="Cari nama pengguna atau email..." onkeyup="if(event.key==='Enter') loadUsersTable()">
+                        <button class="btn btn-primary" type="button" onclick="loadUsersTable()">Cari</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="table-responsive text-nowrap">
+                  <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                      <tr>
+                        <th style="width: 28%;">Pengguna</th>
+                        <th style="width: 25%;">Email</th>
+                        <th style="width: 14%;">Role</th>
+                        <th style="width: 13%;">Status</th>
+                        <th style="width: 12%;">Terdaftar</th>
+                        <th style="width: 8%;" class="text-center">Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody id="userTableBody">
+                      <tr>
+                        <td colspan="6" class="text-center py-5 text-muted">
+                          <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div>
+                          Memuat data pengguna...
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Modal Tambah User -->
+              <div class="modal fade" id="modalAddUser" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content border-0 shadow">
+                    <div class="modal-header border-bottom py-3">
+                      <div class="d-flex align-items-center">
+                        <span class="avatar avatar-sm rounded-circle bg-label-primary me-2 d-flex align-items-center justify-content-center">
+                          <i class="icon-base ti tabler-user-plus icon-18px"></i>
+                        </span>
+                        <div>
+                          <h5 class="modal-title mb-0">Tambah Pengguna Baru</h5>
+                          <small class="text-muted">Buat kredensial akun baru untuk akses sistem</small>
+                        </div>
+                      </div>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form id="formAddUser" onsubmit="event.preventDefault(); submitAddUser();">
+                      <div class="modal-body py-4">
+                        <div id="modalAddAlert" class="alert d-none mb-3 py-2 px-3 small"></div>
+                        <div class="mb-3">
+                          <label class="form-label fw-semibold" for="addUsername">Username <span class="text-danger">*</span></label>
+                          <div class="input-group">
+                            <span class="input-group-text"><i class="icon-base ti tabler-user text-muted"></i></span>
+                            <input type="text" id="addUsername" class="form-control" placeholder="Masukkan username" required />
+                          </div>
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label fw-semibold" for="addEmail">Alamat Email <span class="text-danger">*</span></label>
+                          <div class="input-group">
+                            <span class="input-group-text"><i class="icon-base ti tabler-mail text-muted"></i></span>
+                            <input type="email" id="addEmail" class="form-control" placeholder="Masukkan email" required />
+                          </div>
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label fw-semibold" for="addPassword">Kata Sandi <span class="text-danger">*</span></label>
+                          <div class="input-group">
+                            <span class="input-group-text"><i class="icon-base ti tabler-lock text-muted"></i></span>
+                            <input type="password" id="addPassword" class="form-control" placeholder="Minimal 6 karakter" minlength="6" required />
+                          </div>
+                        </div>
+                        <div class="row g-3">
+                          <div class="col-6">
+                            <label class="form-label fw-semibold" for="addRole">Role Akses</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="icon-base ti tabler-shield text-muted"></i></span>
+                              <select id="addRole" class="form-select">
+                                <option value="user" selected>User</option>
+                                <option value="admin">Administrator</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-6">
+                            <label class="form-label fw-semibold" for="addStatus">Status Akun</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="icon-base ti tabler-toggle-right text-muted"></i></span>
+                              <select id="addStatus" class="form-select">
+                                <option value="active" selected>Aktif (Active)</option>
+                                <option value="inactive">Non-Aktif (Inactive)</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer border-top py-3">
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary d-flex align-items-center" id="btnSubmitAddUser"><span>Simpan</span>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Modal Edit User -->
+              <div class="modal fade" id="modalEditUser" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content border-0 shadow">
+                    <div class="modal-header border-bottom py-3">
+                      <div class="d-flex align-items-center">
+                        <span class="avatar avatar-sm rounded-circle bg-label-warning me-2 d-flex align-items-center justify-content-center">
+                          <i class="icon-base ti tabler-user-edit icon-18px"></i>
+                        </span>
+                        <div>
+                          <h5 class="modal-title mb-0">Edit Data Pengguna</h5>
+                          <small class="text-muted">Perbarui informasi profil, role, atau status akses</small>
+                        </div>
+                      </div>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form id="formEditUser" onsubmit="event.preventDefault(); submitEditUser();">
+                      <input type="hidden" id="editUserId" />
+                      <div class="modal-body py-4">
+                        <div id="modalEditAlert" class="alert d-none mb-3 py-2 px-3 small"></div>
+                        <div class="mb-3">
+                          <label class="form-label fw-semibold" for="editUsername">Username <span class="text-danger">*</span></label>
+                          <div class="input-group">
+                            <span class="input-group-text"><i class="icon-base ti tabler-user text-muted"></i></span>
+                            <input type="text" id="editUsername" class="form-control" required />
+                          </div>
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label fw-semibold" for="editEmail">Alamat Email <span class="text-danger">*</span></label>
+                          <div class="input-group">
+                            <span class="input-group-text"><i class="icon-base ti tabler-mail text-muted"></i></span>
+                            <input type="email" id="editEmail" class="form-control" required />
+                          </div>
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label fw-semibold" for="editPassword">Kata Sandi Baru (Opsional)</label>
+                          <div class="input-group">
+                            <span class="input-group-text"><i class="icon-base ti tabler-lock text-muted"></i></span>
+                            <input type="password" id="editPassword" class="form-control" placeholder="Biarkan kosong jika tidak diubah" />
+                          </div>
+                          <small class="text-muted">Isi hanya jika ingin memperbarui kata sandi akun ini.</small>
+                        </div>
+                        <div class="row g-3">
+                          <div class="col-6">
+                            <label class="form-label fw-semibold" for="editRole">Role Akses</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="icon-base ti tabler-shield text-muted"></i></span>
+                              <select id="editRole" class="form-select">
+                                <option value="user">User</option>
+                                <option value="admin">Administrator</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-6">
+                            <label class="form-label fw-semibold" for="editStatus">Status Akun</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="icon-base ti tabler-toggle-right text-muted"></i></span>
+                              <select id="editStatus" class="form-select">
+                                <option value="active">Aktif (Active)</option>
+                                <option value="inactive">Non-Aktif (Inactive)</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer border-top py-3">
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary d-flex align-items-center" id="btnSubmitEditUser"><span>Simpan Perubahan</span>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Modal Konfirmasi Hapus User -->
+              <div class="modal fade" id="modalDeleteUser" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-sm">
+                  <div class="modal-content text-center p-3">
+                    <div class="modal-body">
+                      <span class="avatar avatar-md rounded-circle bg-label-danger mx-auto mb-3">
+                        <i class="icon-base ti tabler-alert-triangle icon-28px"></i>
+                      </span>
+                      <h5 class="mb-2">Hapus Pengguna?</h5>
+                      <p class="text-muted small mb-4">Apakah Anda yakin ingin menghapus akun <strong id="deleteTargetUsername"></strong>? Tindakan ini tidak dapat dibatalkan.</p>
+                      <input type="hidden" id="deleteTargetUserId" />
+                      <div class="d-flex justify-content-center gap-2">
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-danger" id="btnConfirmDeleteUser" onclick="confirmDeleteUser()">Hapus</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!-- / Content -->
+
+            <!-- Footer -->
+            <footer class="content-footer footer bg-footer-theme">
+              <div class="container-xxl">
+                <div class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
+                  <div class="text-body">
+                    &#169; <script>document.write(new Date().getFullYear());</script> Rankwise Marketplace Intelligence
+                  </div>
+                </div>
+              </div>
+            </footer>
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+      <div class="drag-target"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Core JS -->
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/node-waves/node-waves.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="../assets/js/main.js"></script>
+
+    <!-- User Management Controller JS -->
+    <script>
+      let currentUser = {};
+      let authToken = '';
+
+      function userLogout() {
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('auth_user');
+        window.location.href = 'auth-login-cover.html';
+      }
+
+      function loadUsersTable() {
+        const tbody = document.getElementById('userTableBody');
+        if (!tbody) return;
+
+        const role = document.getElementById('filterUserRole')?.value || 'all';
+        const status = document.getElementById('filterUserStatus')?.value || 'all';
+        const search = document.getElementById('searchUserInput')?.value || '';
+
+        let url = `/api/admin/users?role=${encodeURIComponent(role)}&status=${encodeURIComponent(status)}&search=${encodeURIComponent(search)}`;
+
+        fetch(url, {
+          headers: { 'Authorization': 'Bearer ' + authToken }
+        })
+        .then(res => res.json())
+        .then(data => {
+          const users = data.users || [];
+          renderUserStats(users);
+          renderUsersTable(users);
+        })
+        .catch(err => {
+          tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-danger">Gagal memuat pengguna: ${err.message}</td></tr>`;
+        });
+      }
+
+      function renderUserStats(users) {
+        let total = users.length;
+        let admins = 0;
+        let active = 0;
+        let inactive = 0;
+
+        users.forEach(u => {
+          if (u.role === 'admin') admins++;
+          if (u.status === 'active') active++;
+          if (u.status === 'inactive') inactive++;
+        });
+
+        document.getElementById('statUserTotal').textContent = total;
+        document.getElementById('statUserAdmin').textContent = admins;
+        document.getElementById('statUserActive').textContent = active;
+        document.getElementById('statUserInactive').textContent = inactive;
+      }
+
+      function renderUsersTable(users) {
+        const tbody = document.getElementById('userTableBody');
+        if (!tbody) return;
+
+        if (!users || users.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" class="text-center py-5 text-muted"><i class="icon-base ti tabler-user-off me-2"></i>Tidak ada pengguna ditemukan.</td></tr>`;
+          return;
+        }
+
+        let html = '';
+        users.forEach(u => {
+          const isAdm = u.role === 'admin';
+          const roleBadge = isAdm ? '<span class="badge bg-label-danger">Administrator</span>' : '<span class="badge bg-label-primary">User</span>';
+          const statusText = u.status === 'active' ? 'Aktif' : 'Non-Aktif';
+          const initial = (u.username || 'U').slice(0, 2).toUpperCase();
+          const createdStr = u.created_at ? new Date(u.created_at).toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) + ' WIB' : '-';
+
+          const userJson = JSON.stringify(u).replace(/"/g, '&quot;');
+
+          html += `
+            <tr>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="avatar avatar-sm me-3">
+                    <span class="avatar-initial rounded-circle ${isAdm ? 'bg-label-danger' : 'bg-label-primary'} fw-bold">${initial}</span>
+                  </div>
+                  <div>
+                    <span class="fw-semibold text-heading d-block">${escapeHtml(u.username)}</span>
+                    <small class="text-muted">UID: #${u.id}</small>
+                  </div>
+                </div>
+              </td>
+              <td><span class="text-body">${escapeHtml(u.email)}</span></td>
+              <td>${roleBadge}</td>
+              <td><span class="fw-medium text-heading">${statusText}</span></td>
+              <td><small class="text-muted font-monospace">${createdStr}</small></td>
+              <td class="text-center">
+                <div class="d-inline-flex gap-2">
+                  <button class="btn btn-sm btn-icon btn-label-primary rounded-pill" title="Edit Pengguna" onclick="openEditUserModal(${userJson})">
+                    <i class="icon-base ti tabler-pencil icon-16px"></i>
+                  </button>
+                  ${u.id !== 1 ? `
+                  <button class="btn btn-sm btn-icon btn-label-danger rounded-pill" title="Hapus Pengguna" onclick="openDeleteUserModal(${u.id}, '${escapeHtml(u.username)}')">
+                    <i class="icon-base ti tabler-trash icon-16px"></i>
+                  </button>` : `<span class="badge bg-label-secondary font-11" title="Super Admin Utama">Utama</span>`}
+                </div>
+              </td>
+            </tr>
+          `;
+        });
+        tbody.innerHTML = html;
+      }
+
+      function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>"']/g, function(m) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+        });
+      }
+
+      function openAddUserModal() {
+        const form = document.getElementById('formAddUser');
+        if (form) form.reset();
+        const alertEl = document.getElementById('modalAddAlert');
+        if (alertEl) alertEl.classList.add('d-none');
+        const modal = new bootstrap.Modal(document.getElementById('modalAddUser'));
+        modal.show();
+      }
+
+      function submitAddUser() {
+        const alertEl = document.getElementById('modalAddAlert');
+        const btn = document.getElementById('btnSubmitAddUser');
+        const username = document.getElementById('addUsername').value.trim();
+        const email = document.getElementById('addEmail').value.trim();
+        const password = document.getElementById('addPassword').value;
+        const role = document.getElementById('addRole').value;
+        const status = document.getElementById('addStatus').value;
+
+        if (!username || !email || !password) {
+          if (alertEl) {
+            alertEl.className = 'alert alert-warning mb-3 py-2 px-3 small';
+            alertEl.textContent = 'Harap isi semua kolom wajib.';
+            alertEl.classList.remove('d-none');
+          }
+          return;
+        }
+
+        if (btn) { btn.disabled = true; btn.textContent = 'Menyimpan...'; }
+
+        fetch('/api/admin/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authToken
+          },
+          body: JSON.stringify({ username, email, password, role, status })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (btn) { btn.disabled = false; btn.textContent = 'Simpan Pengguna'; }
+          if (data.success) {
+            bootstrap.Modal.getInstance(document.getElementById('modalAddUser')).hide();
+            loadUsersTable();
+          } else {
+            if (alertEl) {
+              alertEl.className = 'alert alert-danger mb-3 py-2 px-3 small';
+              alertEl.textContent = data.error || 'Gagal menambahkan user';
+              alertEl.classList.remove('d-none');
+            }
+          }
+        })
+        .catch(err => {
+          if (btn) { btn.disabled = false; btn.textContent = 'Simpan Pengguna'; }
+          if (alertEl) {
+            alertEl.className = 'alert alert-danger mb-3 py-2 px-3 small';
+            alertEl.textContent = 'Error: ' + err.message;
+            alertEl.classList.remove('d-none');
+          }
+        });
+      }
+
+      function openEditUserModal(user) {
+        document.getElementById('editUserId').value = user.id;
+        document.getElementById('editUsername').value = user.username || '';
+        document.getElementById('editEmail').value = user.email || '';
+        document.getElementById('editPassword').value = '';
+        document.getElementById('editRole').value = user.role || 'user';
+        document.getElementById('editStatus').value = user.status || 'active';
+
+        const alertEl = document.getElementById('modalEditAlert');
+        if (alertEl) alertEl.classList.add('d-none');
+
+        const modal = new bootstrap.Modal(document.getElementById('modalEditUser'));
+        modal.show();
+      }
+
+      function submitEditUser() {
+        const alertEl = document.getElementById('modalEditAlert');
+        const btn = document.getElementById('btnSubmitEditUser');
+        const id = document.getElementById('editUserId').value;
+        const username = document.getElementById('editUsername').value.trim();
+        const email = document.getElementById('editEmail').value.trim();
+        const password = document.getElementById('editPassword').value;
+        const role = document.getElementById('editRole').value;
+        const status = document.getElementById('editStatus').value;
+
+        if (!username || !email) {
+          if (alertEl) {
+            alertEl.className = 'alert alert-warning mb-3 py-2 px-3 small';
+            alertEl.textContent = 'Username dan email wajib diisi.';
+            alertEl.classList.remove('d-none');
+          }
+          return;
+        }
+
+        if (btn) { btn.disabled = true; btn.textContent = 'Menyimpan...'; }
+
+        fetch('/api/admin/users/' + id, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authToken
+          },
+          body: JSON.stringify({ username, email, password, role, status })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (btn) { btn.disabled = false; btn.textContent = 'Simpan Perubahan'; }
+          if (data.success) {
+            bootstrap.Modal.getInstance(document.getElementById('modalEditUser')).hide();
+            loadUsersTable();
+          } else {
+            if (alertEl) {
+              alertEl.className = 'alert alert-danger mb-3 py-2 px-3 small';
+              alertEl.textContent = data.error || 'Gagal mengubah user';
+              alertEl.classList.remove('d-none');
+            }
+          }
+        })
+        .catch(err => {
+          if (btn) { btn.disabled = false; btn.textContent = 'Simpan Perubahan'; }
+          if (alertEl) {
+            alertEl.className = 'alert alert-danger mb-3 py-2 px-3 small';
+            alertEl.textContent = 'Error: ' + err.message;
+            alertEl.classList.remove('d-none');
+          }
+        });
+      }
+
+      function openDeleteUserModal(id, username) {
+        document.getElementById('deleteTargetUserId').value = id;
+        document.getElementById('deleteTargetUsername').textContent = username;
+        const modal = new bootstrap.Modal(document.getElementById('modalDeleteUser'));
+        modal.show();
+      }
+
+      function confirmDeleteUser() {
+        const id = document.getElementById('deleteTargetUserId').value;
+        const btn = document.getElementById('btnConfirmDeleteUser');
+        if (btn) { btn.disabled = true; btn.textContent = 'Menghapus...'; }
+
+        fetch('/api/admin/users/' + id, {
+          method: 'DELETE',
+          headers: { 'Authorization': 'Bearer ' + authToken }
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (btn) { btn.disabled = false; btn.textContent = 'Hapus'; }
+          bootstrap.Modal.getInstance(document.getElementById('modalDeleteUser')).hide();
+          loadUsersTable();
+        })
+        .catch(err => {
+          if (btn) { btn.disabled = false; btn.textContent = 'Hapus'; }
+          alert('Gagal menghapus user: ' + err.message);
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        authToken = localStorage.getItem('auth_token') || '';
+        currentUser = JSON.parse(localStorage.getItem('auth_user') || '{}');
+
+        const uname = currentUser.username || 'admin';
+        const initial = uname.slice(0, 2).toUpperCase();
+
+        const nameEl = document.getElementById('userNavName');
+        const avTop = document.getElementById('userNavAvatarTop');
+        const avEl = document.getElementById('userNavAvatar');
+
+        if (nameEl) nameEl.textContent = uname;
+        if (avTop) avTop.textContent = initial;
+        if (avEl) avEl.textContent = initial;
+
+        loadUsersTable();
+      });
+    </script>
+  </body>
+</html>
+

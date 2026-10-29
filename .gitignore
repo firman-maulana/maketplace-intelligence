@@ -1,0 +1,25 @@
+# Executables and Binaries
+*.exe
+*.exe~
+backend/server.exe
+backend/server.exe~
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+backend/__pycache__/
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
+backend/data/*.db*
+
+# Dependencies
+node_modules/
+scraper/node_modules/
+
+# Local Environment
+.env
+.env.local

@@ -65,7 +65,9 @@
     
       <meta name="robots" content="noindex, nofollow" />
     
-    <title>Rankwise - Marketplace Intelligence</title>
+    <title>Sign In - Rankwise Marketplace Intelligence</title>
+    <!-- Google Identity Services (GIS) -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     
       <meta name="description" content="Vuexy is the best bootstrap 5 dashboard for responsive web apps. Streamline your app development process with ease." />
       <!-- Canonical SEO -->
@@ -173,61 +175,58 @@
       <div class="d-flex col-12 col-xl-4 align-items-center authentication-bg p-sm-12 p-6">
         <div class="w-px-400 mx-auto mt-12 pt-5">
           <h4 class="mb-1">Selamat Datang di Rankwise! 👋</h4>
-          <p class="mb-6">Masuk ke akun Anda untuk memulai analisis marketplace</p>
+          <div id="authAlert" class="alert d-none mb-4 py-2 px-3 small" role="alert"></div>
 
-          <form id="formAuthentication" class="mb-6" action="index.html" method="GET">
+          <form id="formAuthentication" class="mb-6" action="javascript:void(0);" method="POST" onsubmit="return false;">
             <div class="mb-6 form-control-validation">
-              <label for="email" class="form-label">Email or Username</label>
-              <input type="text" class="form-control" id="email" name="email-username" placeholder="Enter your email or username" autofocus />
+              <label for="email" class="form-label">Email atau Username</label>
+              <input type="text" class="form-control" id="email" name="email-username" placeholder="Masukkan username atau email Anda" autofocus required />
             </div>
             <div class="mb-6 form-password-toggle form-control-validation">
               <label class="form-label" for="password">Password</label>
               <div class="input-group input-group-merge">
-                <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                <input type="password" id="password" class="form-control" name="password" placeholder="············" aria-describedby="password" required />
                 <span class="input-group-text cursor-pointer"><i class="icon-base ti tabler-eye-off"></i></span>
               </div>
             </div>
-            <div class="my-8">
+            <div class="my-4">
               <div class="d-flex justify-content-between">
                 <div class="form-check mb-0 ms-2">
-                  <input class="form-check-input" type="checkbox" id="remember-me" />
-                  <label class="form-check-label" for="remember-me"> Remember Me </label>
+                  <input class="form-check-input" type="checkbox" id="remember-me" checked />
+                  <label class="form-check-label" for="remember-me"> Ingat Saya </label>
                 </div>
-                <a href="auth-forgot-password-cover.html">
-                  <p class="mb-0">Forgot Password?</p>
-                </a>
               </div>
             </div>
-            <button class="btn btn-primary d-grid w-100">Sign in</button>
+            <button class="btn btn-primary d-grid w-100" id="btnSignIn" type="button">Masuk</button>
           </form>
 
-          <p class="text-center">
-            <span>New on our platform?</span>
+          <p class="text-center mb-4">
+            <span>Belum memiliki akun?</span>
             <a href="auth-register-cover.html">
-              <span>Create an account</span>
+              <span>Daftar Akun Baru</span>
             </a>
           </p>
 
-          <div class="divider my-6">
-            <div class="divider-text">or</div>
+          <div class="divider my-4">
+            <div class="divider-text">atau masuk dengan</div>
           </div>
 
           <div class="d-flex justify-content-center">
-            <a href="javascript:;" class="btn btn-icon rounded-circle btn-text-facebook me-1_5">
-              <i class="icon-base ti tabler-brand-facebook-filled icon-20px"></i>
-            </a>
-
-            <a href="javascript:;" class="btn btn-icon rounded-circle btn-text-twitter me-1_5">
-              <i class="icon-base ti tabler-brand-twitter-filled icon-20px"></i>
-            </a>
-
-            <a href="javascript:;" class="btn btn-icon rounded-circle btn-text-github me-1_5">
-              <i class="icon-base ti tabler-brand-github-filled icon-20px"></i>
-            </a>
-
-            <a href="javascript:;" class="btn btn-icon rounded-circle btn-text-google-plus">
-              <i class="icon-base ti tabler-brand-google-filled icon-20px"></i>
-            </a>
+            <div id="g_id_onload"
+                 data-client_id="401944157094-81bs6bm6loldgtma4lva3e2vu1r66ih9.apps.googleusercontent.com"
+                 data-context="signin"
+                 data-ux_mode="popup"
+                 data-callback="handleGoogleLoginResponse"
+                 data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin"
+                 data-type="standard"
+                 data-shape="rectangular"
+                 data-theme="outline"
+                 data-text="signin_with"
+                 data-size="large"
+                 data-logo_alignment="left">
+            </div>
           </div>
         </div>
       </div>
@@ -276,9 +275,122 @@
       <script src="../assets/js/main.js"></script>
     
 
-    <!-- Page JS -->
-    <script src="../assets/js/pages-auth.js"></script>
-    
+    <!-- Custom Login JS -->
+    <script>
+      function showAlert(msg, type) {
+        const el = document.getElementById('authAlert');
+        if (!el) return;
+        el.className = `alert alert-${type} mb-4 py-2 px-3 small`;
+        el.textContent = msg;
+        el.classList.remove('d-none');
+      }
+
+      function handleAuthSuccess(data) {
+        if (data.token) {
+          localStorage.setItem('auth_token', data.token);
+          localStorage.setItem('auth_user', JSON.stringify(data.user));
+          window.location.href = 'index.html';
+        }
+      }
+
+      function handleGoogleLoginResponse(response) {
+        if (!response || !response.credential) {
+          showAlert('Gagal menerima kredensial akun Google', 'danger');
+          return;
+        }
+
+        fetch('/api/auth/google', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ credential: response.credential })
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success && data.token) {
+              handleAuthSuccess(data);
+            } else {
+              showAlert(data.message || 'Login dengan Google gagal', 'danger');
+            }
+          })
+          .catch(err => showAlert('Gagal menghubungi server backend: ' + err.message, 'danger'));
+      }
+
+      function doLogin() {
+        const emailInput = (document.getElementById('email')?.value || '').trim();
+        const passInput = document.getElementById('password')?.value || '';
+        const btnSignIn = document.getElementById('btnSignIn');
+
+        if (!emailInput || !passInput) {
+          showAlert('Harap isi email/username dan password', 'warning');
+          return;
+        }
+
+        if (btnSignIn) {
+          btnSignIn.disabled = true;
+          btnSignIn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Memverifikasi...';
+        }
+
+        fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username_or_email: emailInput, password: passInput })
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (btnSignIn) {
+              btnSignIn.disabled = false;
+              btnSignIn.textContent = 'Masuk';
+            }
+            if (data.success && data.token) {
+              showAlert('Login berhasil! Mengalihkan ke dashboard...', 'success');
+              handleAuthSuccess(data);
+            } else {
+              showAlert(data.message || 'Login gagal, periksa email/username dan password Anda', 'danger');
+            }
+          })
+          .catch(err => {
+            if (btnSignIn) {
+              btnSignIn.disabled = false;
+              btnSignIn.textContent = 'Masuk';
+            }
+            showAlert('Tidak dapat terhubung ke server backend: ' + err.message, 'danger');
+          });
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('formAuthentication');
+        const btnSignIn = document.getElementById('btnSignIn');
+        const emailEl = document.getElementById('email');
+        const passEl = document.getElementById('password');
+
+        if (btnSignIn) {
+          btnSignIn.addEventListener('click', function(e) {
+            e.preventDefault();
+            doLogin();
+          });
+        }
+
+        if (form) {
+          form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            doLogin();
+            return false;
+          });
+        }
+
+        [emailEl, passEl].forEach(input => {
+          if (input) {
+            input.addEventListener('keydown', function(e) {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                doLogin();
+              }
+            });
+          }
+        });
+      });
+    </script>
   </body>
 
 <!-- Mirrored from demos.pixinvent.com/vuexy-html-admin-template/html/vertical-menu-template-bordered/auth-login-cover.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Oct 2026 11:27:28 GMT -->
